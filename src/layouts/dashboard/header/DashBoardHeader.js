@@ -80,7 +80,7 @@ const DashBoardHeader = () => {
 
   const handleLogout = async (e) => {
      await dispatch(logoutUser())
-      // window.location.reload()
+      window.location.reload()
   }  // status from api  
   const { status, message } = useSelector(state => state?.user?.user)
   // handle error and success message and rendering of the page after logout 
@@ -105,7 +105,6 @@ const DashBoardHeader = () => {
           toastId: 'error12',
 
         })
-        navigate('/dashboard')
 
          // message is api response  with either api response status is failed
       }

@@ -1,4 +1,10 @@
+//  react 
+import { useEffect } from 'react';
+import { toast } from 'react-toastify'
+
 import { Link as RouterLink } from 'react-router-dom';
+// redux 
+import { useSelector } from 'react-redux'
 // @mui
 import { styled } from '@mui/material/styles';
 import { Button, Container, Typography } from '@mui/material';
@@ -10,6 +16,8 @@ import { PATH_AUTH } from '../../routes/paths';
 import Page from '../../components/Page';
 // sections
 import { ResetPasswordForm } from '../../sections/auth/reset-password';
+
+
 
 // ----------------------------------------------------------------------
 
@@ -26,6 +34,35 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function ResetPassword() {
+  const { isError, isSuccess, isLoading, user, errorMsg } = useSelector(state => state?.user)
+  console.log('resetmsg', isSuccess)
+
+  const { status, message } = useSelector(state => state?.user?.user)
+  console.log('resetmsg', status)
+  const responseOk = (isSuccess === true && status === 'success' )
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(errorMsg)
+    }
+    // handlink response 
+    if (responseOk) {
+        toast.success(message, {
+          toastId: 'success2',
+      })
+    }
+
+    // handling failed status 
+    if (isSuccess) {
+      if (status === 'failed') {
+        toast.error(message, {
+          toastId: 'success2',
+        })
+      }
+    }
+
+  }, [isError, isSuccess, status])
+
   return (
     <Page title="Reset Password">
       <LogoOnlyLayout />

@@ -8,7 +8,7 @@ const registerUser = async (userData) => {
   console.log('regapires', response?.data?.token)
   const token = response?.data?.token
 
- 
+
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data))
   }
@@ -22,10 +22,15 @@ const loginUser = async (userData) => {
   const response = await axios.post('/api/user/login', userData)
   console.log('longres#$$', response)
   const token = response?.data?.token
- 
+
   if (response.data) {
     localStorage.setItem('user', JSON.stringify(response.data))
   }
+  return response.data
+}
+// loginUser user
+const resetUserPassword = async (userDatas) => {
+  const response = await axios.post('/api/user/send-reset-password-email', userDatas)
   return response.data
 }
 
@@ -40,6 +45,7 @@ const authService = {
   registerUser,
   logoutUser,
   loginUser,
+  resetUserPassword
 }
 
 export default authService

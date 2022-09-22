@@ -78,7 +78,7 @@ export default function LoginForm() {
 
   };
 
-  // handle Api error on the basis of status
+  // handle Api response and status on the basis of status
   const { isError, isSuccess, isLoading, user } = useSelector(state => state?.user)
   const myuserrr = useSelector(state => state?.user)
 
@@ -98,13 +98,16 @@ export default function LoginForm() {
 
     }
 
-    if (isSuccess || user) {
-      if (status === 'success') {
-        toast.success(message, {
-          toastId: 'success1',
+    if (isSuccess) {
 
-        })   // message is api response  with when api response status is success
-        navigate('/dashboard')
+      if (status === 'success') {
+        if (JSON.parse(localStorage.getItem('user'))) {
+          toast.success(message, {
+            toastId: 'success1',
+          })
+          navigate('/dashboard')
+
+        }
 
       }
     }
@@ -114,8 +117,9 @@ export default function LoginForm() {
           toastId: 'error1',
 
         })   // message is api response  with either api response status is failed
+        navigate('/auth/login')
+
       }
-      navigate('/auth/login')
     }
     console.log('myvalues#', isError, isSuccess)
     dispatch(resetUser())

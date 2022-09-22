@@ -28,9 +28,6 @@ export default function AuthGuard({ children }) {
  }
 
   if (!user) {
-    if (pathname !== requestedLocation) {
-      setRequestedLocation(pathname);
-    }
     return <Navigate to='/auth/login'/>;
   }
 
