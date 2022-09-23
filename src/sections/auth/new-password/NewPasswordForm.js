@@ -1,12 +1,16 @@
 import * as Yup from 'yup';
+import axios from 'axios'
+import { useParams, useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+
+
 import { useSnackbar } from 'notistack';
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 // form
 import { useForm, Controller } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
-import { Stack, IconButton, OutlinedInput, InputAdornment, FormHelperText } from '@mui/material';
+import { Stack, IconButton, OutlinedInput, InputAdornment, FormHelperText, TextField } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
 // routes
 // import { PATH_DASHBOARD } from '../../../routes/paths';
@@ -16,7 +20,11 @@ import { FormProvider, RHFTextField } from '../../../components/hook-form';
 
 // ----------------------------------------------------------------------
 
-export default function NewPasswordForm() {
+export default function NewPasswordForm({ email }) {
+  console.log('userEmail', email)
+  const { id, token } = useParams()
+
+
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
@@ -26,13 +34,8 @@ export default function NewPasswordForm() {
   const emailRecovery = sessionStorage.getItem('email-recovery');
 
   const VerifyCodeSchema = Yup.object().shape({
-    code1: Yup.string().required('Code is required'),
-    code2: Yup.string().required('Code is required'),
-    code3: Yup.string().required('Code is required'),
-    code4: Yup.string().required('Code is required'),
-    code5: Yup.string().required('Code is required'),
-    code6: Yup.string().required('Code is required'),
-    email: Yup.string().email('Email must be a valid email address').required('Email is required'),
+
+    // email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
     confirmPassword: Yup.string()
       .required('Confirm password is required')
@@ -40,13 +43,8 @@ export default function NewPasswordForm() {
   });
 
   const defaultValues = {
-    code1: '',
-    code2: '',
-    code3: '',
-    code4: '',
-    code5: '',
-    code6: '',
-    email: emailRecovery || '',
+
+    email: '',
     password: '',
     confirmPassword: '',
   };
@@ -112,64 +110,37 @@ export default function NewPasswordForm() {
     handleChange(event);
   };
 
-  const onSubmit = async (data) => {
+  const onSubmits = async (data) => {
+    const emailData = {
+      password: data.password,
+      password_confirmation: data.confirmPassword
+    }
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
-      console.log('data:', {
-        email: data.email,
-        code: `${data.code1}${data.code2}${data.code3}${data.code4}${data.code5}${data.code6}`,
-        password: data.password,
-      });
+      const response = await axios.post(`/api/user/reset-password/${id}/${token}`, emailData)
+      console.log('emres', response)
+      const result = response?.data?.message
+      const status = response?.data?.status
+      if (status === 'success') {
+        toast.success(result)
+        navigate('/auth/login')
 
-      sessionStorage.removeItem('email-recovery');
+      }
+      if (status === 'failed') {
+        toast.error(result)
 
-      enqueueSnackbar('Change password success!');
+      }
 
-      // navigate(PATH_DASHBOARD.root, { replace: true });
     } catch (error) {
-      console.error(error);
+      console.log(error)
+
     }
   };
 
   return (
-    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmits)}>
       <Stack spacing={3}>
-        <RHFTextField name="email" label="Email" disabled={!!emailRecovery} />
+        <TextField name="emai" value={email} label="Email" />
 
-        <Stack direction="row" spacing={2} justifyContent="center">
-          {['code1', 'code2', 'code3', 'code4', 'code5', 'code6'].map((name, index) => (
-            <Controller
-              key={name}
-              name={`code${index + 1}`}
-              control={control}
-              render={({ field, fieldState: { error } }) => (
-                <OutlinedInput
-                  {...field}
-                  error={!!error}
-                  autoFocus={index === 0}
-                  placeholder="-"
-                  onChange={(event) => handleChangeWithNextField(event, field.onChange)}
-                  inputProps={{
-                    className: 'field-code',
-                    maxLength: 1,
-                    sx: {
-                      p: 0,
-                      textAlign: 'center',
-                      width: { xs: 36, sm: 56 },
-                      height: { xs: 36, sm: 56 },
-                    },
-                  }}
-                />
-              )}
-            />
-          ))}
-        </Stack>
-
-        {(!!errors.code1 || !!errors.code2 || !!errors.code3 || !!errors.code4 || !!errors.code5 || !!errors.code6) && (
-          <FormHelperText error sx={{ px: 2 }}>
-            Code is required
-          </FormHelperText>
-        )}
 
         <RHFTextField
           name="password"

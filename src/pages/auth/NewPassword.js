@@ -1,4 +1,7 @@
 // @mui
+import axios from 'axios'
+import { useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import { Box, Link, Container, Typography } from '@mui/material';
 // layouts
@@ -9,6 +12,7 @@ import Page from '../../components/Page';
 import { NewPasswordForm } from '../../sections/auth/new-password';
 // assets
 import { SentIcon } from '../../assets';
+
 
 // ----------------------------------------------------------------------
 
@@ -25,6 +29,27 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function NewPassword() {
+  const { id, token } = useParams()
+  const [useremail, setstateEmail] = useState('')
+
+  useEffect(() => {
+    getEmail()
+  }, []);
+  const getEmail = async () => {
+    try {
+      const emailResponse = await axios.get(`/api/user/get-email/${id}/${token}`)
+      console.log('emailres', emailResponse.data.email)
+      const email = emailResponse.data.email
+      setstateEmail(email)
+
+    } catch (error) {
+      alert('error')
+      console.log('emailerrir', error.message)
+
+    }
+
+  }
+
   return (
     <Page title="New Password">
       <LogoOnlyLayout />
@@ -34,25 +59,16 @@ export default function NewPassword() {
           <SentIcon sx={{ mb: 5, mx: 'auto', height: 120 }} />
 
           <Typography variant="h3" gutterBottom>
-            Request sent successfully!
+            Change Your Password.
           </Typography>
 
-          <Typography sx={{ color: 'text.secondary' }}>
-            We've sent a 6-digit confirmation email to your email.
-            <br />
-            Please enter the code in below box to verify your email.
-          </Typography>
+
 
           <Box sx={{ mt: 5, mb: 3 }}>
-            <NewPasswordForm />
+            <NewPasswordForm email={useremail} />
           </Box>
 
-          <Typography variant="body2">
-            Don’t have a code? &nbsp;
-            <Link variant="subtitle2" onClick={() => {}}>
-              Resend code
-            </Link>
-          </Typography>
+
         </ContentStyle>
       </Container>
     </Page>

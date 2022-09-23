@@ -1,4 +1,5 @@
 import { Suspense, lazy } from 'react';
+
 import { Navigate, useRoutes, useLocation } from 'react-router-dom';
 // layouts
 
@@ -39,7 +40,7 @@ export default function Router() {
           path: 'login',
           element: (
             // <GuestGuard>
-              <Login />
+            <Login />
             // </GuestGuard>
           ),
         },
@@ -47,15 +48,18 @@ export default function Router() {
           path: 'register',
           element: (
             // <GuestGuard>
-              <Register />
+            <Register />
             // </GuestGuard>
           ),
         },
         { path: 'login-unprotected', element: <Login /> },
         { path: 'register-unprotected', element: <Register /> },
         { path: 'reset-password', element: <ResetPassword /> },
-        { path: 'new-password', element: <NewPassword /> },
+        { path: 'new-password/:id/:token', element: <NewPassword /> },
+
         { path: 'verify', element: <VerifyCode /> },
+
+        { path: 'verifyemail/:id/:token', element: <VerifyEmail /> },
       ],
     },
 
@@ -65,7 +69,7 @@ export default function Router() {
       element: (
         <AuthGuard>
           <DashboardHeader />
-         </AuthGuard> 
+        </AuthGuard>
       ),
       children: [
         //  { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },
@@ -187,6 +191,8 @@ const Register = Loadable(lazy(() => import('../pages/auth/Register')));
 const ResetPassword = Loadable(lazy(() => import('../pages/auth/ResetPassword')));
 const NewPassword = Loadable(lazy(() => import('../pages/auth/NewPassword')));
 const VerifyCode = Loadable(lazy(() => import('../pages/auth/VerifyCode')));
+const VerifyEmail = Loadable(lazy(() => import('../pages/auth/VerifyEmail')));
+
 
 // DASHBOARD
 

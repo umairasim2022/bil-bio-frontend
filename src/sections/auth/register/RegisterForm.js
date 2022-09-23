@@ -70,6 +70,7 @@ export default function RegisterForm() {
     }
     // try {
     await dispatch(registerUser(userData))
+    reset()
     // } catch (error) {
     //   console.error(error);
     //   reset();
@@ -80,7 +81,7 @@ export default function RegisterForm() {
   };
   // / handleError , success and routing for register page 
 
-  const { isLoading, isError, isSuccess , user } = useSelector(state => state.user)
+  const { isLoading, isError, isSuccess, user } = useSelector(state => state.user)
   console.log('iserror', isError, isSuccess)
 
   const { status, message } = useSelector(state => state?.user?.user)
@@ -92,38 +93,36 @@ export default function RegisterForm() {
   useEffect(() => {
     // when req rejected ,  here error is true , status is always  neither failed nor success  but undefined 
     if (isError) {
-        toast.error(message)
-        navigate('/auth/register')
+      toast.error(message)
+      navigate('/auth/register')
 
     }
     // when reg fullfilled  , it maybe status success or failed  , 
     // like status is success for user newly registered and status failed  for incomplete failed or already registere user
-    if (isSuccess || user ) {
-      if (status === 'success')
-      {
+    if (isSuccess || user) {
+      if (status === 'success') {
         toast.success(message, {
           toastId: 'success1',
-          
+
         })   // message is api response  with either api response failed or success 
-         navigate('/dashboard')
-        
+
       }
     }
-      if (isSuccess) {
-        if (status === 'failed')
+    if (isSuccess) {
+      if (status === 'failed')
         toast.error(message, {
           toastId: 'error1',
-          
+
         })   // message is api response  with either api response failed or success
-        navigate('/auth/register')
+      navigate('/auth/register')
 
     }
-    
-      console.log('myvalues#', isError, isSuccess)
-      dispatch(resetUser())
+
+    console.log('myvalues#', isError, isSuccess)
+    dispatch(resetUser())
 
   }, [isError, isSuccess, status])
-  
+
   // _________________loader a scrolbar moving________________
   if (isLoading) {
     return <LoadingScreen />
