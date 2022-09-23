@@ -7,7 +7,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 // @mui
 import { styled } from '@mui/material/styles';
-import { Button, Container, Typography , Box } from '@mui/material';
+import { Button, Container, Typography, Box } from '@mui/material';
 // layouts
 import LogoOnlyLayout from '../../layouts/LogoOnlyLayout';
 // routes
@@ -39,7 +39,7 @@ export default function ResetPassword() {
 
   const { status, message } = useSelector(state => state?.user?.user)
   console.log('resetmsg', status)
-  const responseOk = (isSuccess === true && status === 'success' )
+  const responseOk = (isSuccess === true && status === 'success')
 
   useEffect(() => {
     if (isError) {
@@ -47,8 +47,8 @@ export default function ResetPassword() {
     }
     // handlink response 
     if (responseOk) {
-        toast.success(message, {
-          toastId: 'success2',
+      toast.success(message, {
+        toastId: 'success2',
       })
     }
 
@@ -65,11 +65,11 @@ export default function ResetPassword() {
 
   return (
     <Page title="Reset Password" >
-        <LogoOnlyLayout />
+      <LogoOnlyLayout />
       <Container>
         <ContentStyle sx={{ textAlign: 'center' }}>
           <Typography variant="h3" paragraph>
-            Forgot your password?
+            {/* Forgot your password? */}
           </Typography>
 
           <Typography sx={{ color: 'text.secondary', mb: 5 }}>
