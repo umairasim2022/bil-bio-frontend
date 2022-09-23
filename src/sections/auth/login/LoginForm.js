@@ -1,6 +1,6 @@
 
 import * as Yup from 'yup';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { toast } from 'react-toastify'
 
 // redux 
@@ -32,6 +32,7 @@ import LoadingScreen from '../../../components/LoadingScreen';
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
+
   const location = useLocation()
   const navigate = useNavigate()
 
@@ -66,16 +67,13 @@ export default function LoginForm() {
     formState: { isSubmitting },
   } = methods;
 
-  const onSubmit = (data) => {
-
+  const submitHandler = (data) => {
     const userData = {
       email: data.email,
       password: data.password
     }
     dispatch(loginUser(userData))
     reset();
-
-
   };
 
   // handle Api response and status on the basis of status
@@ -99,14 +97,12 @@ export default function LoginForm() {
     }
 
     if (isSuccess) {
-
       if (status === 'success') {
         if (JSON.parse(localStorage.getItem('user'))) {
           toast.success(message, {
             toastId: 'success1',
           })
           navigate('/dashboard')
-
         }
 
       }
@@ -129,8 +125,10 @@ export default function LoginForm() {
   if (isLoading) {
     return <LoadingScreen />
   }
+
+
   return (
-    <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
+    <FormProvider methods={methods} onSubmit={handleSubmit(submitHandler)}  >
       <Stack spacing={3}>
         {/* {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>} */}
 
@@ -157,7 +155,7 @@ export default function LoginForm() {
         </Link>
       </Stack>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={isSubmitting} sx={{ boxShadow: "none" }}>
+      <LoadingButton fullWidth size="large" type={"submit"} variant="contained" loading={isSubmitting} sx={{ boxShadow: "none" }}>
         Login
       </LoadingButton>
     </FormProvider>

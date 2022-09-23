@@ -95,7 +95,7 @@ export const authSlice = createSlice({
         state.isLoading = false
         state.isError = true
         state.errorMsg = action.payload
-        state.user = null
+        // state.user = null
         console.log('userrejected', { ...state })
 
 
@@ -115,7 +115,7 @@ export const authSlice = createSlice({
         state.isLoading = false
         state.isError = true
         state.errorMsg = action.payload
-        state.user = null
+        // state.user = null
       })
       .addCase(logoutUser.pending, (state) => {
         console.log('logoutState', { ...state })

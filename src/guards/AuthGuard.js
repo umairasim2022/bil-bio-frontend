@@ -27,7 +27,7 @@ export default function AuthGuard({ children }) {
     return <LoadingScreen/>
  }
 
-  if (!user) {
+  if (!(JSON.parse(localStorage.getItem('user')))) {
     return <Navigate to='/auth/login'/>;
   }
 
