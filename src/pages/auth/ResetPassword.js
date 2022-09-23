@@ -7,7 +7,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useSelector } from 'react-redux'
 // @mui
 import { styled } from '@mui/material/styles';
-import { Button, Container, Typography } from '@mui/material';
+import { Button, Container, Typography , Box } from '@mui/material';
 // layouts
 import LogoOnlyLayout from '../../layouts/LogoOnlyLayout';
 // routes
@@ -64,9 +64,8 @@ export default function ResetPassword() {
   }, [isError, isSuccess, status])
 
   return (
-    <Page title="Reset Password">
-      <LogoOnlyLayout />
-
+    <Page title="Reset Password" >
+        <LogoOnlyLayout />
       <Container>
         <ContentStyle sx={{ textAlign: 'center' }}>
           <Typography variant="h3" paragraph>

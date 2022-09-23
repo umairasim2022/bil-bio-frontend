@@ -162,6 +162,7 @@ const DashBoardHeader = () => {
                 onClose={handleCloseUserMenu}
               >
                 {/* <MenuList> */}
+
                   {/* <MenuItem>
                     <ListItemIcon>
                       <FingerprintIcon fontSize="small" />
@@ -255,6 +256,7 @@ const DashBoardHeader = () => {
                   </ListItemIcon>
                   <ListItemText>Payments</ListItemText>
                 </MenuItem> */}
+                
                 <MenuItem>
                   <ListItemIcon>
                     <CodeIcon />
