@@ -1,16 +1,10 @@
-
-import * as Yup from 'yup';
 import { useState, useEffect, useRef } from 'react';
-import { toast } from 'react-toastify'
-
-// redux 
-import { useSelector, useDispatch } from 'react-redux'
-
-
-
 import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
-// form
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import { useSelector, useDispatch } from 'react-redux';
+// yup
+import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 // @mui
 import { Link, Stack, Alert, IconButton, InputAdornment } from '@mui/material';
@@ -18,25 +12,21 @@ import { LoadingButton } from '@mui/lab';
 // routes
 import { PATH_AUTH } from '../../../routes/paths';
 // hooks
-
 import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
-import { loginUser, resetUser } from '../../../redux/slices/auth/authSlice'
+import { loginUser, resetUser } from '../../../redux/slices/auth/authSlice';
 import LoadingScreen from '../../../components/LoadingScreen';
-
-
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const location = useLocation()
-  const navigate = useNavigate()
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const { login } = useAuth();
 
@@ -70,30 +60,28 @@ export default function LoginForm() {
   const submitHandler = (data) => {
     const userData = {
       email: data.email,
-      password: data.password
-    }
-    dispatch(loginUser(userData))
+      password: data.password,
+    };
+    dispatch(loginUser(userData));
     reset();
   };
 
   // handle Api response and status on the basis of status
-  const { isError, isSuccess, isLoading, user } = useSelector(state => state?.user)
-  const myuserrr = useSelector(state => state?.user)
+  const { isError, isSuccess, isLoading, user } = useSelector((state) => state?.user);
+  const myuserrr = useSelector((state) => state?.user);
 
-  console.log('userrrrr', myuserrr)
+  console.log('userrrrr', myuserrr);
 
-  // status from api  
-  const { status, message } = useSelector(state => state?.user?.user)
-  console.log('login_status', status)
-  const userReg = localStorage.getItem('userReg')
-
+  // status from api
+  const { status, message } = useSelector((state) => state?.user?.user);
+  console.log('login_status', status);
+  const userReg = localStorage.getItem('userReg');
 
   useEffect(() => {
     if (isError) {
-      alert('loginerror')
-      toast.error(message)
-      navigate('/auth/login')
-
+      alert('loginerror');
+      toast.error(message);
+      navigate('/auth/login');
     }
 
     if (isSuccess) {
@@ -101,34 +89,30 @@ export default function LoginForm() {
         if (JSON.parse(localStorage.getItem('user'))) {
           toast.success(message, {
             toastId: 'success1',
-          })
-          navigate('/dashboard')
+          });
+          navigate('/dashboard');
         }
-
       }
     }
     if (isSuccess || !user) {
       if (status === 'failed') {
         toast.error(message, {
           toastId: 'error1',
-
-        })   // message is api response  with either api response status is failed
-        navigate('/auth/login')
-
+        }); // message is api response  with either api response status is failed
+        navigate('/auth/login');
       }
     }
-    console.log('myvalues#', isError, isSuccess)
-    dispatch(resetUser())
-    console.log('myvalues#', isError, isSuccess)
-  }, [isError, isSuccess, status, navigate])
+    console.log('myvalues#', isError, isSuccess);
+    dispatch(resetUser());
+    console.log('myvalues#', isError, isSuccess);
+  }, [isError, isSuccess, status, navigate]);
 
   if (isLoading) {
-    return <LoadingScreen />
+    return <LoadingScreen />;
   }
 
-
   return (
-    <FormProvider methods={methods} onSubmit={handleSubmit(submitHandler)}  >
+    <FormProvider methods={methods} onSubmit={handleSubmit(submitHandler)}>
       <Stack spacing={3}>
         {/* {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>} */}
 
@@ -155,7 +139,14 @@ export default function LoginForm() {
         </Link>
       </Stack>
 
-      <LoadingButton fullWidth size="large" type={"submit"} variant="contained" loading={isSubmitting} sx={{ boxShadow: "none" }}>
+      <LoadingButton
+        fullWidth
+        size="large"
+        type={'submit'}
+        variant="contained"
+        loading={isSubmitting}
+        sx={{ boxShadow: 'none' }}
+      >
         Login
       </LoadingButton>
     </FormProvider>

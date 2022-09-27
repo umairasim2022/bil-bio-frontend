@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify'
 
+
 // router
 import { Link as RouterLink, useNavigate, Outlet } from 'react-router-dom';
-// redux 
-import { useSelector, useDispatch } from 'react-redux'
+// redux
+import { useSelector, useDispatch } from 'react-redux';
 // mui
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import axios from "axios";
+import axios from 'axios';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
@@ -43,7 +44,7 @@ import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import StorageIcon from '@mui/icons-material/Storage';
 
 // component
-import { logoutUser, resetUser } from '../../../redux/slices/auth/authSlice'
+import { logoutUser, resetUser } from '../../../redux/slices/auth/authSlice';
 import LoadingScreen from '../../../components/LoadingScreen';
 import Logo from '../../../components/Logo';
 import useAuth from '../../../hooks/useAuth';
@@ -52,13 +53,14 @@ const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const DashBoardHeader = () => {
+
   const [state, setState] = useState({
     profileModalState: false,
   })
   const dispatch = useDispatch()
   const auth = useAuth()
   const navigate = useNavigate();
-  console.log('myauth', auth)
+  console.log('myauth', auth);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -76,6 +78,7 @@ const DashBoardHeader = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
 
   //  state getting from logout api 
   const { isError, isSuccess, isLoading, user } = useSelector(state => state?.user)
@@ -95,6 +98,7 @@ const DashBoardHeader = () => {
       toast.error(message)
       navigate('/dashboard')
 
+
     }
 
     if (isSuccess) {
@@ -102,7 +106,9 @@ const DashBoardHeader = () => {
         console.log('1');
         toast.success(message, {
           toastId: 'success12',
+
         })   // message is api response  with when api response status is success
+
 
       }
     }
@@ -110,6 +116,8 @@ const DashBoardHeader = () => {
       if (status === 'failed') {
         toast.error(message, {
           toastId: 'error12',
+        });
+
 
         })
         navigate('/dashboard')
@@ -122,6 +130,8 @@ const DashBoardHeader = () => {
     console.log('myvalues#', isError, isSuccess)
   }, [isError, isSuccess, status, navigate])
 
+
+     
 
   // _______________________handle____________profile___________section____________
   const handleProfile = (data) => {
@@ -136,7 +146,7 @@ const DashBoardHeader = () => {
   // ________Loading for  logout______________________
 
   if (isLoading) {
-    return <LoadingScreen />
+    return <LoadingScreen />;
   }
   return (
     <>
@@ -147,7 +157,7 @@ const DashBoardHeader = () => {
             component="Box"
             sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
           >
-            <Box sx={{ flexGrow: 1 }} noWrap component="a" href="/">
+            <Box sx={{ flexGrow: 1, textDecoration: 'none' }} noWrap component="a" href="/">
               <Logo />
             </Box>
 
@@ -178,6 +188,7 @@ const DashBoardHeader = () => {
                 onClose={handleCloseUserMenu}
               >
                 {/* <MenuList> */}
+
                 {/* <MenuItem>
                     <ListItemIcon>
                       <FingerprintIcon fontSize="small" />
@@ -185,7 +196,6 @@ const DashBoardHeader = () => {
                     <ListItemText>Admin</ListItemText>
                   </MenuItem>
                   <Divider />
-
                   <MenuItem>
                     <ListItemIcon>
                       <Tag fontSize="small" />
@@ -222,9 +232,7 @@ const DashBoardHeader = () => {
                     </ListItemIcon>
                     <ListItemText>Tools</ListItemText>
                   </MenuItem>
-
                   <Divider />
-
                   <MenuItem>
                     <ListItemIcon>
                       <LanguageTwoToneIcon fontSize="small" />
@@ -250,9 +258,7 @@ const DashBoardHeader = () => {
                   </ListItemIcon>
                   <ListItemText>Projects</ListItemText>
                 </MenuItem>
-
                 <Divider />
-
                 <MenuItem>
                   <ListItemIcon>
                     <BuildIcon fontSize="small" />
@@ -271,6 +277,7 @@ const DashBoardHeader = () => {
                   </ListItemIcon>
                   <ListItemText>Payments</ListItemText>
                 </MenuItem> */}
+
                 <MenuItem>
                   <ListItemIcon>
                     <CodeIcon />
@@ -284,7 +291,9 @@ const DashBoardHeader = () => {
                   <ListItemIcon>
                     <Logout fontSize="small" />
                   </ListItemIcon>
+
                   <ListItemText >Logout</ListItemText>
+
                 </MenuItem>
               </Menu>
             </Box>
@@ -296,3 +305,4 @@ const DashBoardHeader = () => {
   );
 };
 export default DashBoardHeader;
+
