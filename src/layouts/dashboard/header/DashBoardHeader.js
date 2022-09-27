@@ -1,14 +1,14 @@
-import { useEffect , useState } from 'react';
-import { toast } from 'react-toastify'
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 // router
 import { Link as RouterLink, useNavigate, Outlet } from 'react-router-dom';
-// redux 
-import { useSelector, useDispatch } from 'react-redux'
+// redux
+import { useSelector, useDispatch } from 'react-redux';
 // mui
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import axios from "axios";
+import axios from 'axios';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
@@ -43,7 +43,7 @@ import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import StorageIcon from '@mui/icons-material/Storage';
 
 // component
-import { logoutUser, resetUser } from '../../../redux/slices/auth/authSlice'
+import { logoutUser, resetUser } from '../../../redux/slices/auth/authSlice';
 import LoadingScreen from '../../../components/LoadingScreen';
 import Logo from '../../../components/Logo';
 import useAuth from '../../../hooks/useAuth';
@@ -52,10 +52,10 @@ const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const DashBoardHeader = () => {
-  const dispatch = useDispatch()
-  const auth = useAuth()
+  const dispatch = useDispatch();
+  const auth = useAuth();
   const navigate = useNavigate();
-  console.log('myauth', auth)
+  console.log('myauth', auth);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -74,53 +74,47 @@ const DashBoardHeader = () => {
     setAnchorElUser(null);
   };
 
-//  state getting from logout api 
-  const { isError, isSuccess, isLoading, user } = useSelector(state => state?.user)
+  //  state getting from logout api
+  const { isError, isSuccess, isLoading, user } = useSelector((state) => state?.user);
 
-
-  const handleLogout =  (e) => {
-     dispatch(logoutUser())
-    window.location.reload()
-
-  }  // status from api  
-  const { status, message } = useSelector(state => state?.user?.user)
-  // handle error and success message and rendering of the page after logout 
+  const handleLogout = (e) => {
+    dispatch(logoutUser());
+    window.location.reload();
+  }; // status from api
+  const { status, message } = useSelector((state) => state?.user?.user);
+  // handle error and success message and rendering of the page after logout
   useEffect(() => {
     if (isError) {
-      toast.error(message)
-      navigate('/dashboard')
+      toast.error(message);
+      navigate('/dashboard');
     }
 
     if (isSuccess) {
       if (status === 'sucess') {
         toast.success(message, {
           toastId: 'success12',
-        })   // message is api response  with when api response status is success
-        navigate('/auth/login')
+        }); // message is api response  with when api response status is success
+        navigate('/auth/login');
       }
     }
     if (isSuccess) {
       if (status === 'failed') {
         toast.error(message, {
           toastId: 'error12',
+        });
 
-        })
+        // message is api response  with either api response status is failed
 
-         // message is api response  with either api response status is failed
-
-        navigate('/dashboard')
-
-
+        navigate('/dashboard');
       }
     }
-    console.log('myvalues#', isError, isSuccess)
-    dispatch(resetUser())
-    console.log('myvalues#', isError, isSuccess)
-  }, [isError, isSuccess, status , navigate])
-
+    console.log('myvalues#', isError, isSuccess);
+    dispatch(resetUser());
+    console.log('myvalues#', isError, isSuccess);
+  }, [isError, isSuccess, status, navigate]);
 
   if (isLoading) {
-    return <LoadingScreen />
+    return <LoadingScreen />;
   }
   return (
     <>
@@ -131,7 +125,7 @@ const DashBoardHeader = () => {
             component="Box"
             sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
           >
-            <Box sx={{ flexGrow: 1 }} noWrap component="a" href="/">
+            <Box sx={{ flexGrow: 1, textDecoration: 'none' }} noWrap component="a" href="/">
               <Logo />
             </Box>
 
@@ -163,7 +157,7 @@ const DashBoardHeader = () => {
               >
                 {/* <MenuList> */}
 
-                  {/* <MenuItem>
+                {/* <MenuItem>
                     <ListItemIcon>
                       <FingerprintIcon fontSize="small" />
                     </ListItemIcon>
@@ -256,7 +250,7 @@ const DashBoardHeader = () => {
                   </ListItemIcon>
                   <ListItemText>Payments</ListItemText>
                 </MenuItem> */}
-                
+
                 <MenuItem>
                   <ListItemIcon>
                     <CodeIcon />
@@ -264,13 +258,13 @@ const DashBoardHeader = () => {
                   <ListItemText>Profile</ListItemText>
                 </MenuItem>
 
-                <Divider /> 
+                <Divider />
 
                 <MenuItem>
                   <ListItemIcon>
                     <Logout fontSize="small" />
                   </ListItemIcon>
-                  <ListItemText onClick={()=>handleLogout()}>Logout</ListItemText>
+                  <ListItemText onClick={() => handleLogout()}>Logout</ListItemText>
                 </MenuItem>
               </Menu>
             </Box>
