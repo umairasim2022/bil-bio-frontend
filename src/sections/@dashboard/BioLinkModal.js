@@ -31,6 +31,7 @@ const ModalMainContent = styled('Stack')(({ theme }) => ({
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 500,
+  zIndex:'1000',
   background: theme.palette.background.paper,
   padding: '3rem',
   [theme.breakpoints.down('md')]: {
