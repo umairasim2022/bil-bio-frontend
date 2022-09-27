@@ -29,7 +29,7 @@ const SoftifyModalSubHeader = styled('Stack')(({ theme }) => ({
     alignItems: 'center',
 }));
 
-export default function BioSecTwitchModal({ BioSecTwitchModalState, closeBlockSubModal }) {
+export default function BioSecTwitchModal({ BioSecTwitchModalState, closeBlockSubModal, openBioLinkAddBlock }) {
     const [state, setState] = React.useState({
         twitchUrl: ''
     })
@@ -55,7 +55,7 @@ export default function BioSecTwitchModal({ BioSecTwitchModalState, closeBlockSu
                             <KeyboardArrowLeftOutlinedIcon
                                 fontSize="small"
                                 sx={{ background: theme.palette.background.neutral, color: 'primary.main', borderRadius: '50%', cursor: 'pointer' }}
-                                onClick={() => closeBlockSubModal('BioSecTwitchModalState')}
+                                onClick={() => { openBioLinkAddBlock('bioLinkAddBlockMainModalState') ;  closeBlockSubModal('BioSecTwitchModalState') }}
                             />
                             <Typography ml={1} variant="h6" fontWeight="thin">Add a Twitch video
                             </Typography>

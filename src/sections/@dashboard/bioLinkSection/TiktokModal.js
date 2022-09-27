@@ -17,10 +17,10 @@ const TikTokModalMain = styled('Stack')(({ theme }) => ({
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 500,
-  background: theme.palette.background.paper ,
+  background: theme.palette.background.paper,
   boxShadow: 24,
   borderRadius: '5px',
-  padding:'3rem',
+  padding: '3rem',
 
 }));
 const TiktokSubHeader = styled('Stack')(({ theme }) => ({
@@ -29,7 +29,7 @@ const TiktokSubHeader = styled('Stack')(({ theme }) => ({
   alignItems: 'center',
 }));
 
-export default function TikTok({ tiktokModalState, closeBlockSubModal }) {
+export default function TikTok({ tiktokModalState, closeBlockSubModal, openBioLinkAddBlock }) {
   const theme = useTheme();
   return (
     <div>
@@ -44,12 +44,12 @@ export default function TikTok({ tiktokModalState, closeBlockSubModal }) {
             <Box sx={{ display: 'flex', alignItems: 'start' }}>
               <KeyboardArrowLeftOutlinedIcon
                 fontSize="small"
-                sx={{ background: theme.palette.background.neutral, color: 'primary.main', borderRadius: '50%' , cursor:'pointer' }}
-                onClick={() => closeBlockSubModal('tiktokModalState')}
+                sx={{ background: theme.palette.background.neutral, color: 'primary.main', borderRadius: '50%', cursor: 'pointer' }}
+                onClick={() => { openBioLinkAddBlock('bioLinkAddBlockMainModalState'); closeBlockSubModal('tiktokModalState') }}
               />
               <Typography ml={1}>Add a TikTok video</Typography>
             </Box>
-            <CloseIcon onClick={() => closeBlockSubModal('tiktokModalState')} sx ={{ cursor:'pointer'}} />
+            <CloseIcon onClick={() => closeBlockSubModal('tiktokModalState')} sx={{ cursor: 'pointer' }} />
           </TiktokSubHeader>
           <Typography variant="body1" sx={{ mt: 2, color: 'text.disabled' }}>
             Paste in your TikTok Video URL and we will show it as a video on your profile.

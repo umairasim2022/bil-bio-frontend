@@ -1,4 +1,4 @@
-import { useEffect , useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify'
 
 // router
@@ -52,6 +52,9 @@ const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const DashBoardHeader = () => {
+  const [state, setState] = useState({
+    profileModalState: false,
+  })
   const dispatch = useDispatch()
   const auth = useAuth()
   const navigate = useNavigate();
@@ -74,13 +77,15 @@ const DashBoardHeader = () => {
     setAnchorElUser(null);
   };
 
-//  state getting from logout api 
+  //  state getting from logout api 
   const { isError, isSuccess, isLoading, user } = useSelector(state => state?.user)
 
 
-  const handleLogout =  (e) => {
-     dispatch(logoutUser())
+  const handleLogout = async (e) => {
     window.location.reload()
+    await dispatch(logoutUser())
+    navigate('/auth/login')
+
 
   }  // status from api  
   const { status, message } = useSelector(state => state?.user?.user)
@@ -89,14 +94,16 @@ const DashBoardHeader = () => {
     if (isError) {
       toast.error(message)
       navigate('/dashboard')
+
     }
 
     if (isSuccess) {
       if (status === 'sucess') {
+        console.log('1');
         toast.success(message, {
           toastId: 'success12',
         })   // message is api response  with when api response status is success
-        navigate('/auth/login')
+
       }
     }
     if (isSuccess) {
@@ -105,19 +112,28 @@ const DashBoardHeader = () => {
           toastId: 'error12',
 
         })
-
-         // message is api response  with either api response status is failed
-
         navigate('/dashboard')
 
-
+        // message is api response  with either api response status is failed
       }
     }
     console.log('myvalues#', isError, isSuccess)
     dispatch(resetUser())
     console.log('myvalues#', isError, isSuccess)
-  }, [isError, isSuccess, status , navigate])
+  }, [isError, isSuccess, status, navigate])
 
+
+  // _______________________handle____________profile___________section____________
+  const handleProfile = (data) => {
+    setState(prev => {
+      return {
+        ...prev,
+        data: [true]
+      }
+    })
+  }
+
+  // ________Loading for  logout______________________
 
   if (isLoading) {
     return <LoadingScreen />
@@ -162,8 +178,7 @@ const DashBoardHeader = () => {
                 onClose={handleCloseUserMenu}
               >
                 {/* <MenuList> */}
-
-                  {/* <MenuItem>
+                {/* <MenuItem>
                     <ListItemIcon>
                       <FingerprintIcon fontSize="small" />
                     </ListItemIcon>
@@ -256,21 +271,20 @@ const DashBoardHeader = () => {
                   </ListItemIcon>
                   <ListItemText>Payments</ListItemText>
                 </MenuItem> */}
-                
                 <MenuItem>
                   <ListItemIcon>
                     <CodeIcon />
                   </ListItemIcon>
-                  <ListItemText>Profile</ListItemText>
+                  <ListItemText onClick={handleProfile}>Profile</ListItemText>
                 </MenuItem>
 
-                <Divider /> 
+                <Divider />
 
-                <MenuItem>
+                <MenuItem onClick={() => handleLogout()}>
                   <ListItemIcon>
                     <Logout fontSize="small" />
                   </ListItemIcon>
-                  <ListItemText onClick={()=>handleLogout()}>Logout</ListItemText>
+                  <ListItemText >Logout</ListItemText>
                 </MenuItem>
               </Menu>
             </Box>

@@ -29,7 +29,7 @@ const TiktokSubHeader = styled('Stack')(({ theme }) => ({
     alignItems: 'center',
 }));
 
-export default function BioSecSoundCloudModal({ BioSecSoundCloudModalState, closeBlockSubModal }) {
+export default function BioSecSoundCloudModal({ BioSecSoundCloudModalState, closeBlockSubModal, openBioLinkAddBlock }) {
     const [state, setState] = React.useState({
         soundCloudUrl: ''
     })
@@ -55,7 +55,7 @@ export default function BioSecSoundCloudModal({ BioSecSoundCloudModalState, clos
                             <KeyboardArrowLeftOutlinedIcon
                                 fontSize="small"
                                 sx={{ background: theme.palette.background.neutral, color: 'primary.main', borderRadius: '50%', cursor: 'pointer' }}
-                                onClick={() => closeBlockSubModal('BioSecSoundCloudModalState')}
+                                onClick={() => { openBioLinkAddBlock('bioLinkAddBlockMainModalState'); closeBlockSubModal('BioSecSoundCloudModalState') } }
                             />
                             <Typography ml={1} variant="h6" fontWeight="thin">Add a Soundcloud song</Typography>
                         </Box>

@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 // Hooks 
-import {useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 // form
@@ -15,7 +15,7 @@ import { PATH_AUTH } from '../../../routes/paths';
 import { FormProvider, RHFTextField } from '../../../components/hook-form';
 
 // redux 
-import { resetUserPassword , resetUser} from '../../../redux/slices/auth/authSlice';
+import { resetUserPassword, resetUser } from '../../../redux/slices/auth/authSlice';
 
 // ----------------------------------------------------------------------
 
@@ -42,7 +42,7 @@ export default function ResetPasswordForm() {
     const emailData = {
       email: data.email
     }
-        dispatch(resetUserPassword(emailData))
+    dispatch(resetUserPassword(emailData))
     dispatch(resetUser(emailData))
 
 
