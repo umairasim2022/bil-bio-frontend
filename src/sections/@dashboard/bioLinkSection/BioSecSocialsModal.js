@@ -53,7 +53,7 @@ const sizeArray = [
     },
 
 ]
-export default function BioSecSocialsModal({ BioSecSocialsModalState, closeBlockSubModal }) {
+export default function BioSecSocialsModal({ BioSecSocialsModalState, closeBlockSubModal, openBioLinkAddBlock }) {
     const [state, setState] = React.useState({
         colorState: '',
         sizeState: '',
@@ -90,7 +90,7 @@ export default function BioSecSocialsModal({ BioSecSocialsModalState, closeBlock
                                     borderRadius: '50%',
                                     cursor: 'pointer',
                                 }}
-                                onClick={() => closeBlockSubModal('BioSecSocialsModalState')}
+                                onClick={() => { openBioLinkAddBlock('bioLinkAddBlockMainModalState'); closeBlockSubModal('BioSecSocialsModalState') }}
                             />
                             <Typography ml={1} variant="h6" fontWeight="thin">
                                 Add social links
@@ -98,7 +98,7 @@ export default function BioSecSocialsModal({ BioSecSocialsModalState, closeBlock
 
                         </Box>
 
-                        <CloseIcon onClick={() => closeBlockSubModal('BioSecSocialsModalState')} sx={{ cursor: 'pointer' }} />
+                        <CloseIcon onClick={() => { closeBlockSubModal('BioSecSocialsModalState') }} sx={{ cursor: 'pointer' }} />
                     </EmailSubHeader>
 
 

@@ -28,7 +28,7 @@ const EmailSubHeader = styled('Stack')(({ theme }) => ({
     alignItems: 'center',
 }));
 
-export default function BioSecPhoneModal({ BioSecPhoneModalState, closeBlockSubModal }) {
+export default function BioSecPhoneModal({ BioSecPhoneModalState, closeBlockSubModal, openBioLinkAddBlock }) {
     const [state, setState] = React.useState({
         nameTextState: ''
     })
@@ -59,7 +59,7 @@ export default function BioSecPhoneModal({ BioSecPhoneModalState, closeBlockSubM
                                     borderRadius: '50%',
                                     cursor: 'pointer',
                                 }}
-                                onClick={() => closeBlockSubModal('BioSecPhoneModalState')}
+                                onClick={() => { openBioLinkAddBlock('bioLinkAddBlockMainModalState'); closeBlockSubModal('BioSecPhoneModalState') }}
                             />
                             <Typography ml={1} variant="h6" fontWeight="thin">
                                 Add a phone collector form

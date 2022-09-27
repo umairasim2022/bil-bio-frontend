@@ -37,7 +37,7 @@ const TiktokSubHeader = styled('Stack')(({ theme }) => ({
     alignItems: 'center',
 }));
 
-export default function BioSecPayPalModal({ BioSecPayPalModalState, closeBlockSubModal }) {
+export default function BioSecPayPalModal({ BioSecPayPalModalState, closeBlockSubModal, openBioLinkAddBlock }) {
     const myHeadingList = [
         {
             label: 'Buy Now',
@@ -96,7 +96,7 @@ export default function BioSecPayPalModal({ BioSecPayPalModalState, closeBlockSu
                                     borderRadius: '50%',
                                     cursor: 'pointer',
                                 }}
-                                onClick={() => closeBlockSubModal('BioSecPayPalModalState')}
+                                onClick={() => { openBioLinkAddBlock('bioLinkAddBlockMainModalState'); closeBlockSubModal('BioSecPayPalModalState') }}
                             />
                             <Typography ml={1} variant="h6" fontWeight="thin">
                                 Add a PayPal payment button

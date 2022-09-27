@@ -10,6 +10,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
+import { styled } from '@mui/material';
+
+
 
 
 // ________________mui icon__________
@@ -21,56 +24,63 @@ import AnchorIcon from '@mui/icons-material/Anchor';
 import { varFade, MotionViewport } from '../../components/animate';
 
 //   _______________style______________
-const style = {
+
+const ModalMainContent = styled('Stack')(({ theme }) => ({
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 500,
-  bgcolor: 'background.paper',
-  p: 4,
-};
+  background: theme.palette.background.paper,
+  padding: '3rem',
+  [theme.breakpoints.down('md')]: {
+    width: 400,
+  },
+  [theme.breakpoints.down('sm')]: {
+    width: 300,
+  },
+}));
 
 
-export default function BioLinkModal({ bioModal,  closeModal}) {
+export default function BioLinkModal({ bioModal, closeModal }) {
   return (
     <Modal
       open={bioModal}
-      onClose={()=>closeModal(bioModal)}
+      onClose={() => closeModal(bioModal)}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Stack sx={style}>
+      <ModalMainContent >
         <Box sx={{ position: 'relative' }}>
           <Typography id="modal-modal-title" variant="h6" component="h3" disbaleGutter>
             Create biolink Page
           </Typography>
-          <IconButton fontSize="small" sx={{ position: 'absolute', top: '-5px', right: '0px' }} onClick={()=>closeModal('bioModal')}>
+          <IconButton fontSize="small" sx={{ position: 'absolute', top: '-5px', right: '0px' }} onClick={() => closeModal('bioModal')}>
             <CloseIcon fontSize="small" />
           </IconButton>
         </Box>
         <Box sx={{ color: 'text.disabled', display: 'flex', alignItems: 'start', marginTop: '25px' }}>
-          <AnchorIcon  fontSize='small'/>
+          <AnchorIcon fontSize='small' />
           <Typography variant="span" component="p" ml={1} fontWeight="500">
             Biolink URL
           </Typography>
         </Box>
-        <Stack direction="row" fontWeight="300" width="100%" sx={{ display: 'flex', marginTop: '10px' }}>
+        <Stack fontWeight="300" width="100%" sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, marginTop: '10px' }}>
           <Box
             sx={{
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               background: 'rgb(255 255 255 / 12%)',
-              width: '80%',
               padding: '5px',
+              width: { xs: '100%', marginY: 1, md: '80%' }
             }}
           >
             <Typography variant="subtitle1" sx={{ fontWeight: '300', fontSize: '.8rem' }}>
               https://66biolinks.com/demo/
             </Typography>
           </Box>
-          <TextField placeholder="your-custom-alias"  size="small" fullWidth fontSize=".8rem" />
+          <TextField placeholder="your-custom-alias" size="small" fullWidth fontSize=".8rem" />
         </Stack>
         <Typography
           variant="subtitle1"
@@ -80,11 +90,11 @@ export default function BioLinkModal({ bioModal,  closeModal}) {
         </Typography>
 
         <Box>
-          <Button variant="contained" sx={{ display: 'block', width: '100%', margin: '30px auto', size: 'large' , boxShadow:'none' }} component={NavLink} to='/dashboard/links'>
+          <Button variant="contained" sx={{ width: '100%', margin: '30px auto', size: 'large', boxShadow: 'none' }} component={NavLink} to='/dashboard/links'>
             Create biolink page
           </Button>
         </Box>
-      </Stack>
+      </ModalMainContent>
     </Modal>
   );
 }

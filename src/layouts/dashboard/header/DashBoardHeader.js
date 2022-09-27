@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
+
 
 // router
 import { Link as RouterLink, useNavigate, Outlet } from 'react-router-dom';
@@ -52,8 +53,12 @@ const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const DashBoardHeader = () => {
-  const dispatch = useDispatch();
-  const auth = useAuth();
+
+  const [state, setState] = useState({
+    profileModalState: false,
+  })
+  const dispatch = useDispatch()
+  const auth = useAuth()
   const navigate = useNavigate();
   console.log('myauth', auth);
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -74,27 +79,37 @@ const DashBoardHeader = () => {
     setAnchorElUser(null);
   };
 
-  //  state getting from logout api
-  const { isError, isSuccess, isLoading, user } = useSelector((state) => state?.user);
 
-  const handleLogout = (e) => {
-    dispatch(logoutUser());
-    window.location.reload();
-  }; // status from api
-  const { status, message } = useSelector((state) => state?.user?.user);
-  // handle error and success message and rendering of the page after logout
+  //  state getting from logout api 
+  const { isError, isSuccess, isLoading, user } = useSelector(state => state?.user)
+
+
+  const handleLogout = async (e) => {
+    window.location.reload()
+    await dispatch(logoutUser())
+    navigate('/auth/login')
+
+
+  }  // status from api  
+  const { status, message } = useSelector(state => state?.user?.user)
+  // handle error and success message and rendering of the page after logout 
   useEffect(() => {
     if (isError) {
-      toast.error(message);
-      navigate('/dashboard');
+      toast.error(message)
+      navigate('/dashboard')
+
+
     }
 
     if (isSuccess) {
       if (status === 'sucess') {
+        console.log('1');
         toast.success(message, {
           toastId: 'success12',
-        }); // message is api response  with when api response status is success
-        navigate('/auth/login');
+
+        })   // message is api response  with when api response status is success
+
+
       }
     }
     if (isSuccess) {
@@ -103,15 +118,32 @@ const DashBoardHeader = () => {
           toastId: 'error12',
         });
 
-        // message is api response  with either api response status is failed
 
-        navigate('/dashboard');
+        })
+        navigate('/dashboard')
+
+        // message is api response  with either api response status is failed
       }
     }
-    console.log('myvalues#', isError, isSuccess);
-    dispatch(resetUser());
-    console.log('myvalues#', isError, isSuccess);
-  }, [isError, isSuccess, status, navigate]);
+    console.log('myvalues#', isError, isSuccess)
+    dispatch(resetUser())
+    console.log('myvalues#', isError, isSuccess)
+  }, [isError, isSuccess, status, navigate])
+
+
+     
+
+  // _______________________handle____________profile___________section____________
+  const handleProfile = (data) => {
+    setState(prev => {
+      return {
+        ...prev,
+        data: [true]
+      }
+    })
+  }
+
+  // ________Loading for  logout______________________
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -250,16 +282,18 @@ const DashBoardHeader = () => {
                   <ListItemIcon>
                     <CodeIcon />
                   </ListItemIcon>
-                  <ListItemText>Profile</ListItemText>
+                  <ListItemText onClick={handleProfile}>Profile</ListItemText>
                 </MenuItem>
 
                 <Divider />
 
-                <MenuItem>
+                <MenuItem onClick={() => handleLogout()}>
                   <ListItemIcon>
                     <Logout fontSize="small" />
                   </ListItemIcon>
-                  <ListItemText onClick={() => handleLogout()}>Logout</ListItemText>
+
+                  <ListItemText >Logout</ListItemText>
+
                 </MenuItem>
               </Menu>
             </Box>

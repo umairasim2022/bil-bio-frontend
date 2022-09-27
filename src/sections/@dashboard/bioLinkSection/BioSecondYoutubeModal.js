@@ -29,7 +29,7 @@ const SoftifyModalSubHeader = styled('Stack')(({ theme }) => ({
     alignItems: 'center',
 }));
 
-export default function BioSecYouTubeModal({ BioSecYouTubeModalState, closeBlockSubModal }) {
+export default function BioSecYouTubeModal({ BioSecYouTubeModalState, closeBlockSubModal, openBioLinkAddBlock }) {
     const [state, setState] = React.useState({
         youtubeUrl: ''
     })
@@ -55,15 +55,15 @@ export default function BioSecYouTubeModal({ BioSecYouTubeModalState, closeBlock
                             <KeyboardArrowLeftOutlinedIcon
                                 fontSize="small"
                                 sx={{ background: theme.palette.background.neutral, color: 'primary.main', borderRadius: '50%', cursor: 'pointer' }}
-                                onClick={() => closeBlockSubModal('BioSecYouTubeModalState')}
+                                onClick={() => { openBioLinkAddBlock('bioLinkAddBlockMainModalState'); closeBlockSubModal('BioSecYouTubeModalState') }}
                             />
                             <Typography ml={1} variant="h6" fontWeight="thin">Add a YouTube video
-</Typography>
+                           </Typography>
                         </Box>
                         <CloseIcon onClick={() => closeBlockSubModal('BioSecYouTubeModalState')} sx={{ cursor: 'pointer' }} />
                     </SoftifyModalSubHeader>
                     <Typography variant="body1" sx={{ mt: 2, color: 'text.disabled' }}>
-Paste in your YouTube video URL and we will show it as a video on your profile.                    </Typography>
+                                 Paste in your YouTube video URL and we will show it as a video on your profile.                    </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', marginY: '1rem' }}>
                         <LinkIcon fontSize="small" sx={{ transform: 'rotate(-45deg)', color: 'primary.main' }} />
                         <Typography variant="body2" ml={1}>

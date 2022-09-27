@@ -29,7 +29,7 @@ const SoftifyModalSubHeader = styled('Stack')(({ theme }) => ({
     alignItems: 'center',
 }));
 
-export default function BioSecSpotifySongModal({ BioSecSpotifySongModalState, closeBlockSubModal }) {
+export default function BioSecSpotifySongModal({ BioSecSpotifySongModalState, closeBlockSubModal, openBioLinkAddBlock }) {
     const [state, setState] = React.useState({
         SpotifyUrl: ''
     })
@@ -55,7 +55,7 @@ export default function BioSecSpotifySongModal({ BioSecSpotifySongModalState, cl
                             <KeyboardArrowLeftOutlinedIcon
                                 fontSize="small"
                                 sx={{ background: theme.palette.background.neutral, color: 'primary.main', borderRadius: '50%', cursor: 'pointer' }}
-                                onClick={() => closeBlockSubModal('BioSecSpotifySongModalState')}
+                                onClick={() => { openBioLinkAddBlock('bioLinkAddBlockMainModalState'); closeBlockSubModal('BioSecSpotifySongModalState') }}
                             />
                             <Typography ml={1} variant="h6" fontWeight="thin">Add a Spotify Song / Album</Typography>
                         </Box>

@@ -105,7 +105,7 @@ const ModalContainer = styled('Stack')(({ theme }) => ({
 
 const modalMian = {
   overflowY: 'scroll',
-  height: '70vh',
+  height: '60vh',
   paddingRight: '4px',
 };
 
@@ -130,7 +130,7 @@ const ModalText = {
   columnGap: '10px',
 };
 
-const BioLinkAddBlockMainModal = ({ bioLinkAddBlockMainModalState, closeModal }) => {
+const BioLinkAddBlockMainModal = ({ bioLinkAddBlockMainModalState, closeModal, openBioLinkAddBlock }) => {
   const theme = useTheme();
 
   const [state, setState] = useState({
@@ -192,8 +192,8 @@ const BioLinkAddBlockMainModal = ({ bioLinkAddBlockMainModalState, closeModal })
             {/* list */}
 
             <Stack sx={modalMian}>
-              <ModalContainer>
-                <Typography sx={ModalText} onClick={() => openModal('linkModalState')}>
+              <ModalContainer onClick={() => openModal('linkModalState')}>
+                <Typography sx={ModalText}>
                   <LinkIcon sx={{ transform: 'rotate(-45deg)' }} /> Link
                 </Typography>
               </ModalContainer>
@@ -202,13 +202,13 @@ const BioLinkAddBlockMainModal = ({ bioLinkAddBlockMainModalState, closeModal })
                   <HMobiledataIcon fontSize='large' /> Heading
                 </Typography>
               </ModalContainer>
-              <ModalContainer>
-                <Typography sx={ModalText} onClick={() => openModal('BioSecParagraphModalState')}>
+              <ModalContainer onClick={() => openModal('BioSecParagraphModalState')}>
+                <Typography sx={ModalText} >
                   <FormatTextdirectionRToLIcon /> Paragraph
                 </Typography>
               </ModalContainer>
-              <ModalContainer>
-                <Typography sx={ModalText} onClick={() => openModal('BioSecAvatarModalState')}>
+              <ModalContainer onClick={() => openModal('BioSecAvatarModalState')}>
+                <Typography sx={ModalText} >
                   <PersonIcon /> Avatar
                 </Typography>
               </ModalContainer>
@@ -279,43 +279,36 @@ const BioLinkAddBlockMainModal = ({ bioLinkAddBlockMainModalState, closeModal })
           </ModalMainContent>
         </Fade>
       </Modal>
-      <TiktokModal tiktokModalState={state.tiktokModalState} closeBlockSubModal={closeBlockSubModal} />
 
-      <BioSecLinkModal linkModalState={state.linkModalState} closeBlockSubModal={closeBlockSubModal} />
+      <BioSecLinkModal linkModalState={state.linkModalState} closeBlockSubModal={closeBlockSubModal} openBioLinkAddBlock={openBioLinkAddBlock} />
 
-      <BioLinkHeadingModal bioLinkHeadingModalState={state.bioLinkHeadingModalState} closeBlockSubModal={closeBlockSubModal} />
+      <BioLinkHeadingModal bioLinkHeadingModalState={state.bioLinkHeadingModalState} closeBlockSubModal={closeBlockSubModal} openBioLinkAddBlock={openBioLinkAddBlock} />
 
-      <BioSecParagraphModal BioSecParagraphModalState={state.BioSecParagraphModalState} closeBlockSubModal={closeBlockSubModal} />
+      <BioSecParagraphModal BioSecParagraphModalState={state.BioSecParagraphModalState} closeBlockSubModal={closeBlockSubModal} openBioLinkAddBlock={openBioLinkAddBlock} />
 
-      <BioSecAvatarModal BioSecAvatarModalState={state.BioSecAvatarModalState} closeBlockSubModal={closeBlockSubModal} />
+      <BioSecAvatarModal BioSecAvatarModalState={state.BioSecAvatarModalState} closeBlockSubModal={closeBlockSubModal} openBioLinkAddBlock={openBioLinkAddBlock} />
 
-      <BioSecImageModal bioSecImageModalState={state.bioSecImageModalState} closeBlockSubModal={closeBlockSubModal} />
+      <BioSecImageModal bioSecImageModalState={state.bioSecImageModalState} closeBlockSubModal={closeBlockSubModal} openBioLinkAddBlock={openBioLinkAddBlock} />
 
-      <BioSecEmailCollectorModal bioSecEmailCollectorModalState={state.bioSecEmailCollectorModalState} closeBlockSubModal={closeBlockSubModal} />
-      <BioSecSoundCloudModal BioSecSoundCloudModalState={state.BioSecSoundCloudModalState} closeBlockSubModal={closeBlockSubModal} />
-      <BioSecSpotifySongModal BioSecSpotifySongModalState={state.BioSecSpotifySongModalState} closeBlockSubModal={closeBlockSubModal} />
-      <BioSecYouTubeModal BioSecYouTubeModalState={state.BioSecYouTubeModalState} closeBlockSubModal={closeBlockSubModal} />
-      <BioSecTwitchModal BioSecTwitchModalState={state.BioSecTwitchModalState} closeBlockSubModal={closeBlockSubModal} />
-      <BioSecVimeoModal BioSecVimeoModalState={state.BioSecVimeoModalState} closeBlockSubModal={closeBlockSubModal} />
-      <BioSecPhoneModal BioSecPhoneModalState={state.BioSecPhoneModalState} closeBlockSubModal={closeBlockSubModal} />
-      <BioSecSocialsModal BioSecSocialsModalState={state.BioSecSocialsModalState} closeBlockSubModal={closeBlockSubModal} />
-      <BioSecPayPalModal BioSecPayPalModalState={state.BioSecPayPalModalState} closeBlockSubModal={closeBlockSubModal} />
+      <BioSecEmailCollectorModal bioSecEmailCollectorModalState={state.bioSecEmailCollectorModalState} closeBlockSubModal={closeBlockSubModal} openBioLinkAddBlock={openBioLinkAddBlock} />
 
+      <BioSecSoundCloudModal BioSecSoundCloudModalState={state.BioSecSoundCloudModalState} closeBlockSubModal={closeBlockSubModal} openBioLinkAddBlock={openBioLinkAddBlock} />
 
+      <BioSecSpotifySongModal BioSecSpotifySongModalState={state.BioSecSpotifySongModalState} closeBlockSubModal={closeBlockSubModal} openBioLinkAddBlock={openBioLinkAddBlock} />
 
+      <BioSecYouTubeModal BioSecYouTubeModalState={state.BioSecYouTubeModalState} closeBlockSubModal={closeBlockSubModal} openBioLinkAddBlock={openBioLinkAddBlock} />
 
+      <BioSecTwitchModal BioSecTwitchModalState={state.BioSecTwitchModalState} closeBlockSubModal={closeBlockSubModal} openBioLinkAddBlock={openBioLinkAddBlock} />
 
+      <BioSecVimeoModal BioSecVimeoModalState={state.BioSecVimeoModalState} closeBlockSubModal={closeBlockSubModal} openBioLinkAddBlock={openBioLinkAddBlock} />
 
+      <BioSecPhoneModal BioSecPhoneModalState={state.BioSecPhoneModalState} closeBlockSubModal={closeBlockSubModal} openBioLinkAddBlock={openBioLinkAddBlock} />
 
+      <TiktokModal tiktokModalState={state.tiktokModalState} closeBlockSubModal={closeBlockSubModal} openBioLinkAddBlock={openBioLinkAddBlock} />
 
+      <BioSecSocialsModal BioSecSocialsModalState={state.BioSecSocialsModalState} closeBlockSubModal={closeBlockSubModal} openBioLinkAddBlock={openBioLinkAddBlock} />
 
-
-
-
-
-
-
-
+      <BioSecPayPalModal BioSecPayPalModalState={state.BioSecPayPalModalState} closeBlockSubModal={closeBlockSubModal} openBioLinkAddBlock={openBioLinkAddBlock} />
       <AddlinkModal />
     </>
   );

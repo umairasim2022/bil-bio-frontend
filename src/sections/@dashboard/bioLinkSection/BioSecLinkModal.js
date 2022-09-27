@@ -7,7 +7,7 @@ import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import CloseIcon from '@mui/icons-material/Close';
 import LinkIcon from '@mui/icons-material/Link';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
-import {  FaSignature } from 'react-icons/fa';
+import { FaSignature } from 'react-icons/fa';
 
 import { useTheme } from '@emotion/react';
 
@@ -28,7 +28,7 @@ const TiktokSubHeader = styled('Stack')(({ theme }) => ({
   alignItems: 'center',
 }));
 
-export default function BioSecLinkModal({ linkModalState, closeBlockSubModal }) {
+export default function BioSecLinkModal({ linkModalState, closeBlockSubModal ,  openBioLinkAddBlock }) {
   const theme = useTheme();
   return (
     <div>
@@ -40,7 +40,7 @@ export default function BioSecLinkModal({ linkModalState, closeBlockSubModal }) 
       >
         <TikTokModalMain>
           <TiktokSubHeader>
-            <Box sx={{ display: 'flex', alignItems: 'start',  p:'0 12px' }}>
+            <Box sx={{ display: 'flex', alignItems: 'start', p: '0 12px' }}>
               <KeyboardArrowLeftOutlinedIcon
                 fontSize="small"
                 sx={{
@@ -49,7 +49,7 @@ export default function BioSecLinkModal({ linkModalState, closeBlockSubModal }) 
                   borderRadius: '50%',
                   cursor: 'pointer',
                 }}
-                onClick={() => closeBlockSubModal('linkModalState')}
+                onClick={() => { openBioLinkAddBlock('bioLinkAddBlockMainModalState'); closeBlockSubModal(linkModalState)}}
               />
               <Typography ml={1} variant="h6" fontWeight="thin">
                 Add a Link Button

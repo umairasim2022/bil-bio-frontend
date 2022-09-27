@@ -32,7 +32,7 @@ const ParagraphSubHeader = styled('Stack')(({ theme }) => ({
   alignItems: 'center',
 }));
 
-export default function BioSecParagraphModal({ BioSecParagraphModalState, closeBlockSubModal }) {
+export default function BioSecParagraphModal({ BioSecParagraphModalState, closeBlockSubModal, openBioLinkAddBlock }) {
   const theme = useTheme();
   return (
     <div>
@@ -53,7 +53,7 @@ export default function BioSecParagraphModal({ BioSecParagraphModalState, closeB
                   borderRadius: '50%',
                   cursor: 'pointer',
                 }}
-                onClick={() => closeBlockSubModal('BioSecParagraphModalState')}
+                onClick={() => { openBioLinkAddBlock('bioLinkAddBlockMainModalState'); closeBlockSubModal('BioSecParagraphModalState') }}
               />
               <Typography ml={1} variant="h6" fontWeight="thin">
                 Add a Paragraph

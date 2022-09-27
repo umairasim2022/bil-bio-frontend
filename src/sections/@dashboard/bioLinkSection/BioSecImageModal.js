@@ -34,7 +34,7 @@ const ImageSubHeader = styled('Stack')(({ theme }) => ({
     alignItems: 'center',
 }));
 
-export default function BioSecImageModal({ bioSecImageModalState, closeBlockSubModal }) {
+export default function BioSecImageModal({ bioSecImageModalState, closeBlockSubModal, openBioLinkAddBlock }) {
     const [state, setState] = React.useState({
         altText: '',
         urlState: '',
@@ -72,7 +72,7 @@ export default function BioSecImageModal({ bioSecImageModalState, closeBlockSubM
                                     borderRadius: '50%',
                                     cursor: 'pointer',
                                 }}
-                                onClick={() => closeBlockSubModal('bioSecImageModalState')}
+                                onClick={() => { openBioLinkAddBlock('bioLinkAddBlockMainModalState'); closeBlockSubModal('bioSecImageModalState') }}
                             />
                             <Typography ml={1} variant="h6" fontWeight="thin">
                                 Add an Image

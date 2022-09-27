@@ -85,7 +85,7 @@ function BioLinkMainSection() {
       </Grid>
 
       {/* modals  */}
-      <BioLinkAddBlockMainModal bioLinkAddBlockMainModalState={bioLinkAddBlockMainModalState} closeModal={closeModal} />
+      <BioLinkAddBlockMainModal bioLinkAddBlockMainModalState={bioLinkAddBlockMainModalState} closeModal={closeModal} openBioLinkAddBlock={openBioLinkAddBlock} />
     </>
   );
 }
