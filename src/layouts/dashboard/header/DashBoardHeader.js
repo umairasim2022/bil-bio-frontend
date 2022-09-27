@@ -1,4 +1,4 @@
-import { useEffect , useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify'
 
 // router
@@ -74,13 +74,15 @@ const DashBoardHeader = () => {
     setAnchorElUser(null);
   };
 
-//  state getting from logout api 
+  //  state getting from logout api 
   const { isError, isSuccess, isLoading, user } = useSelector(state => state?.user)
 
 
-  const handleLogout =  (e) => {
-     dispatch(logoutUser())
+  const handleLogout = async (e) => {
     window.location.reload()
+    await dispatch(logoutUser())
+    navigate('/auth/login')
+
 
   }  // status from api  
   const { status, message } = useSelector(state => state?.user?.user)
@@ -89,14 +91,16 @@ const DashBoardHeader = () => {
     if (isError) {
       toast.error(message)
       navigate('/dashboard')
+
     }
 
     if (isSuccess) {
       if (status === 'sucess') {
+        console.log('1');
         toast.success(message, {
           toastId: 'success12',
         })   // message is api response  with when api response status is success
-        navigate('/auth/login')
+
       }
     }
     if (isSuccess) {
@@ -105,23 +109,21 @@ const DashBoardHeader = () => {
           toastId: 'error12',
 
         })
-
-         // message is api response  with either api response status is failed
-
         navigate('/dashboard')
 
-
+        // message is api response  with either api response status is failed
       }
     }
     console.log('myvalues#', isError, isSuccess)
     dispatch(resetUser())
     console.log('myvalues#', isError, isSuccess)
-  }, [isError, isSuccess, status , navigate])
+  }, [isError, isSuccess, status, navigate])
 
 
   if (isLoading) {
-    return <LoadingScreen />
+    return( <LoadingScreen /> )
   }
+
   return (
     <>
       <AppBar position="static">
@@ -135,19 +137,19 @@ const DashBoardHeader = () => {
               <Logo />
             </Box>
 
-            <Box sx={{ flexGrow: { xs: 1, sm: 0 } }}>
-              <Button variant="text" sx={{ mr: 3 }}>
+            <Box sx={{ flexGrow: { xs: 0, sm: 0 } }}>
+              <Button variant="text" sx={{ mr: 1 }}>
                 Dashboard
               </Button>
-              <IconButton onClick={handleOpenUserMenu} disableElevation disableRipple>
+              <IconButton onClick={handleOpenUserMenu} >
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                <Typography>{auth?.user?.displayName}</Typography>
+                <Typography> {auth?.user?.displayName} </Typography>
 
                 <ArrowDropDownIcon />
               </IconButton>
               <Menu
                 sx={{ mt: '45px' }}
-                id="menu-appbar"
+                
                 anchorEl={anchorElUser}
                 anchorOrigin={{
                   vertical: 'top',
@@ -161,102 +163,6 @@ const DashBoardHeader = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {/* <MenuList> */}
-
-                  {/* <MenuItem>
-                    <ListItemIcon>
-                      <FingerprintIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Admin</ListItemText>
-                  </MenuItem>
-                  <Divider />
-
-                  <MenuItem>
-                    <ListItemIcon>
-                      <Tag fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Biolinks</ListItemText>
-                  </MenuItem>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <AddLinkIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Shortened links</ListItemText>
-                  </MenuItem>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <InsertDriveFileIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>File links</ListItemText>
-                  </MenuItem>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <CreditCardIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Vcard links</ListItemText>
-                  </MenuItem>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <QrCodeIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>QR codes</ListItemText>
-                  </MenuItem>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <ConstructionIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Tools</ListItemText>
-                  </MenuItem>
-
-                  <Divider />
-
-                  <MenuItem>
-                    <ListItemIcon>
-                      <LanguageTwoToneIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Custom Domains</ListItemText>
-                  </MenuItem>
-                </MenuList>
-                <MenuItem>
-                  <ListItemIcon>
-                    <ContrastIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Pixels</ListItemText>
-                </MenuItem>
-                <MenuItem>
-                  <ListItemIcon>
-                    <StorageIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Data</ListItemText>
-                </MenuItem>
-                <MenuItem>
-                  <ListItemIcon>
-                    <AccountTreeIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Projects</ListItemText>
-                </MenuItem>
-
-                <Divider />
-
-                <MenuItem>
-                  <ListItemIcon>
-                    <BuildIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Account</ListItemText>
-                </MenuItem>
-                <MenuItem>
-                  <ListItemIcon>
-                    <CardMembershipIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Plan</ListItemText>
-                </MenuItem>
-                <MenuItem>
-                  <ListItemIcon>
-                    <AttachMoneyIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Payments</ListItemText>
-                </MenuItem> */}
-                
                 <MenuItem>
                   <ListItemIcon>
                     <CodeIcon />
@@ -264,13 +170,13 @@ const DashBoardHeader = () => {
                   <ListItemText>Profile</ListItemText>
                 </MenuItem>
 
-                <Divider /> 
+                <Divider />
 
-                <MenuItem>
+                <MenuItem onClick={() => handleLogout()}>
                   <ListItemIcon>
                     <Logout fontSize="small" />
                   </ListItemIcon>
-                  <ListItemText onClick={()=>handleLogout()}>Logout</ListItemText>
+                  <ListItemText >Logout</ListItemText>
                 </MenuItem>
               </Menu>
             </Box>

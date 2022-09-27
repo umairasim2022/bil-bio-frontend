@@ -16,6 +16,7 @@ AuthGuard.propTypes = {
 
 export default function AuthGuard({ children }) {
   const userReg = localStorage.getItem('userReg')
+  
 
   console.log('userauth', userReg)
 

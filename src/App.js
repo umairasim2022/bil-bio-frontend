@@ -1,5 +1,7 @@
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { useEffect } from 'react';
+
 // routes
 
 import Router from './routes';
@@ -17,6 +19,10 @@ import MotionLazyContainer from './components/animate/MotionLazyContainer';
 // ----------------------------------------------------------------------
 
 export default function App() {
+  useEffect(() => {
+    const BASE_URL = localStorage.setItem('baseUrl', 'http://localhost:5000')
+
+  }, [])
   return (
     <>
       <MotionLazyContainer>

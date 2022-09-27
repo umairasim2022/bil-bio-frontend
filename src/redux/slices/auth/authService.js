@@ -5,7 +5,7 @@ import axios from 'axios'
 // registerUser user
 const registerUser = async (userData) => {
   const response = await axios.post('/api/user/register', userData)
-  console.log('regapires', response?.data?.token)
+  console.log('regresp', response)
   const token = response?.data?.token
 
 

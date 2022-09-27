@@ -51,6 +51,8 @@ export default function VerifyForm() {
             }
 
         } catch (error) {
+            const message = error.message
+            toast.error(message)
             console.log('emailerrir', error.message)
 
         }
