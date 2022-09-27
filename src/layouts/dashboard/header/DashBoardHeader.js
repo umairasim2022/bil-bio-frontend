@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify'
+import { toast } from 'react-toastify';
 
 // router
 import { Link as RouterLink, useNavigate, Outlet } from 'react-router-dom';
-// redux 
-import { useSelector, useDispatch } from 'react-redux'
+// redux
+import { useSelector, useDispatch } from 'react-redux';
 // mui
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
-import axios from "axios";
+import axios from 'axios';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
@@ -43,7 +43,7 @@ import AccountTreeIcon from '@mui/icons-material/AccountTree';
 import StorageIcon from '@mui/icons-material/Storage';
 
 // component
-import { logoutUser, resetUser } from '../../../redux/slices/auth/authSlice'
+import { logoutUser, resetUser } from '../../../redux/slices/auth/authSlice';
 import LoadingScreen from '../../../components/LoadingScreen';
 import Logo from '../../../components/Logo';
 import useAuth from '../../../hooks/useAuth';
@@ -52,10 +52,10 @@ const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const DashBoardHeader = () => {
-  const dispatch = useDispatch()
-  const auth = useAuth()
+  const dispatch = useDispatch();
+  const auth = useAuth();
   const navigate = useNavigate();
-  console.log('myauth', auth)
+  console.log('myauth', auth);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
 
@@ -74,56 +74,48 @@ const DashBoardHeader = () => {
     setAnchorElUser(null);
   };
 
-  //  state getting from logout api 
-  const { isError, isSuccess, isLoading, user } = useSelector(state => state?.user)
+  //  state getting from logout api
+  const { isError, isSuccess, isLoading, user } = useSelector((state) => state?.user);
 
-
-  const handleLogout = async (e) => {
-    window.location.reload()
-    await dispatch(logoutUser())
-    navigate('/auth/login')
-
-
-  }  // status from api  
-  const { status, message } = useSelector(state => state?.user?.user)
-  // handle error and success message and rendering of the page after logout 
+  const handleLogout = (e) => {
+    dispatch(logoutUser());
+    window.location.reload();
+  }; // status from api
+  const { status, message } = useSelector((state) => state?.user?.user);
+  // handle error and success message and rendering of the page after logout
   useEffect(() => {
     if (isError) {
-      toast.error(message)
-      navigate('/dashboard')
-
+      toast.error(message);
+      navigate('/dashboard');
     }
 
     if (isSuccess) {
       if (status === 'sucess') {
-        console.log('1');
         toast.success(message, {
           toastId: 'success12',
-        })   // message is api response  with when api response status is success
-
+        }); // message is api response  with when api response status is success
+        navigate('/auth/login');
       }
     }
     if (isSuccess) {
       if (status === 'failed') {
         toast.error(message, {
           toastId: 'error12',
-
-        })
-        navigate('/dashboard')
+        });
 
         // message is api response  with either api response status is failed
+
+        navigate('/dashboard');
       }
     }
-    console.log('myvalues#', isError, isSuccess)
-    dispatch(resetUser())
-    console.log('myvalues#', isError, isSuccess)
-  }, [isError, isSuccess, status, navigate])
-
+    console.log('myvalues#', isError, isSuccess);
+    dispatch(resetUser());
+    console.log('myvalues#', isError, isSuccess);
+  }, [isError, isSuccess, status, navigate]);
 
   if (isLoading) {
-    return( <LoadingScreen /> )
+    return <LoadingScreen />;
   }
-
   return (
     <>
       <AppBar position="static">
@@ -133,23 +125,23 @@ const DashBoardHeader = () => {
             component="Box"
             sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
           >
-            <Box sx={{ flexGrow: 1 }} noWrap component="a" href="/">
+            <Box sx={{ flexGrow: 1, textDecoration: 'none' }} noWrap component="a" href="/">
               <Logo />
             </Box>
 
-            <Box sx={{ flexGrow: { xs: 0, sm: 0 } }}>
-              <Button variant="text" sx={{ mr: 1 }}>
+            <Box sx={{ flexGrow: { xs: 1, sm: 0 } }}>
+              <Button variant="text" sx={{ mr: 3 }}>
                 Dashboard
               </Button>
-              <IconButton onClick={handleOpenUserMenu} >
+              <IconButton onClick={handleOpenUserMenu} disableElevation disableRipple>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                <Typography> {auth?.user?.displayName} </Typography>
+                <Typography>{auth?.user?.displayName}</Typography>
 
                 <ArrowDropDownIcon />
               </IconButton>
               <Menu
                 sx={{ mt: '45px' }}
-                
+                id="menu-appbar"
                 anchorEl={anchorElUser}
                 anchorOrigin={{
                   vertical: 'top',
@@ -163,6 +155,97 @@ const DashBoardHeader = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
+                {/* <MenuList> */}
+
+                {/* <MenuItem>
+                    <ListItemIcon>
+                      <FingerprintIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Admin</ListItemText>
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem>
+                    <ListItemIcon>
+                      <Tag fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Biolinks</ListItemText>
+                  </MenuItem>
+                  <MenuItem>
+                    <ListItemIcon>
+                      <AddLinkIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Shortened links</ListItemText>
+                  </MenuItem>
+                  <MenuItem>
+                    <ListItemIcon>
+                      <InsertDriveFileIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>File links</ListItemText>
+                  </MenuItem>
+                  <MenuItem>
+                    <ListItemIcon>
+                      <CreditCardIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Vcard links</ListItemText>
+                  </MenuItem>
+                  <MenuItem>
+                    <ListItemIcon>
+                      <QrCodeIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>QR codes</ListItemText>
+                  </MenuItem>
+                  <MenuItem>
+                    <ListItemIcon>
+                      <ConstructionIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Tools</ListItemText>
+                  </MenuItem>
+                  <Divider />
+                  <MenuItem>
+                    <ListItemIcon>
+                      <LanguageTwoToneIcon fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText>Custom Domains</ListItemText>
+                  </MenuItem>
+                </MenuList>
+                <MenuItem>
+                  <ListItemIcon>
+                    <ContrastIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Pixels</ListItemText>
+                </MenuItem>
+                <MenuItem>
+                  <ListItemIcon>
+                    <StorageIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Data</ListItemText>
+                </MenuItem>
+                <MenuItem>
+                  <ListItemIcon>
+                    <AccountTreeIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Projects</ListItemText>
+                </MenuItem>
+                <Divider />
+                <MenuItem>
+                  <ListItemIcon>
+                    <BuildIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Account</ListItemText>
+                </MenuItem>
+                <MenuItem>
+                  <ListItemIcon>
+                    <CardMembershipIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Plan</ListItemText>
+                </MenuItem>
+                <MenuItem>
+                  <ListItemIcon>
+                    <AttachMoneyIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>Payments</ListItemText>
+                </MenuItem> */}
+
                 <MenuItem>
                   <ListItemIcon>
                     <CodeIcon />
@@ -172,11 +255,11 @@ const DashBoardHeader = () => {
 
                 <Divider />
 
-                <MenuItem onClick={() => handleLogout()}>
+                <MenuItem>
                   <ListItemIcon>
                     <Logout fontSize="small" />
                   </ListItemIcon>
-                  <ListItemText >Logout</ListItemText>
+                  <ListItemText onClick={() => handleLogout()}>Logout</ListItemText>
                 </MenuItem>
               </Menu>
             </Box>
@@ -188,3 +271,4 @@ const DashBoardHeader = () => {
   );
 };
 export default DashBoardHeader;
+

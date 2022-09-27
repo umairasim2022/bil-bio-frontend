@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Box } from '@mui/material';
-
+import { Box, Typography } from '@mui/material';
+import useSettings from '../hooks/useSettings';
+// import { defaultSettings } from '../config';
 // ----------------------------------------------------------------------
 
 Logo.propTypes = {
@@ -12,13 +13,22 @@ Logo.propTypes = {
 };
 
 export default function Logo({ disabledLink = false, sx }) {
-  const theme = useTheme();
+  const { colorOption } = useSettings();
+  const loc = JSON.parse(localStorage.getItem('settings'));
 
+  const theme = useTheme();
+  // {
+  //   console.log(loc);
+  // }
+  // const col = loc.themeMode === 'light' ? 'black' : 'white';
   const PRIMARY_LIGHT = theme.palette.primary.light;
 
   const PRIMARY_MAIN = theme.palette.primary.main;
 
   const PRIMARY_DARK = theme.palette.primary.dark;
+  // {
+  //   console.log(PRIMARY_LIGHT, PRIMARY_MAIN, PRIMARY_DARK);
+  // }
   // src\assets\logo.png
 
   // OR
@@ -31,9 +41,41 @@ export default function Logo({ disabledLink = false, sx }) {
   //   />
   // );
 
+  // setLogoColor(
+  //   loc.themeColorPresets === 'default'
+  //     ? '#00AB55'
+  //     : loc.themeColorPresets === 'purple'
+  //     ? '#7635dc'
+  //     : loc.themeColorPresets === 'cyan'
+  //     ? '#1CCAFF'
+  //     : loc.themeColorPresets === 'blue'
+  //     ? '#2065D1'
+  //     : loc.themeColorPresets === 'orange'
+  //     ? '#fda92d'
+  //     : loc.themeColorPresets === 'red'
+  //     ? '#FF3030'
+  //     : '#00AB55'
+  // );
   const logo = (
-    <Box style={{ width: 100, height: 60, display: "flex", alignItems: "center" }}>
-      <img src="/assets/logo.png" alt="logo" sx={{ width: '100%', height: '100%' }} />
+    <Box style={{ width: 100, height: 60, display: 'flex', alignItems: 'center' }}>
+      {/* <img src="/assets/logo.png" alt="logo" sx={{ width: '100%', height: '100%' }} /> */}
+      {/* <span sx={{}}>bil.bio</span> */}
+
+      <Typography
+        component="span"
+        variant="h3"
+        sx={{
+          fontSize: '40px',
+          fontWeight: 'bold',
+          color: 'primary.main',
+          // loc.themeColorPresets === 'default' ? '#00AB55' : loc.themeColorPresets,
+          textDecoration: 'none',
+          fontFamily: 'Grold',
+        }}
+      >
+        &nbsp;bil.bio
+      </Typography>
+
       {/* <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 512 512">
         <defs>
           <linearGradient id="BG1" x1="100%" x2="50%" y1="9.946%" y2="50%">
@@ -107,5 +149,9 @@ export default function Logo({ disabledLink = false, sx }) {
     return <>{logo}</>;
   }
 
-  return <RouterLink to="/">{logo}</RouterLink>;
+  return (
+    <RouterLink to="/" style={{ textDecoration: 'none' }}>
+      {logo}
+    </RouterLink>
+  );
 }
