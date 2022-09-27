@@ -90,11 +90,13 @@ export default function Register() {
               justifyContent: 'center',
               margin: 'auto',
               paddingBottom: 15,
-              cursor: 'pointer'
+              cursor: 'pointer',
+              textDecoration: 'none',
             }}
-            component={RouterLink} to='/'
+            component={RouterLink}
+            to="/"
           >
-            <img src="../../assets/logo.png" alt="logo" sx={{ width: '100%', height: '100%' }}  />
+            <Logo />
           </Box>
         </HeaderStyle>
 

@@ -68,7 +68,7 @@ export default function Login() {
   const mdUp = useResponsive('up', 'md');
 
   return (
-    <Page title="Login"  >
+    <Page title="Login">
       <RootStyle>
         <HeaderStyle>
           {/* <Logo />
@@ -89,13 +89,14 @@ export default function Login() {
               justifyContent: 'center',
               margin: 'auto',
               paddingBottom: 12,
-              cursor: 'pointer'
-
+              cursor: 'pointer',
+              textDecoration: 'none',
             }}
-            component={RouterLink} to='/'
-
+            component={RouterLink}
+            to="/"
           >
-            <img src="../../assets/logo.png" alt="logo" sx={{ width: '100%', height: '100%' }} />
+            <Logo />
+            {/* <span style={{ fontSize: '20px', fontWeight: 'bold', color: 'white' }}>Fizan</span> */}
           </Box>
         </HeaderStyle>
 

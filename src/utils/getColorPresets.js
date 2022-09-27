@@ -60,7 +60,7 @@ export const colorPresets = [
     contrastText: '#fff',
   },
 ];
-
+console.log(colorPresets);
 export const defaultPreset = colorPresets[0];
 export const purplePreset = colorPresets[1];
 export const cyanPreset = colorPresets[2];
