@@ -164,7 +164,6 @@ const DashBoardHeader = () => {
                     <ListItemText>Admin</ListItemText>
                   </MenuItem>
                   <Divider />
-
                   <MenuItem>
                     <ListItemIcon>
                       <Tag fontSize="small" />
@@ -201,9 +200,7 @@ const DashBoardHeader = () => {
                     </ListItemIcon>
                     <ListItemText>Tools</ListItemText>
                   </MenuItem>
-
                   <Divider />
-
                   <MenuItem>
                     <ListItemIcon>
                       <LanguageTwoToneIcon fontSize="small" />
@@ -229,9 +226,7 @@ const DashBoardHeader = () => {
                   </ListItemIcon>
                   <ListItemText>Projects</ListItemText>
                 </MenuItem>
-
                 <Divider />
-
                 <MenuItem>
                   <ListItemIcon>
                     <BuildIcon fontSize="small" />
@@ -276,3 +271,4 @@ const DashBoardHeader = () => {
   );
 };
 export default DashBoardHeader;
+

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import authService from './authService'
 
 // Get user from localStorage
-const user = JSON.parse(localStorage.getItem('userReg'))
+const user = JSON.parse(localStorage.getItem('user'))
 
 const initialState = {
   user: user || "",
@@ -149,7 +149,6 @@ export const authSlice = createSlice({
         state.user = action.payload
       })
       .addCase(resetUserPassword.rejected, (state, action) => {
-        alert("resetrej")
         state.isLoading = false
         state.isError = true
         state.isSuccess = false
