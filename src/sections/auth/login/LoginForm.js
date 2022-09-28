@@ -113,7 +113,12 @@ export default function LoginForm() {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(submitHandler)}>
-      <Stack spacing={3}>
+      <Stack spacing={3} sx={{
+
+        '& .css-al9d9s-MuiBackdrop-root': {
+          padding: { xs: '1rem', sm: '2rem', md: '3rem' }
+        }
+      }}>
         {/* {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>} */}
 
         <RHFTextField name="email" label="Email address" />
@@ -132,7 +137,7 @@ export default function LoginForm() {
           }}
         />
       </Stack>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" flexWrap='wrap' sx={{ my: 2  }}>
         <RHFCheckbox name="remember" label="Remember me" />
         <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword}>
           Forgot password?
