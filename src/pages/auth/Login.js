@@ -37,7 +37,6 @@ const HeaderStyle = styled('header')(({ theme }) => ({
     alignItems: 'flex-start',
     padding: theme.spacing(7, 5, 0, 7),
   },
-  
 }));
 
 const SectionStyle = styled(Card)(({ theme }) => ({
@@ -83,8 +82,8 @@ export default function Login() {
           )} */}
           <Box
             sx={{
-          
-              display: 'flex',
+              height:{xs : 0  , sm: 60 }, 
+               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               margin: 'auto',
