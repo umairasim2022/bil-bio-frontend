@@ -15,29 +15,34 @@ AuthGuard.propTypes = {
 };
 
 export default function AuthGuard({ children }) {
-  const userReg = JSON.parse(localStorage.getItem('user'))
-  const userRegToken = userReg.token
+  const userReg = localStorage.getItem('userReg')
+  
 
-  console.log('userauth', userRegToken)
+  console.log('userauth', userReg)
 
   const { pathname } = useLocation();
 
   const [requestedLocation, setRequestedLocation] = useState(null);
   const { isLoading, isError, isSuccess, user } = useSelector(state => state.user)
   if (isLoading) {
-    return <LoadingScreen />
-  }
+    return <LoadingScreen/>
+ }
 
-  if (!userReg && !userRegToken) {
-    return <Navigate to='/auth/login' />;
+  if (!(JSON.parse(localStorage.getItem('user')))) {
+    return <Navigate to='/auth/login'/>;
   }
 
   // if (userReg) {
-
+  
   //   return < />;
   // }
+  
 
-
+  if (requestedLocation && pathname !== requestedLocation) {
+    alert('req location')
+    setRequestedLocation(null);
+    return <Navigate to={requestedLocation} />;
+  }
 
   return <>{children}</>;
 }

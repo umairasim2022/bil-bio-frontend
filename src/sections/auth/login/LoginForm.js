@@ -79,6 +79,7 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (isError) {
+      alert('loginerror');
       toast.error(message);
       navigate('/auth/login');
     }
@@ -136,7 +137,7 @@ export default function LoginForm() {
           }}
         />
       </Stack>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" flexWrap='wrap' sx={{ my: 2  }}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" flexWrap='wra' sx={{ my: 2 }}>
         <RHFCheckbox name="remember" label="Remember me" />
         <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword}>
           Forgot password?
