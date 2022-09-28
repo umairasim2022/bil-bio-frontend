@@ -17,6 +17,7 @@ import Page from '../../components/Page';
 import { Dashboardhero, LinkMainTitle, TotalLinksList } from '../../sections/@dashboard';
 // assets
 import { SeoIllustration } from '../../assets';
+import MainFooter from '../../layouts/main/MainFooter';
 
 // ----------------------------------------------------------------------
 
@@ -53,6 +54,7 @@ export default function GeneralApp() {
       <Dashboardhero />
       <LinkMainTitle />
       <TotalLinksList />
+      <MainFooter/>
       <Outlet />
     </Box>
   );

@@ -112,10 +112,10 @@ function TotalLinksList() {
     <RootStyle>
       <Container>
         {linkLists.map((linklist) => (
-          <Box mt={3} sx={{ border: '1px solid grey', padding: 2, background: '#131416', borderRadius:'.2rem' }}>
+          <Box mb={2} mt={2} sx={{ border: '1px solid grey', padding: 2, background: '#131416', borderRadius:'.2rem' }}>
             <Stack direction="row" justifyContent="space-between">
               <Stack direction="row" alignItems="center" width="50%">
-                <Box
+                <Box 
                   sx={{
                     background: '#383eb2',
                     display: 'flex',
@@ -129,14 +129,14 @@ function TotalLinksList() {
                 </Box>
                  
                 <Box ml={2}>
-                  <Typography>{linklist.title}</Typography>
+                  <Typography sx={{ color:'#dbdbdb' }}>{linklist.title}</Typography>
                   <Stack direction="row">
-                    <Box>
+                    <Box sx={{ transform: 'rotate(45deg)' }}>
                       <LinkIcon />
                     </Box>
-                    <Box>
+                    <Box sx={{ width:'70px', overflow:'hidden', whiteSpace:'nowrap', textOverflow:'ellipsis' }} >
                      {/* 10 16 18 */}
-                      <Link to="https://www.google.com" ml={1} sx={{ color: '#6e6e6e', textDecoration:'none' }}>
+                      <Link to="https://www.google.com" ml={1} sx={{ color: '#6e6e6e', textDecoration:'none',  whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>
                          {linklist.link}
                       </Link>
                     </Box>

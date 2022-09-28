@@ -80,7 +80,7 @@ export default function BioLinkModal({ bioModal,  closeModal}) {
         </Typography>
 
         <Box>
-          <Button variant="contained" sx={{ display: 'block', width: '100%', margin: '30px auto', size: 'large' , boxShadow:'none' }} component={NavLink} to='/dashboard/links'>
+          <Button variant="contained" sx={{ display: 'block', width: '100%', margin: '30px auto', size: 'large' , boxShadow:'none', textAlign:'center' }} component={NavLink} to='/dashboard/links'>
             Create biolink page
           </Button>
         </Box>

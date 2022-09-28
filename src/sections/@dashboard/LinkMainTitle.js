@@ -117,7 +117,7 @@ const LinkMainTitle = () => {
         sx ={{ alignItems:'center'}}
 >
           <Grid item xs={12} md={8}>
-            <Typography variant="h5">Links</Typography>
+            <Typography variant="h5" sx={{ fontSize:'1.5rem', fontWeight:'500' }}>Links</Typography>
           </Grid>
           <Grid item md={4}>
             <Stack direction="row" spacing={2} display="flex" justifyContent="end" alignItems="center">
@@ -209,7 +209,7 @@ const LinkMainTitle = () => {
                   {' '}
                   <InsertDriveFileIcon /> Export to JSON
                 </MenuItem>
-              </Menu>
+                </Menu> 
 
               <Box
                 id="modalContainerID"
