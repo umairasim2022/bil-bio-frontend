@@ -31,7 +31,6 @@ export default function ResetPasswordForm() {
     resolver: yupResolver(ResetPasswordSchema),
     defaultValues: { email: '' },
   });
-
   const {
     handleSubmit,
     formState: { isSubmitting },

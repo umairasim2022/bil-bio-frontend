@@ -29,7 +29,7 @@ import { PATH_AUTH, PATH_PAGE } from '../../routes/paths';
 import Logo from '../../components/Logo';
 
 const drawerWidth = 240;
-const user = localStorage.getItem('user')
+const user = JSON.parse(localStorage.getItem('user'))
 
 function DrawerAppBar(props) {
   const { window } = props;
@@ -112,19 +112,24 @@ function DrawerAppBar(props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box>
+    <Box >
       <AppBar sx={{ background: 'background.default' }}>
         <Toolbar component="Box" sx={{ background: '#161A38' }}>
-          <Container component="Box" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ display: { sm: 'none' } }}
-            >
-              <MenuIcon />
-            </IconButton>
+          <Container component="Box" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingX: { xs: '2px' } }}>
+            <Stack direction='row' sx={{ display: { xs: 'flex', justifyContent: 'space-between', width: '100%', paddingX: '0px', sm: 'none' } }}>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+
+              >
+                <MenuIcon />
+              </IconButton>
+              {!mobileOpen ? <Logo to='/' /> : null}
+
+            </Stack>
+
             <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
               <Logo />
             </Box>
@@ -201,7 +206,9 @@ function DrawerAppBar(props) {
         >
           {drawer}
         </Drawer>
+
       </Box>
+
       <Outlet />
     </Box>
   );

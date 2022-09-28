@@ -31,7 +31,7 @@ const TiktokSubHeader = styled('Stack')(({ theme }) => ({
   alignItems: 'center',
 }));
 
-export default function BioLinkHeadingModal({ bioLinkHeadingModalState, closeBlockSubModal }) {
+export default function BioLinkHeadingModal({ bioLinkHeadingModalState, closeBlockSubModal, openBioLinkAddBlock }) {
   const myHeadingList = [
     {
       label: 'H1',
@@ -114,7 +114,7 @@ export default function BioLinkHeadingModal({ bioLinkHeadingModalState, closeBlo
                   borderRadius: '50%',
                   cursor: 'pointer',
                 }}
-                onClick={() => closeBlockSubModal('bioLinkHeadingModalState')}
+                onClick={() => { openBioLinkAddBlock('bioLinkAddBlockMainModalState'); closeBlockSubModal('bioLinkHeadingModalState') }}
               />
               <Typography ml={1} variant="h6" fontWeight="thin">
                 Add a Heading

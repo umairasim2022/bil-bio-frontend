@@ -131,6 +131,7 @@ const DashBoardHeader = () => {
 
             <Box sx={{  flexGrow: { xs: 1, sm: 0 } }}>
               <Button variant="text" >
+
                 Dashboard
               </Button>
               <IconButton onClick={handleOpenUserMenu} disableElevation disableRipple>
@@ -164,7 +165,9 @@ const DashBoardHeader = () => {
 
                 <Divider />
 
+
                 <MenuItem onClick={() => handleLogout()}>
+
                   <ListItemIcon>
                     <Logout fontSize="small" />
                   </ListItemIcon>

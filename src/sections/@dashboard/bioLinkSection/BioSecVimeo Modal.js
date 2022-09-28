@@ -29,7 +29,7 @@ const SoftifyModalSubHeader = styled('Stack')(({ theme }) => ({
     alignItems: 'center',
 }));
 
-export default function BioSecVimeoModal({ BioSecVimeoModalState, closeBlockSubModal }) {
+export default function BioSecVimeoModal({ BioSecVimeoModalState, closeBlockSubModal, openBioLinkAddBlock }) {
     const [state, setState] = React.useState({
         viemoUrl: ''
     })
@@ -55,7 +55,7 @@ export default function BioSecVimeoModal({ BioSecVimeoModalState, closeBlockSubM
                             <KeyboardArrowLeftOutlinedIcon
                                 fontSize="small"
                                 sx={{ background: theme.palette.background.neutral, color: 'primary.main', borderRadius: '50%', cursor: 'pointer' }}
-                                onClick={() => closeBlockSubModal('BioSecVimeoModalState')}
+                                onClick={() => { openBioLinkAddBlock('bioLinkAddBlockMainModalState'); closeBlockSubModal('BioSecVimeoModalState') }}
                             />
                             <Typography ml={1} variant="h6" fontWeight="thin">Add a Vimeo video
 
@@ -64,7 +64,7 @@ export default function BioSecVimeoModal({ BioSecVimeoModalState, closeBlockSubM
                         <CloseIcon onClick={() => closeBlockSubModal('BioSecVimeoModalState')} sx={{ cursor: 'pointer' }} />
                     </SoftifyModalSubHeader>
                     <Typography variant="body1" sx={{ mt: 2, color: 'text.disabled' }}>
-                        Paste in your Vimeo URL and we will show it as a video on your profile.              </Typography>
+                        Paste in your Vimeo URL and we will show it as a video on your profile. </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center', marginY: '1rem' }}>
                         <LinkIcon fontSize="small" sx={{ transform: 'rotate(-45deg)', color: 'primary.main' }} />
                         <Typography variant="body2" ml={1}>

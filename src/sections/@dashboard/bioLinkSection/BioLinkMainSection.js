@@ -55,8 +55,9 @@ function BioLinkMainSection() {
           },
         }}
       >
-        <Grid item xs={12} md={12} display="flex" justifyContent="space-between" mt={4}>
-          <Stack direction="row" columnGap={4}>
+
+        <Grid item xs={12} md={6} display="flex" flexWrap='wrap' justifyContent="space-between" alignItems='center' mt={4}>
+          <Stack direction="row" columnGap={2} sx={{ marginY: { xs: 2 } }}>
             <Button size="medium" onClick={() => setTabIndex(1)} variant={tabIndex === 1 ? 'contained' : 'text'}>
               Settings
             </Button>
@@ -67,15 +68,15 @@ function BioLinkMainSection() {
           <Stack direction="row">
             <Button
               variant="contained"
-              size="medium"
+              size="small"
               onClick={() => openBioLinkAddBlock('bioLinkAddBlockMainModalState')}
             >
               <AddCircleIcon /> &nbsp; Add Block
             </Button>
           </Stack>
         </Grid>
-        <Grid item xs={12} md={5} mt={3} sx={{ background: 'green' }}>
-          {/* Mobile Design Section */}
+        <Grid item xs={12} md={5} mt={3} >
+          this is mobile section
         </Grid>
 
         <Grid item md={6} >
@@ -85,7 +86,7 @@ function BioLinkMainSection() {
       </Grid>
 
       {/* modals  */}
-      <BioLinkAddBlockMainModal bioLinkAddBlockMainModalState={bioLinkAddBlockMainModalState} closeModal={closeModal} />
+      <BioLinkAddBlockMainModal bioLinkAddBlockMainModalState={bioLinkAddBlockMainModalState} closeModal={closeModal} openBioLinkAddBlock={openBioLinkAddBlock} />
     </>
   );
 }

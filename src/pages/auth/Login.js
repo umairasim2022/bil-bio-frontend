@@ -82,9 +82,8 @@ export default function Login() {
           )} */}
           <Box
             sx={{
-              width: 100,
-              height: 60,
-              display: 'flex',
+              height:{xs : 0  , sm: 60 }, 
+               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               margin: 'auto',

@@ -30,7 +30,7 @@ const ParagraphSubHeader = styled('Stack')(({ theme }) => ({
   alignItems: 'center',
 }));
 
-export default function BioSecAvatarModal({ BioSecAvatarModalState, closeBlockSubModal }) {
+export default function BioSecAvatarModal({ BioSecAvatarModalState, closeBlockSubModal, openBioLinkAddBlock }) {
 
   // image size array 
   const sizeArray = [
@@ -64,8 +64,6 @@ export default function BioSecAvatarModal({ BioSecAvatarModalState, closeBlockSu
     },
 
   ]
-
-
 
   const [state, setState] = React.useState({
     imageSizeArray: null,
@@ -105,7 +103,7 @@ export default function BioSecAvatarModal({ BioSecAvatarModalState, closeBlockSu
                   borderRadius: '50%',
                   cursor: 'pointer',
                 }}
-                onClick={() => closeBlockSubModal('BioSecAvatarModalState')}
+                onClick={() => { openBioLinkAddBlock('bioLinkAddBlockMainModalState'); closeBlockSubModal('BioSecAvatarModalState') }}
               />
               <Typography ml={1} variant="h6" fontWeight="thin">
                 Add a Avatar

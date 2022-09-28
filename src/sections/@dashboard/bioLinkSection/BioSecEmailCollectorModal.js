@@ -28,7 +28,7 @@ const EmailSubHeader = styled('Stack')(({ theme }) => ({
     alignItems: 'center',
 }));
 
-export default function BioSecEmailCollectorModal({ bioSecEmailCollectorModalState, closeBlockSubModal }) {
+export default function BioSecEmailCollectorModal({ bioSecEmailCollectorModalState, closeBlockSubModal, openBioLinkAddBlock }) {
     const [state , setState] = React.useState({
         nameTextState: ''
     })
@@ -59,7 +59,7 @@ export default function BioSecEmailCollectorModal({ bioSecEmailCollectorModalSta
                                     borderRadius: '50%',
                                     cursor: 'pointer',
                                 }}
-                                onClick={() => closeBlockSubModal('bioSecEmailCollectorModalState')}
+                                onClick={() => { openBioLinkAddBlock('bioLinkAddBlockMainModalState'); closeBlockSubModal('bioSecEmailCollectorModalState') }}
                             />
                             <Typography ml={1} variant="h6" fontWeight="thin">
                                 Add a Signup form
