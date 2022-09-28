@@ -133,7 +133,7 @@ export default function ContactForm() {
           </Stack>
         </m.div>
       </Grid>
-      <Grid item md={7}>
+      <Grid item xs={12} md={7}>
         <Card sx={{ padding: '3rem' }}>
           <Typography variant="h6" sx={{paddingY:"10px"}}>Send Message</Typography>
           <m.div variants={varFade().inUp}>

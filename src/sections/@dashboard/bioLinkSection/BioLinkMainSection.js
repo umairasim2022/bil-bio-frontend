@@ -75,7 +75,7 @@ function BioLinkMainSection() {
           </Stack>
         </Grid>
         <Grid item xs={12} md={5} mt={3} sx={{ background: 'green' }}>
-          {/* Mobile Design Section */}
+          this is mobile section
         </Grid>
 
         <Grid item md={6}>
