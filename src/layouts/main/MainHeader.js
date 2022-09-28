@@ -88,7 +88,7 @@ function DrawerAppBar(props) {
             &nbsp; Dashboard
           </Button>
         }
-        {!user && (<listItem sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        {!user && (<listItem style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Button
             target='_self'
             variant="contained"
