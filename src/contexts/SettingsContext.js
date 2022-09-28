@@ -77,8 +77,6 @@ function SettingsProvider({ children }) {
   };
 
   const onChangeMode = (event) => {
-    alert('theme')
-
     setSettings({
       ...settings,
       themeMode: event.target.value,
