@@ -21,6 +21,8 @@ import { FormProvider, RHFTextField } from '../../../components/hook-form';
 // ----------------------------------------------------------------------
 
 export default function NewPasswordForm({ email }) {
+  const baseUrl = window.config.API_URL;
+
   console.log('userEmail', email)
   const { id, token } = useParams()
 
@@ -115,8 +117,10 @@ export default function NewPasswordForm({ email }) {
       password: data.password,
       password_confirmation: data.confirmPassword
     }
+    const path = '/api/user/reset-password/'
+    const url = baseUrl + path;
     try {
-      const response = await axios.post(`/api/user/reset-password/${id}/${token}`, emailData)
+      const response = await axios.post(`${url}${id}/${token}`, emailData)
       console.log('emres', response)
       const result = response?.data?.message
       const status = response?.data?.status
