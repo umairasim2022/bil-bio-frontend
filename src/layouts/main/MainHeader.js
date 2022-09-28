@@ -115,21 +115,21 @@ function DrawerAppBar(props) {
     <Box >
       <AppBar sx={{ background: 'background.default' }}>
         <Toolbar component="Box" sx={{ background: '#161A38' }}>
-          <Container component="Box" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' ,  paddingX: {xs: '2px'} }}>
-            <Stack direction='row' sx={{ display: { xs: 'flex', justifyContent: 'space-between', width: '100%',paddingX: '0px' , sm: 'none' } }}>
+          <Container component="Box" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingX: { xs: '2px' } }}>
+            <Stack direction='row' sx={{ display: { xs: 'flex', justifyContent: 'space-between', width: '100%', paddingX: '0px', sm: 'none' } }}>
               <IconButton
                 color="inherit"
                 aria-label="open drawer"
                 edge="start"
                 onClick={handleDrawerToggle}
-    
+
               >
                 <MenuIcon />
               </IconButton>
-              {!mobileOpen ? <Logo  to='/'/> : null}
+              {!mobileOpen ? <Logo to='/' /> : null}
 
-           </Stack>
-               
+            </Stack>
+
             <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
               <Logo />
             </Box>

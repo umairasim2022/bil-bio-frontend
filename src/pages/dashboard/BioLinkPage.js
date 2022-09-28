@@ -11,10 +11,13 @@ const RootStyle = styled('div')(({ theme }) => ({
   // spacing from top bottom left right to the title container
   padding: theme.spacing(5, 30),
   width: '100%',
-  //   background: theme.palette.background.paper,
-  // [theme.breakpoints.down('md')]: {
-  //   padding: theme.spacing(15, 5),
-  // },
+    background: theme.palette.background.paper,
+  [theme.breakpoints.down('md')]: {
+    padding: theme.spacing(10, 5),
+  },
+  [theme.breakpoints.down('md')]: {
+    padding: theme.spacing(10, 2),
+  },
 }));
 
 const BioLinkPage = () => {
