@@ -14,7 +14,8 @@ const RootStyle = styled('div')(({ theme }) => ({
   padding: theme.spacing(15, 0),
   width: '100%',
   [theme.breakpoints.down('md')]: {
-    padding: theme.spacing(15, 5),
+    width: '100%',
+    padding: theme.spacing(3, 1),
   },
 }));
 
@@ -66,10 +67,10 @@ function Dashboardhero() {
 
       <Container>
       <Box >
-        <Grid container gap='30px' sx={{ display: 'flex',  justifyContent:'space-between' , alignItems: 'center' }}>
+        <Grid container gap='15px' sx={{ display: 'flex',  justifyContent:'space-between' , alignItems: 'center', width:'100%', }}>
           {linkData.map((data) => {
-            return (
-              <Grid item xs={12} sm={12} md={3.7} component={Card} style={{border:'1px solid  rgb(122, 122, 122 , .3)'  , borderRadius:'.25rem'}}>
+            return ( 
+              <Grid item xs={12} sm={12} md={3.7} component={Card} style={{border:'1px solid  rgb(122, 122, 122 , .3)'  , borderRadius:'.25rem',}}>
                 <Stack direction="row" gap="15px" padding="1.5rem 3rem 1.5rem 1rem">
                   <Box
                     sx={{

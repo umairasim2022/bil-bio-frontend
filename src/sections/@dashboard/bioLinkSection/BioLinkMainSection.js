@@ -48,13 +48,14 @@ function BioLinkMainSection() {
         container
         display="flex"
         justifyContent="space-between"
-        alignItems="start"
+        // alignItems="start"
         sx={{
           '.MuiButton-contained': {
             boxShadow: 'none',
           },
         }}
       >
+
         <Grid item xs={12} md={6} display="flex" flexWrap='wrap' justifyContent="space-between" alignItems='center' mt={4}>
           <Stack direction="row" columnGap={2} sx={{ marginY: { xs: 2 } }}>
             <Button size="medium" onClick={() => setTabIndex(1)} variant={tabIndex === 1 ? 'contained' : 'text'}>
@@ -78,7 +79,7 @@ function BioLinkMainSection() {
           this is mobile section
         </Grid>
 
-        <Grid item md={6}>
+        <Grid item md={6} >
           {tabIndex === 1 && <Typography>This is setting Section</Typography>}
           {tabIndex === 2 && <Typography>This is Block Section</Typography>}
         </Grid>

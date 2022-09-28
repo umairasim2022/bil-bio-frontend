@@ -125,17 +125,18 @@ const DashBoardHeader = () => {
             component="Box"
             sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
           >
-            <Box sx={{ flexGrow: 1, textDecoration: 'none' }} noWrap component="a" href="/">
+            <Box sx={{ flexGrow: 1, textDecoration: 'none' }}  noWrap component="a" href="/">
               <Logo />
             </Box>
 
-            <Box sx={{ flexGrow: { xs: 1, sm: 0 } }}>
-              <Button variant="text">
+            <Box sx={{  flexGrow: { xs: 1, sm: 0 } }}>
+              <Button variant="text" >
+
                 Dashboard
               </Button>
               <IconButton onClick={handleOpenUserMenu} disableElevation disableRipple>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                <Typography>{auth?.user?.displayName}</Typography>
+                <Typography> {auth?.user?.displayName} </Typography>
 
                 <ArrowDropDownIcon />
               </IconButton>
@@ -155,97 +156,6 @@ const DashBoardHeader = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {/* <MenuList> */}
-
-                {/* <MenuItem>
-                    <ListItemIcon>
-                      <FingerprintIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Admin</ListItemText>
-                  </MenuItem>
-                  <Divider />
-                  <MenuItem>
-                    <ListItemIcon>
-                      <Tag fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Biolinks</ListItemText>
-                  </MenuItem>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <AddLinkIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Shortened links</ListItemText>
-                  </MenuItem>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <InsertDriveFileIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>File links</ListItemText>
-                  </MenuItem>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <CreditCardIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Vcard links</ListItemText>
-                  </MenuItem>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <QrCodeIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>QR codes</ListItemText>
-                  </MenuItem>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <ConstructionIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Tools</ListItemText>
-                  </MenuItem>
-                  <Divider />
-                  <MenuItem>
-                    <ListItemIcon>
-                      <LanguageTwoToneIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Custom Domains</ListItemText>
-                  </MenuItem>
-                </MenuList>
-                <MenuItem>
-                  <ListItemIcon>
-                    <ContrastIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Pixels</ListItemText>
-                </MenuItem>
-                <MenuItem>
-                  <ListItemIcon>
-                    <StorageIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Data</ListItemText>
-                </MenuItem>
-                <MenuItem>
-                  <ListItemIcon>
-                    <AccountTreeIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Projects</ListItemText>
-                </MenuItem>
-                <Divider />
-                <MenuItem>
-                  <ListItemIcon>
-                    <BuildIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Account</ListItemText>
-                </MenuItem>
-                <MenuItem>
-                  <ListItemIcon>
-                    <CardMembershipIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Plan</ListItemText>
-                </MenuItem>
-                <MenuItem>
-                  <ListItemIcon>
-                    <AttachMoneyIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Payments</ListItemText>
-                </MenuItem> */}
-
                 <MenuItem>
                   <ListItemIcon>
                     <CodeIcon />
@@ -255,7 +165,9 @@ const DashBoardHeader = () => {
 
                 <Divider />
 
-                <MenuItem onClick={handleLogout} >
+
+                <MenuItem onClick={() => handleLogout()}>
+
                   <ListItemIcon>
                     <Logout fontSize="small" />
                   </ListItemIcon>
