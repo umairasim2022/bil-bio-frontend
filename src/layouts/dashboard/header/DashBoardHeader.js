@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify'
-
+import { toast } from 'react-toastify';
 
 // router
 import { Link as RouterLink, useNavigate, Outlet } from 'react-router-dom';
@@ -53,12 +52,11 @@ const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const DashBoardHeader = () => {
-
   const [state, setState] = useState({
     profileModalState: false,
-  })
-  const dispatch = useDispatch()
-  const auth = useAuth()
+  });
+  const dispatch = useDispatch();
+  const auth = useAuth();
   const navigate = useNavigate();
   console.log('myauth', auth);
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -79,26 +77,20 @@ const DashBoardHeader = () => {
     setAnchorElUser(null);
   };
 
-
-  //  state getting from logout api 
-  const { isError, isSuccess, isLoading, user } = useSelector(state => state?.user)
-
+  //  state getting from logout api
+  const { isError, isSuccess, isLoading, user } = useSelector((state) => state?.user);
 
   const handleLogout = async (e) => {
-    window.location.reload()
-    await dispatch(logoutUser())
-    navigate('/auth/login')
-
-
-  }  // status from api  
-  const { status, message } = useSelector(state => state?.user?.user)
-  // handle error and success message and rendering of the page after logout 
+    window.location.reload();
+    await dispatch(logoutUser());
+    navigate('/auth/login');
+  }; // status from api
+  const { status, message } = useSelector((state) => state?.user?.user);
+  // handle error and success message and rendering of the page after logout
   useEffect(() => {
     if (isError) {
-      toast.error(message)
-      navigate('/dashboard')
-
-
+      toast.error(message);
+      navigate('/dashboard');
     }
 
     if (isSuccess) {
@@ -106,10 +98,7 @@ const DashBoardHeader = () => {
         console.log('1');
         toast.success(message, {
           toastId: 'success12',
-
-        })   // message is api response  with when api response status is success
-
-
+        }); // message is api response  with when api response status is success
       }
     }
     if (isSuccess) {
@@ -117,31 +106,26 @@ const DashBoardHeader = () => {
         toast.error(message, {
           toastId: 'error12',
         });
-
-
-        })
-        navigate('/dashboard')
-
-        // message is api response  with either api response status is failed
       }
+      navigate('/dashboard');
+
+      // message is api response  with either api response status is failed
     }
-    console.log('myvalues#', isError, isSuccess)
-    dispatch(resetUser())
-    console.log('myvalues#', isError, isSuccess)
-  }, [isError, isSuccess, status, navigate])
 
-
-     
+    console.log('myvalues#', isError, isSuccess);
+    dispatch(resetUser());
+    console.log('myvalues#', isError, isSuccess);
+  }, [isError, isSuccess, status, navigate]);
 
   // _______________________handle____________profile___________section____________
   const handleProfile = (data) => {
-    setState(prev => {
+    setState((prev) => {
       return {
         ...prev,
-        data: [true]
-      }
-    })
-  }
+        data: [true],
+      };
+    });
+  };
 
   // ________Loading for  logout______________________
 
@@ -292,8 +276,7 @@ const DashBoardHeader = () => {
                     <Logout fontSize="small" />
                   </ListItemIcon>
 
-                  <ListItemText >Logout</ListItemText>
-
+                  <ListItemText>Logout</ListItemText>
                 </MenuItem>
               </Menu>
             </Box>
@@ -305,4 +288,3 @@ const DashBoardHeader = () => {
   );
 };
 export default DashBoardHeader;
-

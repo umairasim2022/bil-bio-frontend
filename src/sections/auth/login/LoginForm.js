@@ -90,7 +90,7 @@ export default function LoginForm() {
           toast.success(message, {
             toastId: 'success1',
           });
-          navigate('/dashboard');
+          navigate('/dashboard/links');
         }
       }
     }
