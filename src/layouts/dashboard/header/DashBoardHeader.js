@@ -255,7 +255,7 @@ const DashBoardHeader = () => {
 
                 <Divider />
 
-                <MenuItem onClick={() => handleLogout()} >
+                <MenuItem onClick={handleLogout} >
                   <ListItemIcon>
                     <Logout fontSize="small" />
                   </ListItemIcon>

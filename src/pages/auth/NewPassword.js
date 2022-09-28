@@ -29,6 +29,8 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function NewPassword() {
+  const baseUrl = window.config.API_URL;
+
   const { id, token } = useParams()
   const [useremail, setstateEmail] = useState('')
 
@@ -36,8 +38,11 @@ export default function NewPassword() {
     getEmail()
   }, []);
   const getEmail = async () => {
+    const path = '/api/user/get-email'
+    const url = baseUrl + path;
+
     try {
-      const emailResponse = await axios.get(`/api/user/get-email/${id}/${token}`)
+      const emailResponse = await axios.get(`${url}/${id}/${token}`)
       console.log('emailres', emailResponse.data.email)
       const email = emailResponse.data.email
       setstateEmail(email)

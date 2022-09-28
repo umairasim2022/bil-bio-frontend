@@ -222,7 +222,6 @@ function AuthProvider({ children }) {
 
   // const [state, dispatch] = useReducer(reducer, initialState);
   // console.log('usestate', state)
-
   // useEffect(() => {
   //   const initialize = async () => {
   //     try {
@@ -309,7 +308,7 @@ function AuthProvider({ children }) {
   return (
     <AuthContext.Provider
       value={{
-       user
+        user
       }}
     >
       {children}
