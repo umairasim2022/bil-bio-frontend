@@ -25,8 +25,6 @@ export default function NewPasswordForm({ email }) {
 
   console.log('userEmail', email)
   const { id, token } = useParams()
-
-
   const navigate = useNavigate();
 
   const { enqueueSnackbar } = useSnackbar();
