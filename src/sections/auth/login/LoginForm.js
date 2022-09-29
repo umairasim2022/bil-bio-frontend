@@ -37,7 +37,6 @@ export default function LoginForm() {
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required'),
   });
-
   const defaultValues = {
     email: '',
     password: '',
@@ -55,12 +54,7 @@ export default function LoginForm() {
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
-  const getBIOLink = (user) => {
-    const linkData = {
-      userid: user.userid,
-      token: user.token,
-    };
-  };
+
   const submitHandler = (data) => {
     const userData = {
       email: data.email,
@@ -122,14 +116,13 @@ export default function LoginForm() {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(submitHandler)}>
-      <Stack
-        spacing={3}
-        sx={{
-          '& .css-al9d9s-MuiBackdrop-root': {
-            padding: { xs: '1rem', sm: '2rem', md: '3rem' },
-          },
-        }}
-      >
+
+      <Stack spacing={3} sx={{
+        '& .css-al9d9s-MuiBackdrop-root': {
+          padding: { xs: '1rem', sm: '2rem', md: '3rem' }
+        }
+      }}>
+
         {/* {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>} */}
 
         <RHFTextField name="email" label="Email address" />
@@ -154,7 +147,6 @@ export default function LoginForm() {
           Forgot password?
         </Link>
       </Stack>
-
       <LoadingButton
         fullWidth
         size="large"

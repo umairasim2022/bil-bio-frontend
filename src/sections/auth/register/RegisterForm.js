@@ -112,9 +112,13 @@ export default function RegisterForm() {
         const CreatedBioLinkData = {
           tag: 'main',
           registeredUserID,
-          registeredToken,
-        };
-        dispatch(creatingBioLink(CreatedBioLinkData));
+
+          registeredToken
+        }
+        dispatch(creatingBioLink(CreatedBioLinkData))
+
+
+
       }
     }
     if (isSuccess) {
@@ -171,5 +175,7 @@ export default function RegisterForm() {
         </LoadingButton>
       </Stack>
     </FormProvider>
+
+
   );
 }
