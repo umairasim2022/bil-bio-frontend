@@ -78,7 +78,6 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (isError) {
-      alert('loginerror');
       toast.error(message);
       navigate('/auth/login');
     }

@@ -50,7 +50,7 @@ const style = {
 };
 
 const RootStyle = styled('div')(({ theme }) => ({
- 
+
   padding: theme.spacing(0, 10),
   width: '100%',
   [theme.breakpoints.down('md')]: {
@@ -102,7 +102,6 @@ const LinkMainTitle = () => {
   useEffect(() => {
     const mainModalContainer = document.getElementById('modalContainerID');
     document.addEventListener('click', (event) => {
-      event.preventDefault();
       const isModalClicked = mainModalContainer.contains(event.target);
       if (!isModalClicked) {
         closeModalFilter('linksFilterModalState');
@@ -113,11 +112,11 @@ const LinkMainTitle = () => {
   return (
     <RootStyle>
       <Container>
-        <Grid container  
-        sx ={{ alignItems:'center'}}
->
+        <Grid container
+          sx={{ alignItems: 'center' }}
+        >
           <Grid item xs={12} md={8}>
-            <Typography variant="h5" sx={{ fontSize:'1.5rem', fontWeight:'500' }}>Links</Typography>
+            <Typography variant="h5" sx={{ fontSize: '1.5rem', fontWeight: '500' }}>Links</Typography>
           </Grid>
           <Grid item md={4}>
             <Stack direction="row" spacing={2} display="flex" justifyContent="end" alignItems="center">
@@ -128,7 +127,7 @@ const LinkMainTitle = () => {
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
                 variant="contained"
-                sx={{boxShadow:'none'}}
+                sx={{ boxShadow: 'none' }}
               >
                 <AddCircleIcon />
                 &nbsp; Create Link
@@ -203,13 +202,13 @@ const LinkMainTitle = () => {
               >
                 <MenuItem onClick={handleClose}>
                   {' '}
-                  <InsertDriveFileIcon  /> Export to CSV
+                  <InsertDriveFileIcon /> Export to CSV
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
                   {' '}
                   <InsertDriveFileIcon /> Export to JSON
                 </MenuItem>
-                </Menu> 
+              </Menu>
 
               <Box
                 id="modalContainerID"

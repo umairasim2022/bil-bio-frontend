@@ -18,6 +18,7 @@ import useIsMountedRef from '../../../hooks/useIsMountedRef';
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
 import { registerUser, resetUser } from '../../../redux/slices/auth/authSlice'
+import { creatingBioLink } from '../../../redux/slices/bioLink/bioLinkSlice'
 import LoadingScreen from '../../../components/LoadingScreen';
 
 
@@ -85,6 +86,12 @@ export default function RegisterForm() {
   const { status, message } = useSelector(state => state?.user?.user)
   console.log('regstatus', status)
 
+  // token and id 
+  const regUserInfo = useSelector(state => state?.user?.user)
+  console.log('regUserInfo', regUserInfo)
+  const registeredUserID = regUserInfo?.id;
+  const registeredToken = regUserInfo?.token;
+
 
 
   // handling status of the register user  on the basis of api status
@@ -106,8 +113,14 @@ export default function RegisterForm() {
           toastId: 'success1',
 
         })
-
         // message is api response  with either api response failed or success 
+        const CreatedBioLinkData = {
+          tag: 'main',
+          registeredUserID,
+          registeredToken
+        }
+        dispatch(creatingBioLink(CreatedBioLinkData))
+        
 
       }
     }
