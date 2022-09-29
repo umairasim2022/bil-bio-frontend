@@ -163,8 +163,7 @@ export default function HomeHero() {
                 size="large"
                 variant="contained"
                 component={RouterLink}
-                to='/dashboard'
-                
+                to="/dashboard"
                 sx={{
                   boxShadow: 'none',
                   textAlign: 'center',
@@ -187,10 +186,9 @@ export default function HomeHero() {
           >
             <m.div variants={varFade().inRight}>
               <img
-                style={{ zIndex: 1222  , width:'100%' , height:'90%'}}
+                style={{ zIndex: 1222, width: '100%', height: '90%' }}
                 src="https://66biolinks.com/demo/themes/altum/assets/images/hero.png"
                 alt="hero"
-                
               />
             </m.div>
           </Stack>

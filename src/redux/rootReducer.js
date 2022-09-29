@@ -7,8 +7,8 @@ import chatReducer from './slices/chat';
 import productReducer from './slices/product';
 import calendarReducer from './slices/calendar';
 import kanbanReducer from './slices/kanban';
-import authReducer from './slices/auth/authSlice'
-import bioLinkReducer from './slices/bioLink/bioLinkSlice'
+import authReducer from './slices/auth/authSlice';
+import bioLinkReducer from './slices/bioLink/bioLinkSlice';
 
 // ----------------------------------------------------------------------
 
