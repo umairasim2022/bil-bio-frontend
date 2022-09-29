@@ -9,6 +9,7 @@ import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 
 import GuestGuard from '../guards/GuestGuard';
 import AuthGuard from '../guards/AuthGuard';
+import { RequireAuth } from '../guards/RequireAuth'
 // import RoleBasedGuard from '../guards/RoleBasedGuard';
 // config
 import { PATH_AFTER_LOGIN } from '../config';
@@ -67,9 +68,9 @@ export default function Router() {
     {
       path: 'dashboard',
       element: (
-        <AuthGuard>
+        <RequireAuth>
           <DashboardHeader />
-        </AuthGuard>
+        </RequireAuth>
       ),
       children: [
         //  { element: <Navigate to={PATH_AFTER_LOGIN} replace />, index: true },

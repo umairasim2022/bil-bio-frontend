@@ -1,6 +1,7 @@
 // Making Responsive Navbar
 
 // router
+import { useSelector } from 'react-redux'
 import { useLocation, Link as RouterLink, Outlet } from 'react-router-dom';
 
 import React from 'react';
@@ -29,9 +30,10 @@ import { PATH_AUTH, PATH_PAGE } from '../../routes/paths';
 import Logo from '../../components/Logo';
 
 const drawerWidth = 240;
-const user = JSON.parse(localStorage.getItem('user'))
 
 function DrawerAppBar(props) {
+  const userToken = useSelector((state) => state?.user?.user?.token);
+
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -57,7 +59,7 @@ function DrawerAppBar(props) {
             Contact
           </Button>
         </ListItem>
-        {!user ? (<ListItem disablePadding sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        {!userToken ? (<ListItem disablePadding sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Button
             variant="contained"
             size="small"
@@ -78,7 +80,7 @@ function DrawerAppBar(props) {
             size="small"
             disableElevation
             component={RouterLink}
-            to='/dashboard'
+            to='/dashboard/links'
             sx={{
               my: 3,
               boxShadow: 'none',
@@ -88,7 +90,7 @@ function DrawerAppBar(props) {
             &nbsp; Dashboard
           </Button>
         }
-        {!user && (<listItem sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        {!userToken && (<listItem style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <Button
             target='_self'
             variant="contained"
@@ -115,21 +117,21 @@ function DrawerAppBar(props) {
     <Box >
       <AppBar sx={{ background: 'background.default' }}>
         <Toolbar component="Box" sx={{ background: '#161A38' }}>
-          <Container component="Box" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' ,  paddingX: {xs: '2px'} }}>
-            <Stack direction='row' sx={{ display: { xs: 'flex', justifyContent: 'space-between', width: '100%',paddingX: '0px' , sm: 'none' } }}>
+          <Container component="Box" sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingX: { xs: '2px' } }}>
+            <Stack direction='row' sx={{ display: { xs: 'flex', justifyContent: 'space-between', width: '100%', paddingX: '0px', sm: 'none' } }}>
               <IconButton
                 color="inherit"
                 aria-label="open drawer"
                 edge="start"
                 onClick={handleDrawerToggle}
-    
+
               >
                 <MenuIcon />
               </IconButton>
-              {!mobileOpen ? <Logo  to='/'/> : null}
+              {!mobileOpen ? <Logo to='/' /> : null}
 
-           </Stack>
-               
+            </Stack>
+
             <Box sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
               <Logo />
             </Box>
@@ -141,7 +143,7 @@ function DrawerAppBar(props) {
                 Contact
               </Button>
 
-              {!user ? (<Button
+              {!userToken ? (<Button
                 variant="contained"
                 size="small"
                 rel="noopener"
@@ -161,7 +163,7 @@ function DrawerAppBar(props) {
                   rel="noopener"
                   disableElevation
                   component={RouterLink}
-                  to='/dashboard'
+                  to='/dashboard/links'
                   // href="https://material-ui.com/store/items/minimal-dashboard/"
                   sx={{
                     boxShadow: 'none',
@@ -171,7 +173,7 @@ function DrawerAppBar(props) {
                   &nbsp; Dashboard
                 </Button>)
               }
-              {!user && (<Button
+              {!userToken && (<Button
                 size="small"
                 variant="contained"
                 rel="noopener"

@@ -64,8 +64,8 @@ export default function Logo({ disabledLink = false, sx }) {
         component="span"
         variant="h3"
         sx={{
-          fontSize: '40px',
-          fontWeight: 'bold',
+          fontSize: { xs: '30px', sm: '35px' },
+          fontWeight: { xs: 500, md: 700 },
           color: 'primary.main',
           // loc.themeColorPresets === 'default' ? '#00AB55' : loc.themeColorPresets,
           textDecoration: 'none',

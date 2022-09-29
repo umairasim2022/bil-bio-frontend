@@ -104,7 +104,7 @@ const BioLinkTitle = () => {
         },
       }}
     >
-      <Grid item xs={12} display="flex" justifyContent="flex-start" alignItems="center" gap="10px">
+      <Grid item xs={12} display="flex" justifyContent="flex-start" alignItems="center" gap="10px" >
         <Link to="dashboard" underline="hover" component={RouterLink}>
           Link
         </Link>
@@ -200,16 +200,14 @@ const BioLinkTitle = () => {
           </Menu>
         </Stack>
       </Grid>
-      <Grid item xs={12} display="flex" alignItems="center" columnGap={0.5}>
+      <Grid item xs={12} display="flex" flexWrap='wrap' alignItems="center" columnGap={0.5}>
         <Tooltip title="bilink page" placement="top" arrow>
           <CircleIcon sx={{ color: '#383eb2', fontSize: '1rem' }} />
         </Tooltip>
-        <Typography variant="body1" fontWeight="400" color=" rgb(122, 122, 122) ">
-          Your link is
+        <Typography variant="body1" fontWeight="400" color=" rgb(122, 122, 122) " >
+          Your link is   https://66biolinks.com/demo/endpoint
         </Typography>
-        <Link href="#" underline="hover" variant="body2" sx={{ color: 'white' }}>
-          https://66biolinks.com/demo/endpoint
-        </Link>
+      
       </Grid>
     </Grid>
   );

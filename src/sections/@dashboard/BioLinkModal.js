@@ -31,6 +31,7 @@ const ModalMainContent = styled('Stack')(({ theme }) => ({
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 500,
+  zIndex:'1000',
   background: theme.palette.background.paper,
   padding: '3rem',
   [theme.breakpoints.down('md')]: {
@@ -90,7 +91,10 @@ export default function BioLinkModal({ bioModal, closeModal }) {
         </Typography>
 
         <Box>
-          <Button variant="contained" sx={{ width: '100%', margin: '30px auto', size: 'large', boxShadow: 'none' }} component={NavLink} to='/dashboard/links'>
+
+          <Button variant="contained" sx={{ display: 'block', width: '100%', margin: '30px auto', size: 'large' , boxShadow:'none', textAlign:'center' }} component={NavLink} to='/dashboard/links'>
+
+
             Create biolink page
           </Button>
         </Box>

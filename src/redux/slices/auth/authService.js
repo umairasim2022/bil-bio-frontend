@@ -1,9 +1,12 @@
 import axios from 'axios';
 // import axios from '../../../utils/axios';
 
+const baseUrl = window.config.API_URL;
 // registerUser user
 const registerUser = async (userData) => {
-  const response = await axios.post('/api/user/register', userData);
+  const path = '/api/user/register';
+  const url = baseUrl + path;
+  const response = await axios.post(url, userData);
   console.log('regresp', response);
   const token = response?.data?.token;
 
@@ -16,8 +19,10 @@ const registerUser = async (userData) => {
 
 // loginUser user
 const loginUser = async (userData) => {
-  console.log('mjuser', userData);
-  const response = await axios.post('/api/user/login', userData);
+  const path = '/api/user/login';
+  const url = baseUrl + path;
+
+  const response = await axios.post(url, userData);
   console.log('longres#$$', response);
   const token = response?.data?.token;
 
@@ -28,14 +33,20 @@ const loginUser = async (userData) => {
 };
 // loginUser user
 const resetUserPassword = async (userDatas) => {
-  const response = await axios.post('/api/user/send-reset-password-email', userDatas);
+  const path = '/api/user/send-reset-password-email';
+  const url = baseUrl + path;
+
+  const response = await axios.post(url, userDatas);
   return response.data;
 };
 
 // logoutUser user
 const logoutUser = async () => {
+  const path = '/api/user/logout';
+  const url = baseUrl + path;
+
   localStorage.removeItem('user');
-  const response = await axios.get('/api/user/logout');
+  const response = await axios.get(url);
   return response.data;
 };
 

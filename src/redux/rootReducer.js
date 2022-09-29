@@ -8,6 +8,7 @@ import productReducer from './slices/product';
 import calendarReducer from './slices/calendar';
 import kanbanReducer from './slices/kanban';
 import authReducer from './slices/auth/authSlice';
+import bioLinkReducer from './slices/bioLink/bioLinkSlice';
 
 // ----------------------------------------------------------------------
 
@@ -27,6 +28,7 @@ const productPersistConfig = {
 
 const rootReducer = combineReducers({
   user: authReducer,
+  bioLinkCreated: bioLinkReducer,
   mail: mailReducer,
   chat: chatReducer,
   calendar: calendarReducer,

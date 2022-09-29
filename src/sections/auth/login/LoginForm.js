@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from 'react';
+
 import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
+
 // yup
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,7 +14,6 @@ import { LoadingButton } from '@mui/lab';
 // routes
 import { PATH_AUTH } from '../../../routes/paths';
 // hooks
-import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
@@ -23,13 +24,12 @@ import LoadingScreen from '../../../components/LoadingScreen';
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
+  // getting token so auth here is giving token here
+
   const location = useLocation();
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-
-  const { login } = useAuth();
-
   const isMountedRef = useIsMountedRef();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -72,38 +72,35 @@ export default function LoginForm() {
 
   // handle Api response and status on the basis of status
   const { isError, isSuccess, isLoading, user } = useSelector((state) => state?.user);
-  const myuserrr = useSelector((state) => state?.user);
-
-  console.log('userrrrr', myuserrr);
+  const userToken = useSelector((state) => state?.user?.user);
 
   // status from api
   const { status, message } = useSelector((state) => state?.user?.user);
   console.log('login_status', status);
-  const userReg = localStorage.getItem('userReg');
 
   useEffect(() => {
     if (isError) {
-      alert('loginerror');
       toast.error(message);
       navigate('/auth/login');
     }
 
-    if (isSuccess) {
-      if (status === 'success') {
-        if (JSON.parse(localStorage.getItem('user'))) {
-          toast.success(message, {
-            toastId: 'success1',
-          });
-        }
-      }
+    if (isSuccess && status === 'success' && userToken.token) {
+      // if (status === 'success') {
+      //   if (auth) {
+      toast.success(message, {
+        toastId: 'success1',
+      });
+      navigate('/dashboard/links');
+      //   }
+      // }
     }
-    if (isSuccess || !user) {
-      if (status === 'failed') {
-        toast.error(message, {
-          toastId: 'error1',
-        }); // message is api response  with either api response status is failed
-        navigate('/auth/login');
-      }
+    if (isSuccess && status === 'failed') {
+      // if (status === 'failed') {
+      toast.error(message, {
+        toastId: 'error1',
+      }); // message is api response  with either api response status is failed
+      navigate('/auth/login');
+      // }
     }
     console.log('myvalues#', isError, isSuccess);
     dispatch(resetUser());
@@ -125,7 +122,14 @@ export default function LoginForm() {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(submitHandler)}>
-      <Stack spacing={3}>
+      <Stack
+        spacing={3}
+        sx={{
+          '& .css-al9d9s-MuiBackdrop-root': {
+            padding: { xs: '1rem', sm: '2rem', md: '3rem' },
+          },
+        }}
+      >
         {/* {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>} */}
 
         <RHFTextField name="email" label="Email address" />
@@ -144,7 +148,7 @@ export default function LoginForm() {
           }}
         />
       </Stack>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ my: 2 }}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" flexWrap="wra" sx={{ my: 2 }}>
         <RHFCheckbox name="remember" label="Remember me" />
         <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword}>
           Forgot password?

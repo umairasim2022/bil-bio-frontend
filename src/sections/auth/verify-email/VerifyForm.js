@@ -29,6 +29,7 @@ const ContentStyle = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function VerifyForm() {
+    const baseUrl = window.config.API_URL;
     const navigate = useNavigate()
     const { id, token } = useParams()
     const [useremail, setstateEmail] = useState('')
@@ -37,8 +38,10 @@ export default function VerifyForm() {
         getEmail()
     }, []);
     const getEmail = async () => {
+        const path = 'api/user/verify-user-email'
+        const url = baseUrl + path;
         try {
-            const emailResponse = await axios.get(`/api/user/verify-user-email/${id}/${token}`)
+            const emailResponse = await axios.get(`/${url}/${id}/${token}`)
             console.log('emailres', emailResponse.data.email)
             const message = emailResponse?.data?.message
             const status = emailResponse?.data?.status
@@ -65,17 +68,9 @@ export default function VerifyForm() {
 
             <Container>
                 <ContentStyle sx={{ textAlign: 'center' }}>
-
-
                     <Typography variant="h3" gutterBottom>
                         Checking user Email.
                     </Typography>
-
-
-
-
-
-
                 </ContentStyle>
             </Container>
         </Page>

@@ -52,9 +52,6 @@ const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const DashBoardHeader = () => {
-  const [state, setState] = useState({
-    profileModalState: false,
-  });
   const dispatch = useDispatch();
   const auth = useAuth();
   const navigate = useNavigate();
@@ -80,54 +77,41 @@ const DashBoardHeader = () => {
   //  state getting from logout api
   const { isError, isSuccess, isLoading, user } = useSelector((state) => state?.user);
 
-  const handleLogout = async (e) => {
-    window.location.reload();
-    await dispatch(logoutUser());
-    navigate('/auth/login');
+  const handleLogout = (e) => {
+    dispatch(logoutUser());
+    // window.location.reload();
   }; // status from api
   const { status, message } = useSelector((state) => state?.user?.user);
   // handle error and success message and rendering of the page after logout
-  useEffect(() => {
-    if (isError) {
-      toast.error(message);
-      navigate('/dashboard');
-    }
+  // useEffect(() => {
+  //   if (isError) {
+  //     toast.error(message);
+  //     navigate('/dashboard');
+  //   }
 
-    if (isSuccess) {
-      if (status === 'sucess') {
-        console.log('1');
-        toast.success(message, {
-          toastId: 'success12',
-        }); // message is api response  with when api response status is success
-      }
-    }
-    if (isSuccess) {
-      if (status === 'failed') {
-        toast.error(message, {
-          toastId: 'error12',
-        });
-      }
-      navigate('/dashboard');
+  //   if (isSuccess) {
+  //     if (status === 'sucess') {
+  //       toast.success(message, {
+  //         toastId: 'success12',
+  //       }); // message is api response  with when api response status is success
+  //       navigate('/auth/login');
+  //     }
+  //   }
+  //   if (isSuccess) {
+  //     if (status === 'failed') {
+  //       toast.error(message, {
+  //         toastId: 'error12',
+  //       });
 
-      // message is api response  with either api response status is failed
-    }
+  //       // message is api response  with either api response status is failed
 
-    console.log('myvalues#', isError, isSuccess);
-    dispatch(resetUser());
-    console.log('myvalues#', isError, isSuccess);
-  }, [isError, isSuccess, status, navigate]);
-
-  // _______________________handle____________profile___________section____________
-  const handleProfile = (data) => {
-    setState((prev) => {
-      return {
-        ...prev,
-        data: [true],
-      };
-    });
-  };
-
-  // ________Loading for  logout______________________
+  //       navigate('/dashboard');
+  //     }
+  //   }
+  //   console.log('myvalues#', isError, isSuccess);
+  //   dispatch(resetUser());
+  //   console.log('myvalues#', isError, isSuccess);
+  // }, [isError, isSuccess, status, navigate]);
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -146,12 +130,10 @@ const DashBoardHeader = () => {
             </Box>
 
             <Box sx={{ flexGrow: { xs: 1, sm: 0 } }}>
-              <Button variant="text" sx={{ mr: 3 }}>
-                Dashboard
-              </Button>
+              <Button variant="text">Dashboard</Button>
               <IconButton onClick={handleOpenUserMenu} disableElevation disableRipple>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                <Typography>{auth?.user?.displayName}</Typography>
+                <Typography> {auth?.user?.displayName} </Typography>
 
                 <ArrowDropDownIcon />
               </IconButton>
@@ -171,111 +153,19 @@ const DashBoardHeader = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {/* <MenuList> */}
-
-                {/* <MenuItem>
-                    <ListItemIcon>
-                      <FingerprintIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Admin</ListItemText>
-                  </MenuItem>
-                  <Divider />
-                  <MenuItem>
-                    <ListItemIcon>
-                      <Tag fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Biolinks</ListItemText>
-                  </MenuItem>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <AddLinkIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Shortened links</ListItemText>
-                  </MenuItem>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <InsertDriveFileIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>File links</ListItemText>
-                  </MenuItem>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <CreditCardIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Vcard links</ListItemText>
-                  </MenuItem>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <QrCodeIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>QR codes</ListItemText>
-                  </MenuItem>
-                  <MenuItem>
-                    <ListItemIcon>
-                      <ConstructionIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Tools</ListItemText>
-                  </MenuItem>
-                  <Divider />
-                  <MenuItem>
-                    <ListItemIcon>
-                      <LanguageTwoToneIcon fontSize="small" />
-                    </ListItemIcon>
-                    <ListItemText>Custom Domains</ListItemText>
-                  </MenuItem>
-                </MenuList>
-                <MenuItem>
-                  <ListItemIcon>
-                    <ContrastIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Pixels</ListItemText>
-                </MenuItem>
-                <MenuItem>
-                  <ListItemIcon>
-                    <StorageIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Data</ListItemText>
-                </MenuItem>
-                <MenuItem>
-                  <ListItemIcon>
-                    <AccountTreeIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Projects</ListItemText>
-                </MenuItem>
-                <Divider />
-                <MenuItem>
-                  <ListItemIcon>
-                    <BuildIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Account</ListItemText>
-                </MenuItem>
-                <MenuItem>
-                  <ListItemIcon>
-                    <CardMembershipIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Plan</ListItemText>
-                </MenuItem>
-                <MenuItem>
-                  <ListItemIcon>
-                    <AttachMoneyIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText>Payments</ListItemText>
-                </MenuItem> */}
-
                 <MenuItem>
                   <ListItemIcon>
                     <CodeIcon />
                   </ListItemIcon>
-                  <ListItemText onClick={handleProfile}>Profile</ListItemText>
+                  <ListItemText>Profile</ListItemText>
                 </MenuItem>
 
                 <Divider />
 
-                <MenuItem onClick={() => handleLogout()}>
+                <MenuItem type="button" onClick={handleLogout}>
                   <ListItemIcon>
                     <Logout fontSize="small" />
                   </ListItemIcon>
-
                   <ListItemText>Logout</ListItemText>
                 </MenuItem>
               </Menu>
