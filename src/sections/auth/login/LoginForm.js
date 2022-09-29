@@ -4,8 +4,6 @@ import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
-
-
 // yup
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -40,7 +38,6 @@ export default function LoginForm() {
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required'),
   });
-
   const defaultValues = {
     email: '',
     password: '',
@@ -58,7 +55,6 @@ export default function LoginForm() {
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
-
   const submitHandler = (data) => {
     const userData = {
       email: data.email,
@@ -112,7 +108,6 @@ export default function LoginForm() {
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(submitHandler)}>
       <Stack spacing={3} sx={{
-
         '& .css-al9d9s-MuiBackdrop-root': {
           padding: { xs: '1rem', sm: '2rem', md: '3rem' }
         }
@@ -141,7 +136,6 @@ export default function LoginForm() {
           Forgot password?
         </Link>
       </Stack>
-
       <LoadingButton
         fullWidth
         size="large"

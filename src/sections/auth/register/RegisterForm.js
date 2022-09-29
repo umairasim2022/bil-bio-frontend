@@ -120,7 +120,7 @@ export default function RegisterForm() {
           registeredToken
         }
         dispatch(creatingBioLink(CreatedBioLinkData))
-        
+
 
       }
     }
@@ -182,5 +182,7 @@ export default function RegisterForm() {
         </LoadingButton>
       </Stack>
     </FormProvider>
+
+
   );
 }

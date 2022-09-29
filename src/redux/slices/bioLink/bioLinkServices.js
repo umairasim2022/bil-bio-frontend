@@ -13,7 +13,6 @@ const creatingBioLink = (createdBioLinkData) => {
     console.log('registeredUserID', registeredUserID)
     const registeredToken = createdBioLinkData?.registeredToken;
     console.log('registeredToken', registeredToken)
-
     const path = '/api/user/createLink';
     const url = baseUrl + path;
     const createlink = `${url}/${registeredUserID}/${registeredToken}`;
