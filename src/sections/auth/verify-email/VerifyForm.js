@@ -68,8 +68,6 @@ export default function VerifyForm() {
 
             <Container>
                 <ContentStyle sx={{ textAlign: 'center' }}>
-
-
                     <Typography variant="h3" gutterBottom>
                         Checking user Email.
                     </Typography>

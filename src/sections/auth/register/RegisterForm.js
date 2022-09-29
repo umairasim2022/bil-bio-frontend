@@ -13,7 +13,6 @@ import { Stack, IconButton, InputAdornment, Alert, Typography, Checkbox } from '
 import { LoadingButton } from '@mui/lab';
 // hooks
 import { useSelector, useDispatch } from 'react-redux'
-import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
@@ -28,7 +27,6 @@ export default function RegisterForm() {
   const navigate = useNavigate()
 
   const dispatch = useDispatch()
-  const { register } = useAuth();
 
   const isMountedRef = useIsMountedRef();
 
@@ -93,32 +91,40 @@ export default function RegisterForm() {
   useEffect(() => {
     // when req rejected ,  here error is true , status is always  neither failed nor success  but undefined 
     if (isError) {
-      toast.error(message)
+      console.log("enter")
+      toast.error(message, {
+        toastId: 'error2'
+      })
       navigate('/auth/register')
 
     }
     // when reg fullfilled  , it maybe status success or failed  , 
     // like status is success for user newly registered and status failed  for incomplete failed or already registere user
-    if (isSuccess || user) {
+    if (isSuccess) {
       if (status === 'success') {
         toast.success(message, {
           toastId: 'success1',
 
-        })   // message is api response  with either api response failed or success 
+        })
+
+        // message is api response  with either api response failed or success 
 
       }
     }
     if (isSuccess) {
-      if (status === 'failed')
+      if (status === 'failed') {
+
+        console.log("enter")
         toast.error(message, {
           toastId: 'error1',
 
-        })   // message is api response  with either api response failed or success
-      navigate('/auth/register')
+        })
+        // message is api response  with either api response failed or success
+        navigate('/auth/register')
+      }
 
     }
 
-    console.log('myvalues#', isError, isSuccess)
     dispatch(resetUser())
 
   }, [isError, isSuccess, status])

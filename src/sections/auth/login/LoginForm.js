@@ -1,8 +1,11 @@
 import { useState, useEffect, useRef } from 'react';
+
 import { Link as RouterLink, useNavigate, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
+
+
 // yup
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -12,7 +15,6 @@ import { LoadingButton } from '@mui/lab';
 // routes
 import { PATH_AUTH } from '../../../routes/paths';
 // hooks
-import useAuth from '../../../hooks/useAuth';
 import useIsMountedRef from '../../../hooks/useIsMountedRef';
 // components
 import Iconify from '../../../components/Iconify';
@@ -20,16 +22,16 @@ import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hoo
 import { loginUser, resetUser } from '../../../redux/slices/auth/authSlice';
 import LoadingScreen from '../../../components/LoadingScreen';
 
+
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
+  // getting token so auth here is giving token here 
+
   const location = useLocation();
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-
-  const { login } = useAuth();
-
   const isMountedRef = useIsMountedRef();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -68,14 +70,11 @@ export default function LoginForm() {
 
   // handle Api response and status on the basis of status
   const { isError, isSuccess, isLoading, user } = useSelector((state) => state?.user);
-  const myuserrr = useSelector((state) => state?.user);
-
-  console.log('userrrrr', myuserrr);
+  const userToken = useSelector((state) => state?.user?.user);
 
   // status from api
   const { status, message } = useSelector((state) => state?.user?.user);
   console.log('login_status', status);
-  const userReg = localStorage.getItem('userReg');
 
   useEffect(() => {
     if (isError) {
@@ -84,23 +83,23 @@ export default function LoginForm() {
       navigate('/auth/login');
     }
 
-    if (isSuccess) {
-      if (status === 'success') {
-        if (JSON.parse(localStorage.getItem('user'))) {
-          toast.success(message, {
-            toastId: 'success1',
-          });
-          navigate('/dashboard/links');
-        }
-      }
+    if (isSuccess && (status === 'success') && userToken.token) {
+      // if (status === 'success') {
+      //   if (auth) {
+      toast.success(message, {
+        toastId: 'success1',
+      });
+      navigate('/dashboard/links');
+      //   }
+      // }
     }
-    if (isSuccess || !user) {
-      if (status === 'failed') {
-        toast.error(message, {
-          toastId: 'error1',
-        }); // message is api response  with either api response status is failed
-        navigate('/auth/login');
-      }
+    if (isSuccess && status === 'failed') {
+      // if (status === 'failed') {
+      toast.error(message, {
+        toastId: 'error1',
+      }); // message is api response  with either api response status is failed
+      navigate('/auth/login');
+      // }
     }
     console.log('myvalues#', isError, isSuccess);
     dispatch(resetUser());

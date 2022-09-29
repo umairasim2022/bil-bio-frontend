@@ -79,39 +79,39 @@ const DashBoardHeader = () => {
 
   const handleLogout = (e) => {
     dispatch(logoutUser());
-    window.location.reload();
+    // window.location.reload();
   }; // status from api
   const { status, message } = useSelector((state) => state?.user?.user);
   // handle error and success message and rendering of the page after logout
-  useEffect(() => {
-    if (isError) {
-      toast.error(message);
-      navigate('/dashboard');
-    }
+  // useEffect(() => {
+  //   if (isError) {
+  //     toast.error(message);
+  //     navigate('/dashboard');
+  //   }
 
-    if (isSuccess) {
-      if (status === 'sucess') {
-        toast.success(message, {
-          toastId: 'success12',
-        }); // message is api response  with when api response status is success
-        navigate('/auth/login');
-      }
-    }
-    if (isSuccess) {
-      if (status === 'failed') {
-        toast.error(message, {
-          toastId: 'error12',
-        });
+  //   if (isSuccess) {
+  //     if (status === 'sucess') {
+  //       toast.success(message, {
+  //         toastId: 'success12',
+  //       }); // message is api response  with when api response status is success
+  //       navigate('/auth/login');
+  //     }
+  //   }
+  //   if (isSuccess) {
+  //     if (status === 'failed') {
+  //       toast.error(message, {
+  //         toastId: 'error12',
+  //       });
 
-        // message is api response  with either api response status is failed
+  //       // message is api response  with either api response status is failed
 
-        navigate('/dashboard');
-      }
-    }
-    console.log('myvalues#', isError, isSuccess);
-    dispatch(resetUser());
-    console.log('myvalues#', isError, isSuccess);
-  }, [isError, isSuccess, status, navigate]);
+  //       navigate('/dashboard');
+  //     }
+  //   }
+  //   console.log('myvalues#', isError, isSuccess);
+  //   dispatch(resetUser());
+  //   console.log('myvalues#', isError, isSuccess);
+  // }, [isError, isSuccess, status, navigate]);
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -255,7 +255,7 @@ const DashBoardHeader = () => {
 
                 <Divider />
 
-                <MenuItem onClick={handleLogout} >
+                <MenuItem type='button' onClick={handleLogout} >
                   <ListItemIcon>
                     <Logout fontSize="small" />
                   </ListItemIcon>
