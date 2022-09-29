@@ -99,10 +99,6 @@ export default function LoginForm() {
     console.log('myvalues#', isError, isSuccess);
     dispatch(resetUser());
     console.log('myvalues#', isError, isSuccess);
-    if (status === 'success') {
-      const createLinkData = JSON.parse(localStorage.getItem('user'));
-      getBIOLink(createLinkData);
-    }
   }, [isError, isSuccess, status, navigate]);
   useEffect(() => {
     if (status === 'success' && user.token && user.userid) {
@@ -116,13 +112,14 @@ export default function LoginForm() {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(submitHandler)}>
-
-      <Stack spacing={3} sx={{
-        '& .css-al9d9s-MuiBackdrop-root': {
-          padding: { xs: '1rem', sm: '2rem', md: '3rem' }
-        }
-      }}>
-
+      <Stack
+        spacing={3}
+        sx={{
+          '& .css-al9d9s-MuiBackdrop-root': {
+            padding: { xs: '1rem', sm: '2rem', md: '3rem' },
+          },
+        }}
+      >
         {/* {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>} */}
 
         <RHFTextField name="email" label="Email address" />
