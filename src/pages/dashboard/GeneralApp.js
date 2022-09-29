@@ -1,11 +1,11 @@
-// react 
+// react
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 // @mui
 import { useTheme } from '@mui/material/styles';
 import { Container, Grid, Stack, Button, Box } from '@mui/material';
 // hooks
-import axios from "axios";
+import axios from 'axios';
 import useAuth from '../../hooks/useAuth';
 import useSettings from '../../hooks/useSettings';
 // _mock_
@@ -49,7 +49,7 @@ export default function GeneralApp() {
   const { themeStretch } = useSettings();
 
   return (
-    <Box >
+    <Box>
       <Dashboardhero />
       <LinkMainTitle />
       <TotalLinksList />

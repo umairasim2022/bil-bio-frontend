@@ -80,7 +80,9 @@ const DashBoardHeader = () => {
   const handleLogout = (e) => {
     dispatch(logoutUser());
     // window.location.reload();
-  }; // status from api
+  };
+
+  // status from api
   const { status, message } = useSelector((state) => state?.user?.user);
   // handle error and success message and rendering of the page after logout
   // useEffect(() => {
@@ -130,9 +132,7 @@ const DashBoardHeader = () => {
             </Box>
 
             <Box sx={{ flexGrow: { xs: 1, sm: 0 } }}>
-              <Button variant="text">
-                Dashboard
-              </Button>
+              <Button variant="text">Dashboard</Button>
               <IconButton onClick={handleOpenUserMenu} disableElevation disableRipple>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                 <Typography>{auth?.user?.displayName}</Typography>
@@ -255,11 +255,11 @@ const DashBoardHeader = () => {
 
                 <Divider />
 
-                <MenuItem type='button' onClick={handleLogout} >
+                <MenuItem type="button" onClick={handleLogout}>
                   <ListItemIcon>
                     <Logout fontSize="small" />
                   </ListItemIcon>
-                  <ListItemText >Logout</ListItemText>
+                  <ListItemText>Logout</ListItemText>
                 </MenuItem>
               </Menu>
             </Box>
@@ -271,4 +271,3 @@ const DashBoardHeader = () => {
   );
 };
 export default DashBoardHeader;
-
