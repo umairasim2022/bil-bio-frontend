@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 
-
 // yup
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -22,11 +21,10 @@ import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hoo
 import { loginUser, resetUser } from '../../../redux/slices/auth/authSlice';
 import LoadingScreen from '../../../components/LoadingScreen';
 
-
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
-  // getting token so auth here is giving token here 
+  // getting token so auth here is giving token here
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -35,7 +33,6 @@ export default function LoginForm() {
   const isMountedRef = useIsMountedRef();
 
   const [showPassword, setShowPassword] = useState(false);
-
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required'),
@@ -58,7 +55,12 @@ export default function LoginForm() {
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
-
+  const getBIOLink = (user) => {
+    const linkData = {
+      userid: user.userid,
+      token: user.token,
+    };
+  };
   const submitHandler = (data) => {
     const userData = {
       email: data.email,
@@ -82,7 +84,7 @@ export default function LoginForm() {
       navigate('/auth/login');
     }
 
-    if (isSuccess && (status === 'success') && userToken.token) {
+    if (isSuccess && status === 'success' && userToken.token) {
       // if (status === 'success') {
       //   if (auth) {
       toast.success(message, {
@@ -103,6 +105,15 @@ export default function LoginForm() {
     console.log('myvalues#', isError, isSuccess);
     dispatch(resetUser());
     console.log('myvalues#', isError, isSuccess);
+    if (status === 'success') {
+      const createLinkData = JSON.parse(localStorage.getItem('user'));
+      getBIOLink(createLinkData);
+    }
+  }, [isError, isSuccess, status, navigate]);
+  useEffect(() => {
+    if (status === 'success' && user.token && user.userid) {
+      navigate('/dashboard/links');
+    }
   }, [isError, isSuccess, status, navigate]);
 
   if (isLoading) {
@@ -111,12 +122,14 @@ export default function LoginForm() {
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(submitHandler)}>
-      <Stack spacing={3} sx={{
-
-        '& .css-al9d9s-MuiBackdrop-root': {
-          padding: { xs: '1rem', sm: '2rem', md: '3rem' }
-        }
-      }}>
+      <Stack
+        spacing={3}
+        sx={{
+          '& .css-al9d9s-MuiBackdrop-root': {
+            padding: { xs: '1rem', sm: '2rem', md: '3rem' },
+          },
+        }}
+      >
         {/* {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>} */}
 
         <RHFTextField name="email" label="Email address" />
@@ -135,7 +148,7 @@ export default function LoginForm() {
           }}
         />
       </Stack>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" flexWrap='wra' sx={{ my: 2 }}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" flexWrap="wra" sx={{ my: 2 }}>
         <RHFCheckbox name="remember" label="Remember me" />
         <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword}>
           Forgot password?

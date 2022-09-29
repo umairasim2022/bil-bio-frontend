@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { useSelector } from 'react-redux';
 // mui
 // components
 import {
@@ -22,6 +22,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 // react components
 import BioLinkAddBlockMainModal from './BioLinkAddBlockMainModal';
+import BioLinkPreview from './BioLinkPreview';
 
 function BioLinkMainSection() {
   const [tabIndex, setTabIndex] = useState(1);
@@ -55,8 +56,16 @@ function BioLinkMainSection() {
           },
         }}
       >
-
-        <Grid item xs={12} md={6} display="flex" flexWrap='wrap' justifyContent="space-between" alignItems='center' mt={4}>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          display="flex"
+          flexWrap="wrap"
+          justifyContent="space-between"
+          alignItems="center"
+          mt={4}
+        >
           <Stack direction="row" columnGap={2} sx={{ marginY: { xs: 2 } }}>
             <Button size="medium" onClick={() => setTabIndex(1)} variant={tabIndex === 1 ? 'contained' : 'text'}>
               Settings
@@ -75,18 +84,24 @@ function BioLinkMainSection() {
             </Button>
           </Stack>
         </Grid>
-        <Grid item xs={12} md={5} mt={3} >
-          this is mobile section
+        <Grid item xs={12} md={5} mt={3}>
+          {/* Mobile Design Section */}
+          {/* <Grid> */}
+          <BioLinkPreview />
+          {/* </Grid> */}
         </Grid>
-
-        <Grid item md={6} >
+        {/* <Grid item md={6} display="flex">
           {tabIndex === 1 && <Typography>This is setting Section</Typography>}
           {tabIndex === 2 && <Typography>This is Block Section</Typography>}
-        </Grid>
+        </Grid> */}
       </Grid>
 
       {/* modals  */}
-      <BioLinkAddBlockMainModal bioLinkAddBlockMainModalState={bioLinkAddBlockMainModalState} closeModal={closeModal} openBioLinkAddBlock={openBioLinkAddBlock} />
+      <BioLinkAddBlockMainModal
+        bioLinkAddBlockMainModalState={bioLinkAddBlockMainModalState}
+        closeModal={closeModal}
+        openBioLinkAddBlock={openBioLinkAddBlock}
+      />
     </>
   );
 }
