@@ -60,7 +60,6 @@ export default function Logo({ disabledLink = false, sx }) {
     <Box style={{ width: 100, height: 60, display: 'flex', alignItems: 'center' }}>
       {/* <img src="/assets/logo.png" alt="logo" sx={{ width: '100%', height: '100%' }} /> */}
       {/* <span sx={{}}>bil.bio</span> */}
-
       <Typography
         component="span"
         variant="h3"

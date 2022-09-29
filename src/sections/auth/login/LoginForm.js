@@ -33,7 +33,6 @@ export default function LoginForm() {
   const isMountedRef = useIsMountedRef();
 
   const [showPassword, setShowPassword] = useState(false);
-
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required'),
@@ -56,7 +55,12 @@ export default function LoginForm() {
     handleSubmit,
     formState: { isSubmitting },
   } = methods;
-
+  const getBIOLink = (user) => {
+    const linkData = {
+      userid: user.userid,
+      token: user.token,
+    };
+  };
   const submitHandler = (data) => {
     const userData = {
       email: data.email,
@@ -90,7 +94,6 @@ export default function LoginForm() {
           toast.success(message, {
             toastId: 'success1',
           });
-          navigate('/dashboard/links');
         }
       }
     }
@@ -105,6 +108,15 @@ export default function LoginForm() {
     console.log('myvalues#', isError, isSuccess);
     dispatch(resetUser());
     console.log('myvalues#', isError, isSuccess);
+    if (status === 'success') {
+      const createLinkData = JSON.parse(localStorage.getItem('user'));
+      getBIOLink(createLinkData);
+    }
+  }, [isError, isSuccess, status, navigate]);
+  useEffect(() => {
+    if (status === 'success' && user.token && user.userid) {
+      navigate('/dashboard/links');
+    }
   }, [isError, isSuccess, status, navigate]);
 
   if (isLoading) {
