@@ -1,2 +1,2 @@
-export {default as BioLinkTitle} from './BioLinkTitle'
-export {default as BioLinkMainSection} from './BioLinkMainSection'
+export { default as BioLinkTitle } from './BioLinkTitle';
+export { default as BioLinkMainSection } from './BioLinkMainSection';

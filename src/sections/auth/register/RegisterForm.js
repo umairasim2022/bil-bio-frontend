@@ -54,12 +54,6 @@ export default function RegisterForm() {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = methods;
-  const createBIOLink = (user) => {
-    const linkData = {
-      userid: user.userid,
-      token: user.token,
-    };
-  };
 
   const onSubmit = async (data) => {
     console.log('@datatareg', data);
@@ -82,14 +76,17 @@ export default function RegisterForm() {
   };
   // / handleError , success and routing for register page
 
+  const { isLoading, isError, isSuccess, user } = useSelector((state) => state.user);
+  console.log('iserror', isError, isSuccess);
+
+  const { status, message } = useSelector((state) => state?.user?.user);
+  console.log('regstatus', status);
+
   // token and id
   const regUserInfo = useSelector((state) => state?.user?.user);
   console.log('regUserInfo', regUserInfo);
   const registeredUserID = regUserInfo?.id;
   const registeredToken = regUserInfo?.token;
-
-  const { status, message } = useSelector((state) => state?.user?.user);
-  console.log('regstatus', status);
 
   // handling status of the register user  on the basis of api status
   useEffect(() => {
@@ -112,13 +109,9 @@ export default function RegisterForm() {
         const CreatedBioLinkData = {
           tag: 'main',
           registeredUserID,
-
-          registeredToken
-        }
-        dispatch(creatingBioLink(CreatedBioLinkData))
-
-
-
+          registeredToken,
+        };
+        dispatch(creatingBioLink(CreatedBioLinkData));
       }
     }
     if (isSuccess) {
@@ -175,7 +168,5 @@ export default function RegisterForm() {
         </LoadingButton>
       </Stack>
     </FormProvider>
-
-
   );
 }
