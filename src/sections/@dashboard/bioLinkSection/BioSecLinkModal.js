@@ -45,7 +45,7 @@ export default function BioSecLinkModal({ linkModalState, closeBlockSubModal, op
     setState(prevState => ({
       ...prevState,
       [name]: value,
-    
+
     }));
 
   };
@@ -53,8 +53,16 @@ export default function BioSecLinkModal({ linkModalState, closeBlockSubModal, op
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    alert('link')
+
     await dispatch(creatingHeadingBlock(state))
+    setState({
+      coloum_type: '',
+      coloum_value: '',
+
+    })
+
+
+    closeBlockSubModal('linkModalState')
   }
   return (
     <div>

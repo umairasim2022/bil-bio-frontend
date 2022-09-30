@@ -58,8 +58,9 @@ export default function BioSecParagraphModal({ BioSecParagraphModalState, closeB
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    alert('link')
+    // alert('link')
     await dispatch(creatingHeadingBlock(state))
+    closeBlockSubModal('BioSecParagraphModalState')
   }
 
   const theme = useTheme();
