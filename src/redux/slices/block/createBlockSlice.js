@@ -6,7 +6,7 @@ import blockService from './blockService'
 const initialState = {
     headingBlock: [],
     isError: false,
-    isSuccess: false,
+    isBlockSuccess: false,
     isLoading: false,
     errorMsg: '',
 }
@@ -42,7 +42,7 @@ export const blockSlice = createSlice({
             })
             .addCase(creatingHeadingBlock.fulfilled, (state, action) => {
                 state.isLoading = false
-                state.isSuccess = true
+                state.isBlockSuccess = true
                 state.headingBlock = action.payload
                 console.log('headingstate@', { ...state })
             })
