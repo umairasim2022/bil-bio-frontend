@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Link as RouterLink } from 'react-router-dom';
+import { useSelector } from 'react-redux'
 
 // components
 import {
@@ -84,6 +86,13 @@ const AntSwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const BioLinkTitle = () => {
+  const state = useSelector(state => state?.gettingBioLinksState)
+  const linkEndPoint = state?.createdBioLink?.response
+  
+  const link = state?.createdBioLink
+
+  console.log('linkEndPoint', link)
+  // const [link, setLink] = React.useState(linkEndPoint)
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -204,10 +213,14 @@ const BioLinkTitle = () => {
         <Tooltip title="bilink page" placement="top" arrow>
           <CircleIcon sx={{ color: '#383eb2', fontSize: '1rem' }} />
         </Tooltip>
-        <Typography variant="body1" fontWeight="400" color=" rgb(122, 122, 122) " >
-          Your link is   https://66biolinks.com/demo/endpoint
-        </Typography>
-      
+        {linkEndPoint?.map(item => {
+          return (
+            <Typography variant="body1" fontWeight="400" color=" rgb(122, 122, 122) " >
+              Your link is   https://66biolinks.com/demo/  {item.link}
+            </Typography>
+          )
+        })}
+
       </Grid>
     </Grid>
   );

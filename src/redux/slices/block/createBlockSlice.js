@@ -1,23 +1,23 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import bioLinkService from './bioLinkServices'
+import { createSlice, createAsyncThunk, current } from '@reduxjs/toolkit'
+import blockService from './blockService'
 
 // Get user from 
 
 const initialState = {
-    createdBioLink: {},
+    headingBlock: [],
     isError: false,
     isSuccess: false,
     isLoading: false,
     errorMsg: '',
 }
 
-// registerUser user
-export const creatingBioLink = createAsyncThunk(
-    'createdBioLink/creatingBioLink',
+export const creatingHeadingBlock = createAsyncThunk(
+    'headingBlock/creatingHeadingBlock',
 
-    async (createdBioLinkData, thunkAPI) => {
+    async (headingkData, thunkAPI) => {
         try {
-            return await bioLinkService.creatingBioLink(createdBioLinkData)
+            const response = await blockService.creatingHeadingBlock(headingkData)
+            return response
         } catch (error) {
             const errorMsg =
                 (error.response &&
@@ -25,37 +25,35 @@ export const creatingBioLink = createAsyncThunk(
                     error.response.data.errorMsg) ||
                 error.errorMsg ||
                 error.toString()
-            console.log('regerror', errorMsg)
             return thunkAPI.rejectWithValue(errorMsg)
         }
     }
 )
-export const bioLinkCreationSlice = createSlice({
-    name: 'auth',
+export const blockSlice = createSlice({
+    name: 'headingBlock',
     initialState,
     reducers: {
     },
     extraReducers: (builder) => {
         builder
-            .addCase(creatingBioLink.pending, (state) => {
+            .addCase(creatingHeadingBlock.pending, (state) => {
+                console.log("pending@", { ...state })
                 state.isLoading = true
-                console.log('userpending', { ...state })
             })
-            .addCase(creatingBioLink.fulfilled, (state, action) => {
+            .addCase(creatingHeadingBlock.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
-                state.createdBioLink = action.payload
-                console.log('userfullfilled', { ...state })
+                state.headingBlock = action.payload
+                console.log('headingstate@', { ...state })
             })
-            .addCase(creatingBioLink.rejected, (state, action) => {
+            .addCase(creatingHeadingBlock.rejected, (state, action) => {
                 console.log('@action', action)
                 state.isLoading = false
                 state.isError = true
                 state.errorMsg = action.payload   // error from catch will come here via action.payload and update errorMsg
-                console.log('userrejected', { ...state })
             })
 
     },
 })
 
-export default bioLinkCreationSlice.reducer
+export default blockSlice.reducer
