@@ -100,17 +100,18 @@ export default function BioLinkHeadingModal({ bioLinkHeadingModalState, closeBlo
 
   // handling heading api reponses messages
 
-  const { isError, isSuccess, isLoading, errorMsg } = useSelector((state) => state?.blockHeading);
+  const { isError, isBlockSuccess, isLoading, errorMsg } = useSelector((state) => state?.blockHeading);
   const { status, message } = useSelector((state) => state?.blockHeading?.headingBlock)
+  console.log('statusss$', status)
 
   React.useEffect(() => {
-    if (status === 'success') {
+    if (status === 'success' && isBlockSuccess) {
       toast.success(message, {
         toastId: 12
       })
     }
 
-  }, [isError, isSuccess, dispatch, isLoading])
+  }, [isError, isBlockSuccess, dispatch, isLoading])
 
   return (
     <div>
