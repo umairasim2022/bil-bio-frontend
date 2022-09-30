@@ -19,7 +19,6 @@ const creatingBioLink = (createdBioLinkData) => {
     console.log('link', createlink);
     const response = axios.post(createlink, tag)
     if (response) {
-        alert('res')
         localStorage.removeItem('user')
     }
     return response.data

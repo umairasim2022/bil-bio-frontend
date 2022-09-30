@@ -1,4 +1,10 @@
 import * as React from 'react';
+import { toast } from 'react-toastify';
+
+import axios from 'axios'
+
+
+import { useState } from 'react';
 
 // ______mui______
 
@@ -7,17 +13,22 @@ import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
 import CloseIcon from '@mui/icons-material/Close';
 import FormatTextdirectionRToLIcon from '@mui/icons-material/FormatTextdirectionRToL';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
-import SmsIcon from '@mui/icons-material/Sms';
 import InsertPhotoIcon from '@mui/icons-material/InsertPhoto';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
-import LinkIcon from '@mui/icons-material/Link';
+import BorderAllIcon from '@mui/icons-material/BorderAll';
 import { FaSignature } from 'react-icons/fa';
 import { useTheme } from '@emotion/react';
 
 
-// ________styled_____
 
-const ImageModalMain = styled('Stack')(({ theme }) => ({
+// redux 
+import { useDispatch, useSelector } from 'react-redux';
+import { creatingHeadingBlock } from '../../../redux/slices/block/createBlockSlice'
+
+const baseUrl = window.config.API_URL;
+
+
+const PargraphModalMain = styled('Stack')(({ theme }) => ({
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -28,21 +39,32 @@ const ImageModalMain = styled('Stack')(({ theme }) => ({
     borderRadius: '5px',
     padding: '3rem',
 }));
-const ImageSubHeader = styled('Stack')(({ theme }) => ({
+const ParagraphSubHeader = styled('Stack')(({ theme }) => ({
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
 }));
 
 export default function BioSecImageModal({ bioSecImageModalState, closeBlockSubModal, openBioLinkAddBlock }) {
+    const dispatch = useDispatch()
+    const [selectedFile, setSelectedFile] = useState()
+    const [isFilePicked, setIsFilePicked] = useState(false);
+    console.log('check_image', selectedFile)
+    const changeHandler = (event) => {
+        setSelectedFile(event.target.files[0]);
+        setIsFilePicked(true);
+    };
+
+
     const [state, setState] = React.useState({
-        altText: '',
-        urlState: '',
+        imageSizeArray: null,
+        avatarShapeArray: null,
 
     });
-    console.log('imge@state', state)
 
-    //   handle the Filed In Image Modal
+    console.log('imageee', state)
+
+    //   handle the Filed In avatar Modal
     const handleChange = e => {
         const { name, value } = e.target;
         setState(prevState => ({
@@ -51,8 +73,55 @@ export default function BioSecImageModal({ bioSecImageModalState, closeBlockSubM
         }));
     };
 
-    const theme = useTheme();
 
+    const handleSubmit = async (e) => {
+        console.log('selectedFile', selectedFile)
+        const linkid = localStorage.getItem('linkId')
+        const token = JSON.parse(localStorage.getItem('user')).token
+        const userID = JSON.parse(localStorage.getItem('user')).userid
+        const url = `/api/user/mediaUpload/${userID}/${token}`;
+        // const { coloum_name, coloum_type, size, radius, link_id } = req.body;
+        const data = {
+            coloum_name: 'image',
+            size: state.imageSizeArray,
+            coloum_type: 'image',
+            radius: state.avatarShapeArray,
+            picture: selectedFile,
+            link_id: linkid
+        }
+        e.preventDefault()
+        try {
+            const response = await axios.post(url, data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            const status = response?.data?.status;
+            const message = response?.data?.message;
+            console.log('##status', message)
+
+
+            if (status === 'success') {
+                toast.success(message, {
+                    toastId: 123
+                })
+            }
+
+        } catch (error) {
+            console.log(error)
+
+        }
+        setState({
+            imageSizeArray: '',
+            avatarShapeArray: '',
+
+        })
+        closeBlockSubModal('bioSecImageModalState')
+
+    }
+
+
+    const theme = useTheme();
     return (
         <div>
             <Modal
@@ -61,8 +130,8 @@ export default function BioSecImageModal({ bioSecImageModalState, closeBlockSubM
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
             >
-                <ImageModalMain>
-                    <ImageSubHeader>
+                <PargraphModalMain>
+                    <ParagraphSubHeader>
                         <Box sx={{ display: 'flex', alignItems: 'start', p: '0 12px' }}>
                             <KeyboardArrowLeftOutlinedIcon
                                 fontSize="small"
@@ -79,9 +148,9 @@ export default function BioSecImageModal({ bioSecImageModalState, closeBlockSubM
                             </Typography>
                         </Box>
                         <CloseIcon onClick={() => closeBlockSubModal('bioSecImageModalState')} sx={{ cursor: 'pointer' }} />
-                    </ImageSubHeader>
+                    </ParagraphSubHeader>
 
-                    <Box component="form">
+                    <Box component="form" onSubmit={handleSubmit}>
                         <Box sx={{ display: 'flex', alignItems: 'center', mt: 5, mb: 1 }}>
                             <InsertPhotoIcon fontSize="small" sx={{ color: 'primary.main' }} />
                             <Typography variant="body2" ml={1}>
@@ -89,40 +158,40 @@ export default function BioSecImageModal({ bioSecImageModalState, closeBlockSubM
                             </Typography>
                         </Box>
                         <Box>
-                            <TextField type="file" fullWidth />
+                            <TextField type="file" onChange={changeHandler} fullWidth />
                         </Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', mt: 2, mb: 1 }}>
-                            <SmsIcon fontSize="small" sx={{ color: 'primary.main' }} />
+                            <FullscreenIcon fontSize="small" sx={{ color: 'primary.main' }} />
                             <Typography variant="body2" ml={1}>
-                                 Image alt{' '}
+                                Image Alt{' '}
                             </Typography>
                         </Box>
                         <Box>
                             <TextField
-                                name="altText"
-                                value={state.altText}
+                                type='text'
                                 fullWidth
                                 size="small"
                                 onChange={handleChange}
+                                name='avatarShapeArray' value={state.avatarShapeArray}
                             />
+
 
                         </Box>
                         <Box sx={{ display: 'flex', alignItems: 'center', mt: 2, mb: 1 }}>
-                            <LinkIcon fontSize="small" sx={{ color: 'primary.main', transform: 'rotate(-45deg)' }} />
+                            <BorderAllIcon fontSize="small" sx={{ color: 'primary.main' }} />
                             <Typography variant="body2" ml={1}>
-                                Desitination Url{' '}
+                                Distination Url{' '}
                             </Typography>
                         </Box>
                         <Box>
-                            <TextField name='urlState' value={state.urlState} fullWidth size="small" onChange={handleChange} />
-
+                            <TextField fullWidth size="small" name='imageSizeArray' value={state.imageSizeArray} onChange={handleChange} />
                         </Box>
 
-                        <Button variant="contained" sx={{ display: 'block', width: '100%', mt: 3 }}>
+                        <Button variant="contained" sx={{ display: 'block', width: '100%', mt: 3 }} type='submit'>
                             Submit
                         </Button>
                     </Box>
-                </ImageModalMain>
+                </PargraphModalMain>
             </Modal>
         </div>
     );

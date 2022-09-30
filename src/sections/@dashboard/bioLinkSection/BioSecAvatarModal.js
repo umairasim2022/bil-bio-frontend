@@ -1,4 +1,10 @@
 import * as React from 'react';
+import { toast } from 'react-toastify';
+
+import axios from 'axios'
+
+
+import { useState } from 'react';
 
 // ______mui______
 
@@ -12,6 +18,15 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import BorderAllIcon from '@mui/icons-material/BorderAll';
 import { FaSignature } from 'react-icons/fa';
 import { useTheme } from '@emotion/react';
+
+
+
+// redux 
+import { useDispatch, useSelector } from 'react-redux';
+import { creatingHeadingBlock } from '../../../redux/slices/block/createBlockSlice'
+
+const baseUrl = window.config.API_URL;
+
 
 const PargraphModalMain = styled('Stack')(({ theme }) => ({
   position: 'absolute',
@@ -31,7 +46,14 @@ const ParagraphSubHeader = styled('Stack')(({ theme }) => ({
 }));
 
 export default function BioSecAvatarModal({ BioSecAvatarModalState, closeBlockSubModal, openBioLinkAddBlock }) {
-
+  const dispatch = useDispatch()
+  const [selectedFile, setSelectedFile] = useState()
+  const [isFilePicked, setIsFilePicked] = useState(false);
+  console.log('check_image', selectedFile)
+  const changeHandler = (event) => {
+    setSelectedFile(event.target.files[0]);
+    setIsFilePicked(true);
+  };
   // image size array 
   const sizeArray = [
     {
@@ -83,6 +105,53 @@ export default function BioSecAvatarModal({ BioSecAvatarModalState, closeBlockSu
   };
 
 
+  const handleSubmit = async (e) => {
+    console.log('selectedFile', selectedFile)
+    const linkid = localStorage.getItem('linkId')
+    const token = JSON.parse(localStorage.getItem('user')).token
+    const userID = JSON.parse(localStorage.getItem('user')).userid
+    const url = `/api/user/mediaUpload/${userID}/${token}`;
+    // const { coloum_name, coloum_type, size, radius, link_id } = req.body;
+    const data = {
+      coloum_name: 'image',
+      size: state.imageSizeArray,
+      coloum_type: 'avatar',
+      radius: state.avatarShapeArray,
+      picture: selectedFile,
+      link_id: linkid
+    }
+    e.preventDefault()
+    try {
+      const response = await axios.post(url, data, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      const status = response?.data?.status;
+      const message = response?.data?.message;
+      console.log('##status', message)
+
+
+      if (status === 'success') {
+        toast.success('Avatar Uploaded Successfully', {
+          toastId: 123
+        })
+      }
+
+    } catch (error) {
+      console.log(error)
+
+    }
+    setState({
+      imageSizeArray: '',
+      avatarShapeArray: '',
+
+    })
+    closeBlockSubModal('BioSecAvatarModalState')
+
+  }
+
+
   const theme = useTheme();
   return (
     <div>
@@ -112,7 +181,7 @@ export default function BioSecAvatarModal({ BioSecAvatarModalState, closeBlockSu
             <CloseIcon onClick={() => closeBlockSubModal('BioSecAvatarModalState')} sx={{ cursor: 'pointer' }} />
           </ParagraphSubHeader>
 
-          <Box component="form">
+          <Box component="form" onSubmit={handleSubmit}>
             <Box sx={{ display: 'flex', alignItems: 'center', mt: 5, mb: 1 }}>
               <InsertPhotoIcon fontSize="small" sx={{ color: 'primary.main' }} />
               <Typography variant="body2" ml={1}>
@@ -120,7 +189,7 @@ export default function BioSecAvatarModal({ BioSecAvatarModalState, closeBlockSu
               </Typography>
             </Box>
             <Box>
-              <TextField type="file" fullWidth />
+              <TextField type="file" onChange={changeHandler} fullWidth />
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center', mt: 2, mb: 1 }}>
               <FullscreenIcon fontSize="small" sx={{ color: 'primary.main' }} />
@@ -156,7 +225,7 @@ export default function BioSecAvatarModal({ BioSecAvatarModalState, closeBlockSu
               </TextField>
             </Box>
 
-            <Button variant="contained" sx={{ display: 'block', width: '100%', mt: 3 }}>
+            <Button variant="contained" sx={{ display: 'block', width: '100%', mt: 3 }} type='submit'>
               Submit
             </Button>
           </Box>

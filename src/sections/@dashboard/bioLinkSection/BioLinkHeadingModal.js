@@ -67,6 +67,7 @@ export default function BioLinkHeadingModal({ bioLinkHeadingModalState, closeBlo
   const [state, setState] = React.useState({
     coloum_type: 'H1',
     coloum_value: '',
+    columnName: 'heading'
   });
   console.log('stateeee', state)
   // handling heading Select
