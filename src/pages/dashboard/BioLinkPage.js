@@ -4,7 +4,10 @@ import React, { Component } from 'react';
 import { styled } from '@mui/material';
 
 // Component
-import { BioLinkTitle, BioLinkMainSection } from '../../sections/@dashboard/bioLinkSection';
+
+import { BioLinkTitle  , BioLinkMainSection } from '../../sections/@dashboard/bioLinkSection';
+import MainFooter from '../../layouts/main/MainFooter';
+
 
 //  style
 const RootStyle = styled('div')(({ theme }) => ({
@@ -15,17 +18,20 @@ const RootStyle = styled('div')(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
     padding: theme.spacing(10, 5),
   },
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(10, 2),
   },
 }));
 
 const BioLinkPage = () => {
   return (
+    <>
     <RootStyle>
       <BioLinkTitle />
       <BioLinkMainSection />
     </RootStyle>
+    <MainFooter/>
+    </>
   );
 };
 

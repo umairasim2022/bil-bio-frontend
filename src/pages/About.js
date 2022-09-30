@@ -2,6 +2,7 @@
 import { styled } from '@mui/material/styles';
 import { Divider , Container, Card , Typography} from '@mui/material';
 // components
+import MainFooter from '../layouts/main/MainFooter';
 import Page from '../components/Page';
 import { AboutHero, AboutWhat, AboutTeam, AboutVision, AboutTestimonials } from '../sections/about';
 import HomeHugePackElements from '../sections/home/HomeHugePackElements';
@@ -31,6 +32,7 @@ export default function About() {
         </Container>
         <HomeHugePackElements />
          <HomeShort />
+         <MainFooter/>
       </RootStyle>
     </Page>
   );
