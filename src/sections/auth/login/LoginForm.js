@@ -19,6 +19,8 @@ import useIsMountedRef from '../../../hooks/useIsMountedRef';
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
 import { loginUser, resetUser } from '../../../redux/slices/auth/authSlice';
+// getting link function
+import { gettingBioLink } from '../../../redux/slices/getLink/getLinkSlice'
 import LoadingScreen from '../../../components/LoadingScreen';
 
 // ----------------------------------------------------------------------
@@ -67,6 +69,11 @@ export default function LoginForm() {
   // handle Api response and status on the basis of status
   const { isError, isSuccess, isLoading, user } = useSelector((state) => state?.user);
   const userToken = useSelector((state) => state?.user?.user);
+  console.log('userToken', userToken)
+
+  // getting token and id for gettingLink api 
+
+
 
   // status from api
   const { status, message } = useSelector((state) => state?.user?.user);
@@ -85,6 +92,8 @@ export default function LoginForm() {
         toastId: 'success1',
       });
       navigate('/dashboard/links');
+
+      dispatch(gettingBioLink())
       //   }
       // }
     }
@@ -100,11 +109,7 @@ export default function LoginForm() {
     dispatch(resetUser());
     console.log('myvalues#', isError, isSuccess);
   }, [isError, isSuccess, status, navigate]);
-  useEffect(() => {
-    if (status === 'success' && user.token && user.userid) {
-      navigate('/dashboard/links');
-    }
-  }, [isError, isSuccess, status, navigate]);
+
 
   if (isLoading) {
     return <LoadingScreen />;

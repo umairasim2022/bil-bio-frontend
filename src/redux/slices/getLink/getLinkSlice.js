@@ -1,24 +1,26 @@
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import bioLinkService from './bioLinkServices'
+import gettingBioLinkService from './getLinkService'
 
 // Get user from 
 
 const initialState = {
-    createdBioLink: {},
+    getBioLink: '',
     isError: false,
     isSuccess: false,
     isLoading: false,
     errorMsg: '',
 }
 
-// registerUser user
-export const creatingBioLink = createAsyncThunk(
-    'createdBioLink/creatingBioLink',
+// creating____________bioLink____________________
+export const gettingBioLink = createAsyncThunk(
+    'getBioLink/gettingBioLink',
 
-    async (createdBioLinkData, thunkAPI) => {
+    async (_, thunkAPI) => {
+
         try {
-            return await bioLinkService.creatingBioLink(createdBioLinkData)
-        } catch (error) {
+            return await gettingBioLinkService.gettingBioLink()  // getting getlink data from getlink services 
+        } catch (error) { // handle all error like with status code  404 or 500 or 300 , not under 200
             const errorMsg =
                 (error.response &&
                     error.response.data &&
@@ -30,32 +32,30 @@ export const creatingBioLink = createAsyncThunk(
         }
     }
 )
-export const bioLinkCreationSlice = createSlice({
-    name: 'auth',
+export const gettingBioLinkSlice = createSlice({  // handle the api response(promise coming from api) , either 
+    name: 'getBioLink',
     initialState,
     reducers: {
     },
     extraReducers: (builder) => {
         builder
-            .addCase(creatingBioLink.pending, (state) => {
+            .addCase(gettingBioLink.pending, (state) => {
                 state.isLoading = true
-                console.log('userpending', { ...state })
             })
-            .addCase(creatingBioLink.fulfilled, (state, action) => {
+            .addCase(gettingBioLink.fulfilled, (state, action) => {
                 state.isLoading = false
                 state.isSuccess = true
                 state.createdBioLink = action.payload
-                console.log('userfullfilled', { ...state })
             })
-            .addCase(creatingBioLink.rejected, (state, action) => {
+            .addCase(gettingBioLink.rejected, (state, action) => {
                 console.log('@action', action)
                 state.isLoading = false
                 state.isError = true
                 state.errorMsg = action.payload   // error from catch will come here via action.payload and update errorMsg
-                console.log('userrejected', { ...state })
             })
 
     },
 })
 
-export default bioLinkCreationSlice.reducer
+// export const { resetUser } = authSlice.actions
+export default gettingBioLinkSlice.reducer

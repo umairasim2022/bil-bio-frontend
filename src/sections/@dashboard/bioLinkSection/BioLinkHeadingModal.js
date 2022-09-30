@@ -1,5 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 // ______mui______
 
@@ -9,10 +10,12 @@ import CloseIcon from '@mui/icons-material/Close';
 import LinkIcon from '@mui/icons-material/Link';
 import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeftOutlined';
 import HMobiledataIcon from '@mui/icons-material/HMobiledata';
-
 import { FaSignature } from 'react-icons/fa';
-
 import { useTheme } from '@emotion/react';
+
+// rudux 
+import { useDispatch, useSelector } from 'react-redux';
+import { creatingHeadingBlock } from '../../../redux/slices/block/createBlockSlice'
 
 const TikTokModalMain = styled('Stack')(({ theme }) => ({
   position: 'absolute',
@@ -32,6 +35,9 @@ const TiktokSubHeader = styled('Stack')(({ theme }) => ({
 }));
 
 export default function BioLinkHeadingModal({ bioLinkHeadingModalState, closeBlockSubModal, openBioLinkAddBlock }) {
+  // const { blockHeading } = useSelector(state => state)
+  // console.log('blockheading#', blockHeading )
+  const dispatch = useDispatch();
   const myHeadingList = [
     {
       label: 'H1',
@@ -59,17 +65,19 @@ export default function BioLinkHeadingModal({ bioLinkHeadingModalState, closeBlo
     },
   ];
   const [state, setState] = React.useState({
-    heading: 'H1',
-    text: ''
+    coloum_type: 'H1',
+    coloum_value: '',
   });
   console.log('stateeee', state)
   // handling heading Select
   const handleChange = e => {
     const { name, value } = e.target;
+    console.log('headingname', name)
     setState(prevState => ({
       ...prevState,
       [name]: value
     }));
+
   };
 
 
@@ -77,23 +85,33 @@ export default function BioLinkHeadingModal({ bioLinkHeadingModalState, closeBlo
 
   // ___________________________after submit____________________
   const handleHeadingTextSubmit = async (e) => {
+    console.log('headingstate', state)
     e.preventDefault()
-    console.log('handleText', state.heading)
-    console.log('handleTextt', state.text)
-    const fontData = {
-      column_type: state?.heading,
-      column_value: state?.text,
-    }
-    try {
-      const headingres = axios.post('/customize_dashboard/:8', fontData)
-    } catch (error) {
-      console.log(error)
-    }
-
-
+    await dispatch(creatingHeadingBlock(state))
+    setState({
+      coloum_type: '',
+      coloum_value: '',
+    })
+    closeBlockSubModal('bioLinkHeadingModalState')
 
 
   }
+
+
+  // handling heading api reponses messages
+
+  const { isError, isBlockSuccess, isLoading, errorMsg } = useSelector((state) => state?.blockHeading);
+  const { status, message } = useSelector((state) => state?.blockHeading?.headingBlock)
+  console.log('statusss$', status)
+
+  React.useEffect(() => {
+    if (status === 'success' && isBlockSuccess) {
+      toast.success(message, {
+        toastId: 12
+      })
+    }
+
+  }, [isError, isBlockSuccess, dispatch, isLoading])
 
   return (
     <div>
@@ -133,9 +151,9 @@ export default function BioLinkHeadingModal({ bioLinkHeadingModalState, closeBlo
               fullWidth
               size="small"
               onChange={handleChange}
-              value={state.heading}
+              value={state.coloum_type}
               select
-              name='heading'
+              name='coloum_type'
             // SelectProps={{
             //   renderValue: (value) => value,
             // }}
@@ -155,9 +173,9 @@ export default function BioLinkHeadingModal({ bioLinkHeadingModalState, closeBlo
               fullWidth
               type="text"
               size="small"
-              value={state.text}
+              value={state.coloum_value}
               onChange={handleChange}
-              name='text'
+              name='coloum_value'
             />
             <Button variant="contained" sx={{ display: 'block', width: '100%', mt: 3 }} type='submit'>
               Submit heading
