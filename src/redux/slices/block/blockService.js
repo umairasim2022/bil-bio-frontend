@@ -6,8 +6,9 @@ const creatingHeadingBlock = async (state) => {
     const token = JSON.parse(localStorage.getItem('user')).token
     const userID = JSON.parse(localStorage.getItem('user')).userid
     const coloumnValue = state.coloum_value;
-    const coloumnType = state.coloum_type;
-    const columnName = 'heading'
+    const coloumnType = state?.coloum_type || null
+
+    const columnName = state.columnName
     const headingCustomizationData = {
         coloumnValue,
         coloumnType,

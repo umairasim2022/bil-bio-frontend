@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { toast } from 'react-toastify';
 
 // ______mui______
 
@@ -11,9 +12,13 @@ import KeyboardArrowLeftOutlinedIcon from '@mui/icons-material/KeyboardArrowLeft
 
 
 
-import {  FaSignature } from 'react-icons/fa';
+import { FaSignature } from 'react-icons/fa';
 
 import { useTheme } from '@emotion/react';
+
+// redux 
+import { useDispatch, useSelector } from 'react-redux';
+import { creatingHeadingBlock } from '../../../redux/slices/block/createBlockSlice'
 
 const PargraphModalMain = styled('Stack')(({ theme }) => ({
   position: 'absolute',
@@ -33,6 +38,31 @@ const ParagraphSubHeader = styled('Stack')(({ theme }) => ({
 }));
 
 export default function BioSecParagraphModal({ BioSecParagraphModalState, closeBlockSubModal, openBioLinkAddBlock }) {
+  const dispatch = useDispatch()
+
+  const [state, setState] = React.useState({
+    coloum_value: '',
+    columnName: 'paragraph'
+  });
+  console.log('stateeee', state)
+  // handling heading Select
+  const handleChange = e => {
+    const { name, value } = e.target;
+    console.log('headingname', name)
+    setState(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    // alert('link')
+    await dispatch(creatingHeadingBlock(state))
+    closeBlockSubModal('BioSecParagraphModalState')
+  }
+
   const theme = useTheme();
   return (
     <div>
@@ -44,7 +74,7 @@ export default function BioSecParagraphModal({ BioSecParagraphModalState, closeB
       >
         <PargraphModalMain>
           <ParagraphSubHeader>
-            <Box sx={{ display: 'flex', alignItems: 'start',  p:'0 12px' }}>
+            <Box sx={{ display: 'flex', alignItems: 'start', p: '0 12px' }}>
               <KeyboardArrowLeftOutlinedIcon
                 fontSize="small"
                 sx={{
@@ -62,19 +92,21 @@ export default function BioSecParagraphModal({ BioSecParagraphModalState, closeB
             <CloseIcon onClick={() => closeBlockSubModal('BioSecParagraphModalState')} sx={{ cursor: 'pointer' }} />
           </ParagraphSubHeader>
 
-          <Box component="form">
+          <Box component="form" onSubmit={handleSubmit}>
             <Box sx={{ display: 'flex', alignItems: 'center', mt: 5, mb: 1 }}>
-              <FormatTextdirectionRToLIcon fontSize="small" sx={{  color: 'primary.main' }} />
+              <FormatTextdirectionRToLIcon fontSize="small" sx={{ color: 'primary.main' }} />
               <Typography variant="body2" ml={1}>
                 Text{' '}
               </Typography>
             </Box>
             <Box>
-            <TextareaAutosize      rows={10}
-                     fullWidth sx ={{width:'300px' , display:'block'}} />
+              <TextareaAutosize rows={10} name='coloum_value' value={state.coloum_value}
+                onChange={handleChange}
+
+                fullWidth sx={{ width: '300px', display: 'block' }} />
             </Box>
-           
-            <Button variant="contained" sx={{ display: 'block', width: '100%', mt: 3 }}>
+
+            <Button variant="contained" sx={{ display: 'block', width: '100%', mt: 3 }} type='submit'>
               Submit
             </Button>
           </Box>
