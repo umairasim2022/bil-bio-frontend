@@ -6,6 +6,7 @@ import { Grid, Container } from '@mui/material';
 // _mock
 import { _mapContact } from '../_mock';
 // components
+import MainFooter from '../layouts/main/MainFooter';
 import Page from '../components/Page';
 import { ContactHero, ContactForm, ContactMap } from '../sections/contact';
 
@@ -34,6 +35,7 @@ export default function Contact() {
               <ContactMap contacts={_mapContact} />
             </Grid>
           </Grid>
+          <MainFooter/>
         </Container>
       </RootStyle>
     </Page>

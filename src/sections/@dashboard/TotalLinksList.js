@@ -32,7 +32,7 @@ const RootStyle = styled('div')(({ theme }) => ({
   width: '100%',
   [theme.breakpoints.down('md')]: {
 
-    padding: theme.spacing(15, 5),
+    padding: theme.spacing(3, 1),
     width: '100%',
   },
 }));

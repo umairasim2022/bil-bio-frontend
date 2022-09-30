@@ -105,7 +105,7 @@ const BioLinkTitle = () => {
       }}
     >
       <Grid item xs={12} display="flex" justifyContent="flex-start" alignItems="center" gap="10px" >
-        <Link to="dashboard" underline="hover" component={RouterLink}>
+        <Link to="/dashboard" underline="hover" component={RouterLink}>
           Link
         </Link>
         <ArrowForwardIosIcon />

@@ -83,7 +83,6 @@ export const authSlice = createSlice({
         console.log('userpending', { ...state })
       })
       .addCase(registerUser.fulfilled, (state, action) => {
-
         state.isLoading = false
         state.isSuccess = true
         state.user = action.payload
