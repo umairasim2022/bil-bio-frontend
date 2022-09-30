@@ -3,13 +3,13 @@ import { Suspense, lazy } from 'react';
 import { Navigate, useRoutes, useLocation } from 'react-router-dom';
 // layouts
 
-import MainLayout from '../layouts/main/MainHeader'
+import MainLayout from '../layouts/main/MainHeader';
 import LogoOnlyLayout from '../layouts/LogoOnlyLayout';
 // guards
 
 import GuestGuard from '../guards/GuestGuard';
 import AuthGuard from '../guards/AuthGuard';
-import { RequireAuth } from '../guards/RequireAuth'
+import { RequireAuth } from '../guards/RequireAuth';
 // import RoleBasedGuard from '../guards/RoleBasedGuard';
 // config
 import { PATH_AFTER_LOGIN } from '../config';
@@ -17,7 +17,7 @@ import { PATH_AFTER_LOGIN } from '../config';
 // import { Dashboardhero } from '../pages/dashboard/';
 
 import LoadingScreen from '../components/LoadingScreen';
-import DashboardHeader from '../layouts/dashboard/header/DashBoardHeader'
+import DashboardHeader from '../layouts/dashboard/header/DashBoardHeader';
 
 // ----------------------------------------------------------------------
 
@@ -80,8 +80,6 @@ export default function Router() {
         // { path: 'shortlinks', element: <ShortedLink /> },
         { path: 'filelinks', element: <FileLink /> },
         // { path: 'vcardlinks', element: <VCardLink /> },
-
-
 
         // { path: 'analytics', element: <GeneralAnalytics /> },
         // { path: 'banking', element: <GeneralBanking /> },
@@ -151,8 +149,6 @@ export default function Router() {
         // { path: 'calendar', element: <Calendar /> },
         // { path: 'kanban', element: <Kanban /> },
         // { path: 'permission-denied', element: <PermissionDenied /> },
-
-
       ],
     },
 
@@ -194,12 +190,10 @@ const NewPassword = Loadable(lazy(() => import('../pages/auth/NewPassword')));
 const VerifyCode = Loadable(lazy(() => import('../pages/auth/VerifyCode')));
 const VerifyEmail = Loadable(lazy(() => import('../pages/auth/VerifyEmail')));
 
-
 // DASHBOARD
 
 // GENERAL
 const GeneralApp = Loadable(lazy(() => import('../pages/dashboard/GeneralApp')));
-
 
 // __________________________dashboard___________________
 // BioLink
@@ -210,9 +204,6 @@ const BioLinkPage = Loadable(lazy(() => import('../pages/dashboard/BioLinkPage')
 const FileLink = Loadable(lazy(() => import('../pages/dashboard/FileLinkPage')));
 // _______vcard link page ____________
 // const VCardLink = Loadable(lazy(() => import('../pages/dashboard/VcardLinkPage')));
-
-
-
 
 // APP
 

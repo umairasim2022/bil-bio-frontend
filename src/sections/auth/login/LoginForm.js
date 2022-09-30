@@ -5,7 +5,6 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 
-
 // yup
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -20,13 +19,14 @@ import useIsMountedRef from '../../../hooks/useIsMountedRef';
 import Iconify from '../../../components/Iconify';
 import { FormProvider, RHFTextField, RHFCheckbox } from '../../../components/hook-form';
 import { loginUser, resetUser } from '../../../redux/slices/auth/authSlice';
+// getting link function
+import { gettingBioLink } from '../../../redux/slices/getLink/getLinkSlice'
 import LoadingScreen from '../../../components/LoadingScreen';
-
 
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
-  // getting token so auth here is giving token here 
+  // getting token so auth here is giving token here
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -35,12 +35,10 @@ export default function LoginForm() {
   const isMountedRef = useIsMountedRef();
 
   const [showPassword, setShowPassword] = useState(false);
-
   const LoginSchema = Yup.object().shape({
     email: Yup.string().email('Email must be a valid email address').required('Email is required'),
     password: Yup.string().required('Password is required'),
   });
-
   const defaultValues = {
     email: '',
     password: '',
@@ -71,6 +69,11 @@ export default function LoginForm() {
   // handle Api response and status on the basis of status
   const { isError, isSuccess, isLoading, user } = useSelector((state) => state?.user);
   const userToken = useSelector((state) => state?.user?.user);
+  console.log('userToken', userToken)
+
+  // getting token and id for gettingLink api 
+
+
 
   // status from api
   const { status, message } = useSelector((state) => state?.user?.user);
@@ -78,18 +81,19 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (isError) {
-      alert('loginerror');
       toast.error(message);
       navigate('/auth/login');
     }
 
-    if (isSuccess && (status === 'success') && userToken.token) {
+    if (isSuccess && status === 'success' && userToken.token) {
       // if (status === 'success') {
       //   if (auth) {
       toast.success(message, {
         toastId: 'success1',
       });
       navigate('/dashboard/links');
+
+      dispatch(gettingBioLink())
       //   }
       // }
     }
@@ -106,18 +110,21 @@ export default function LoginForm() {
     console.log('myvalues#', isError, isSuccess);
   }, [isError, isSuccess, status, navigate]);
 
+
   if (isLoading) {
     return <LoadingScreen />;
   }
 
   return (
     <FormProvider methods={methods} onSubmit={handleSubmit(submitHandler)}>
-      <Stack spacing={3} sx={{
-
-        '& .css-al9d9s-MuiBackdrop-root': {
-          padding: { xs: '1rem', sm: '2rem', md: '3rem' }
-        }
-      }}>
+      <Stack
+        spacing={3}
+        sx={{
+          '& .css-al9d9s-MuiBackdrop-root': {
+            padding: { xs: '1rem', sm: '2rem', md: '3rem' },
+          },
+        }}
+      >
         {/* {!!errors.afterSubmit && <Alert severity="error">{errors.afterSubmit.message}</Alert>} */}
 
         <RHFTextField name="email" label="Email address" />
@@ -136,13 +143,12 @@ export default function LoginForm() {
           }}
         />
       </Stack>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" flexWrap='wra' sx={{ my: 2 }}>
+      <Stack direction="row" alignItems="center" justifyContent="space-between" flexWrap="wra" sx={{ my: 2 }}>
         <RHFCheckbox name="remember" label="Remember me" />
         <Link component={RouterLink} variant="subtitle2" to={PATH_AUTH.resetPassword}>
           Forgot password?
         </Link>
       </Stack>
-
       <LoadingButton
         fullWidth
         size="large"

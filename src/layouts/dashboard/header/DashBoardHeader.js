@@ -125,15 +125,12 @@ const DashBoardHeader = () => {
             component="Box"
             sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
           >
-            <Box sx={{ flexGrow: 1, textDecoration: 'none' }}  noWrap component="a" href="/">
+            <Box sx={{ flexGrow: 1, textDecoration: 'none' }} noWrap component="a" href="/">
               <Logo />
             </Box>
 
-            <Box sx={{  flexGrow: { xs: 1, sm: 0 } }}>
-              <Button variant="text" >
-
-                Dashboard
-              </Button>
+            <Box sx={{ flexGrow: { xs: 1, sm: 0 } }}>
+              <Button variant="text">Dashboard</Button>
               <IconButton onClick={handleOpenUserMenu} disableElevation disableRipple>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
                 <Typography> {auth?.user?.displayName} </Typography>
@@ -165,13 +162,11 @@ const DashBoardHeader = () => {
 
                 <Divider />
 
-
-                <MenuItem type='button' onClick={handleLogout} >
-
+                <MenuItem type="button" onClick={handleLogout}>
                   <ListItemIcon>
                     <Logout fontSize="small" />
                   </ListItemIcon>
-                  <ListItemText >Logout</ListItemText>
+                  <ListItemText>Logout</ListItemText>
                 </MenuItem>
               </Menu>
             </Box>
@@ -183,4 +178,3 @@ const DashBoardHeader = () => {
   );
 };
 export default DashBoardHeader;
-
