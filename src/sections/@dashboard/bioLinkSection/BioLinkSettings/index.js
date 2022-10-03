@@ -4,6 +4,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import { Box, Grid, Button, Typography, Stack, styled, Container, Card, TextField } from '@mui/material';
 import Customization from './Customization';
 import Verified from './Verified';
+import Branding from './Branding';
 
 export const SettingButton = styled(Button)({
   border: '1px solid #363636',
@@ -36,7 +37,7 @@ const BiolinkSettings = () => {
   return (
     <Container>
       <Grid
-        xs={12}
+        xs={8}
         sm={12}
         // md={3.7}
         // component={Card}
@@ -52,6 +53,7 @@ const BiolinkSettings = () => {
           </Box>
           <Customization />
           <Verified />
+          <Branding />
         </Stack>
       </Grid>
     </Container>

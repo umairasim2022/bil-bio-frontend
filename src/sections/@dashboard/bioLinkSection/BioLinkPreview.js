@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 
 import React, { useState } from 'react';
 
@@ -6,7 +6,7 @@ import './bioLinkSectionCSS/bioLink.css';
 
 export default function BioLinkPreview() {
   return (
-    <>
+    <Grid xs={4}>
       {/* <Box
         sx={{
           //   position: 'relative',
@@ -45,6 +45,6 @@ export default function BioLinkPreview() {
           </div>
         </div>
       </div>
-    </>
+    </Grid>
   );
 }

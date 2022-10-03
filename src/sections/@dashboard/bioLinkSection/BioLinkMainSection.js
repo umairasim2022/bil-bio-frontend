@@ -130,6 +130,7 @@ function BioLinkMainSection() {
           width: '100%',
           marginTop: '24px',
         }}
+        spacing={2}
       >
         <Stack direction="row" columnGap={8}>
           <BiolinkSettings />
