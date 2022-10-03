@@ -5,6 +5,9 @@ import { Box, Grid, Button, Typography, Stack, styled, Container, Card, TextFiel
 import Customization from './Customization';
 import Verified from './Verified';
 import Branding from './Branding';
+import Fonts from './Fonts';
+import Protection from './Protection';
+import UTMParameters from './UTMParameters';
 
 export const SettingButton = styled(Button)({
   border: '1px solid #363636',
@@ -54,6 +57,9 @@ const BiolinkSettings = () => {
           <Customization />
           <Verified />
           <Branding />
+          <Fonts />
+          <Protection />
+          <UTMParameters />
         </Stack>
       </Grid>
     </Container>
