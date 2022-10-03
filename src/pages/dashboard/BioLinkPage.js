@@ -5,14 +5,13 @@ import { styled } from '@mui/material';
 
 // Component
 
-import { BioLinkTitle  , BioLinkMainSection } from '../../sections/@dashboard/bioLinkSection';
+import { BioLinkTitle, BioLinkMainSection } from '../../sections/@dashboard/bioLinkSection';
 import MainFooter from '../../layouts/main/MainFooter';
-
 
 //  style
 const RootStyle = styled('div')(({ theme }) => ({
   // spacing from top bottom left right to the title container
-  padding: theme.spacing(5, 30),
+  padding: theme.spacing(5, 15),
   width: '100%',
   background: theme.palette.background.paper,
   [theme.breakpoints.down('md')]: {
@@ -23,16 +22,14 @@ const RootStyle = styled('div')(({ theme }) => ({
   },
 }));
 
-const BioLinkPage = () => {
-  return (
-    <>
+const BioLinkPage = () => (
+  <>
     <RootStyle>
       <BioLinkTitle />
       <BioLinkMainSection />
     </RootStyle>
-    <MainFooter/>
-    </>
-  );
-};
+    <MainFooter />
+  </>
+);
 
 export default BioLinkPage;

@@ -19,6 +19,7 @@ import {
   Tooltip,
 } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import BiolinkSettings from './BioLinkSettings/index';
 
 // react components
 import BioLinkAddBlockMainModal from './BioLinkAddBlockMainModal';
@@ -114,17 +115,30 @@ function BioLinkMainSection() {
           </Box>
         </Grid>
 
-        <Grid
-          item
-          sx={{
-            width: '50%',
-          }}
-          xs={12}
-          md={5}
-        >
-          {/* Mobile Design Section */}
-          {/* <Grid> */}
-          {/* 
+        {/* <Grid item md={6} display="flex">
+          {tabIndex === 1 && <Typography>This is setting Section</Typography>}
+          {tabIndex === 2 && <Typography>This is Block Section</Typography>}
+        </Grid> */}
+      </Grid>
+
+      <Grid
+        container
+        display="flex"
+        justifyContent="space-between"
+        alignItems="start"
+        sx={{
+          width: '100%',
+          marginTop: '24px',
+        }}
+      >
+        <Stack direction="row" columnGap={8}>
+          <BiolinkSettings />
+          <BioLinkPreview />
+        </Stack>
+
+        {/* Mobile Design Section */}
+        {/* <Grid> */}
+        {/* 
           <Box
             sx={{
               position: 'relative',
@@ -155,13 +169,8 @@ function BioLinkMainSection() {
               ></PreviewIframe>
             </Box>
           </Box> */}
-          <BioLinkPreview />
-          {/* </Grid> */}
-        </Grid>
-        {/* <Grid item md={6} display="flex">
-          {tabIndex === 1 && <Typography>This is setting Section</Typography>}
-          {tabIndex === 2 && <Typography>This is Block Section</Typography>}
-        </Grid> */}
+
+        {/* </Grid> */}
       </Grid>
 
       {/* modals  */}

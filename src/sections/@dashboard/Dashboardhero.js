@@ -59,18 +59,27 @@ const data = [
 ];
 
 function Dashboardhero() {
-
   const [linkData, setLinkData] = React.useState(data);
-  
+
   return (
     <RootStyle>
-
       <Container>
-      <Box >
-        <Grid container gap='15px' sx={{ display: 'flex',  justifyContent:'space-between' , alignItems: 'center', width:'100%', }}>
-          {linkData.map((data) => {
-            return ( 
-              <Grid item xs={12} sm={12} md={3.7} component={Card} style={{border:'1px solid  rgb(122, 122, 122 , .3)'  , borderRadius:'.25rem',}}>
+        <Box>
+          <Grid
+            container
+            gap="15px"
+            sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}
+          >
+            {linkData.map((data) => (
+              // eslint-disable-next-line react/jsx-key
+              <Grid
+                item
+                xs={12}
+                sm={12}
+                md={3.7}
+                component={Card}
+                style={{ border: '1px solid  rgb(122, 122, 122 , .3)', borderRadius: '.25rem' }}
+              >
                 <Stack direction="row" gap="15px" padding="1.5rem 3rem 1.5rem 1rem">
                   <Box
                     sx={{
@@ -80,25 +89,25 @@ function Dashboardhero() {
                       display: 'flex',
                       justifyContent: 'center',
                       alignItems: 'center',
-                      borderRadius:'4px'
+                      borderRadius: '4px',
                     }}
                   >
-                    <Box sx={{ color: '#38B2AC' , paddingTop:'3px' }}>{data.icon}</Box>
+                    <Box sx={{ color: '#38B2AC', paddingTop: '3px' }}>{data.icon}</Box>
                   </Box>
                   <Box>
-                    <Typography variant="h5" sx={{fontWeight:'500'}}>{data.count}</Typography>
+                    <Typography variant="h5" sx={{ fontWeight: '500' }}>
+                      {data.count}
+                    </Typography>
                     <Typography variant="subtitle2" style={{ color: 'rgb(122, 122, 122)' }}>
                       {data.title}
                     </Typography>
                   </Box>
                 </Stack>
               </Grid>
-            );
-          })}
-        </Grid>
-      </Box>
+            ))}
+          </Grid>
+        </Box>
       </Container>
-      
     </RootStyle>
   );
 }
