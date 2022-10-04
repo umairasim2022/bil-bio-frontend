@@ -52,7 +52,7 @@ const BiolinkSettings = () => {
             <Box component={'span'} sx={style}>
               https://66biolinks.com/demo/
             </Box>
-            <OutlinedInput />
+            <TextField variant="outlined" />
           </Box>
           <Customization />
           <Verified />

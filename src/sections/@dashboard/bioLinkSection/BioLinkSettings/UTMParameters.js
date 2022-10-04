@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Select from '@mui/material/Select';
 import { styled } from '@mui/material/styles';
-import { Typography, TextField ,Alert} from '@mui/material';
+import { Typography, TextField, Alert } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
@@ -29,16 +29,15 @@ const UTMParameters = () => {
 
   const clickHandler = (e) => {
     setOpen((prevState) => !prevState);
-  
   };
   return (
     <>
       <SettingButton onClick={(e) => clickHandler(e)}>UTMParameters</SettingButton>
-     
       {open && (
-       
         <TransitionGroup>
-          <Alert severity="error"> The campaign will be automatically set for each link in particular based on the name of the link.</Alert>
+          <Alert severity="error">
+            The campaign will be automatically set for each link in particular based on the name of the link.
+          </Alert>
           <HtmlTooltip
             title={
               <>
@@ -58,11 +57,8 @@ const UTMParameters = () => {
             // disabled
             sx={{ width: '100%' }}
             // onChange={handleChange}
-          
           />
 
-
-          <TransitionGroup>
           <HtmlTooltip
             title={
               <>
@@ -82,14 +78,11 @@ const UTMParameters = () => {
             // disabled
             sx={{ width: '100%' }}
             // onChange={handleChange}
-         />
+          />
         </TransitionGroup>
-        </TransitionGroup>
-        
       )}
     </>
   );
 };
 
 export default UTMParameters;
-

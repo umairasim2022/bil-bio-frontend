@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Select from '@mui/material/Select';
 import { styled } from '@mui/material/styles';
-import { TextField, Typography, Alert,  IconButton , Switch } from '@mui/material';
+import { TextField, Typography, Alert, IconButton, Switch } from '@mui/material';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import MenuItem from '@mui/material/MenuItem';
@@ -72,7 +72,6 @@ const Protection = () => {
       boxSizing: 'border-box',
     },
   }));
-  
 
   return (
     <>
@@ -87,7 +86,7 @@ const Protection = () => {
             }
           >
             <InputLabel disabled id="demo-select-small">
-               Password 
+              Password
             </InputLabel>
           </HtmlTooltip>
           <TextField
@@ -96,12 +95,10 @@ const Protection = () => {
             // value={12}
             // label="Location"
             // disabled
-            sx={{ width: '100%' }}
+            // sx={{ width: '100%' }}
             // onChange={handleChange}
-       
           />
-          <Alert >Require users to enter a password before accessing the link.</Alert>
-
+          <Typography>Require users to enter a password before accessing the link.</Typography>
 
           <Tooltip>
             <IconButton>
@@ -110,18 +107,16 @@ const Protection = () => {
                 sx={{ border: 'gray solid 1px', borderColor: '#41aaa5', borderRadius: '0.5rem' }}
                 inputProps={{ 'aria-label': 'ant design' }}
               />{' '}
-
             </IconButton>
-           
           </Tooltip>
-       <h5 >Require users to confirm that they want to access your link and letting them know that the link might be sensitive.</h5>
-      
+          <h5>
+            Require users to confirm that they want to access your link and letting them know that the link might be
+            sensitive.
+          </h5>
         </TransitionGroup>
-        
       )}
     </>
   );
 };
 
 export default Protection;
-
